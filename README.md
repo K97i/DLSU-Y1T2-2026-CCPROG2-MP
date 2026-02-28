@@ -1,13 +1,17 @@
-<h1 align="center">CCPROG2 - MP Project</h1>
+<h1 align="center">Chardex</h1>
 <p align="center">
-    <text style="font-weight: bold;"> Chardex (Charmander + Pokedex, working title)</text><br/>
-    <text style="font-style: italic;">Authors:</text> <br/>
+    <i>(Charmander + Pokedex, working title)</i><br/><br/>
+    <b> CCPROG2 S19B (T2, 2025-2026) - MP Project</b><br/>
+    <i>Authors:</i> <br/>
     EBORDE, Mikaelo<br/>
     SACRAMENTO, Yvan <br/>
 </p>
 
-Chardex is a fauna \[1\] database inspired by the Pokemon tool, the Pokedex, and the crowd-sourced, community-driven encyclopedia, Wikipedia. It is a program that scientists of a region of the world can use to store information about the fauna of said region.
+---
 
+Chardex is a fauna [\[1\]](#description-ref-1) database inspired by the Pokemon tool, the Pokedex, and the crowd-sourced, community-driven encyclopedia, Wikipedia. It is a program that scientists of a region of the world can use to store information about the fauna of said region.
+
+<a name="description-ref-1"></a>
 \[ 1 \] - "Fauna is the animals characteristic of a region, period, or special environment" - Merriam-Webster Dictionary
 
 # Run Locally
