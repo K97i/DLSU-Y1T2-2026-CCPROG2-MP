@@ -10,7 +10,11 @@
 int main() {
     printf("=== [ Chardex ] ===\n\n");
 
-    configTest();
+    // configTest();
+
+    // encryptionTest();
+    
+    userTests();
 
     return 0;
 }

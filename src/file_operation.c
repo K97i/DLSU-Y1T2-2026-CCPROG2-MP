@@ -6,15 +6,16 @@
     Specifically get-set operations for the config file, user database, and species database.
 
     Author: EBORDE, Mikaelo D.
-    Last Modified: 2-28-2026
+    Last Modified: 3-3-2026
 
 */
 
 #include <stdio.h>
 #include <string.h>
 
-// Initialize config struct
+// Initialize structs
 #include "config_struct.h"
+#include "user_struct.h"
 
 /*
 
@@ -33,7 +34,7 @@
 
 */
 Config getConfig() {
-    Config configRead;
+    Config configRead = { 0 };
 
     FILE *fptr;
     fptr = fopen("config.bin", "rb");
@@ -87,4 +88,97 @@ int resetConfig() {
     strcpy(configDefaults.encryptionKey, "N0T-@3S-3NCRYPT10N");
 
     return setConfig(configDefaults);
+}
+
+/*
+
+    getAllUsers()
+
+    Gets all users from DB
+
+*/
+
+void getAllUsers(User array[USER_LIMIT]) {
+    User users[USER_LIMIT] = { 0 };
+
+    FILE *fptr;
+    fptr = fopen("users.bin", "rb");
+
+    if (fptr != NULL) {
+        fread(&users, sizeof(User), USER_LIMIT, fptr);
+        fclose(fptr);
+    }
+
+    for (int i = 0; i < USER_LIMIT ; i++)
+        array[i] = users[i];
+}
+
+/*
+
+    getUser()
+
+    Gets specified user - TEMPORARY, will have to implement login checks
+
+*/
+
+User getUser(char *username) {
+    User users[USER_LIMIT] = { 0 };
+    User user = { 0 };
+
+    getAllUsers(users);
+
+    int found = 0;
+    for (int i = 0; i < USER_LIMIT && !found; i++) {
+        if (!strcmp(users[i].username, username)){
+            user = users[i];
+            found = 1;
+        }
+    }
+
+    return user;
+}
+
+/*
+
+    setUser()
+
+    Sets user data
+
+*/
+int setUser(User user) {
+    int flag = 0, existing = 0, lastIndex = -1;
+    
+    User users[USER_LIMIT] = { 0 };
+
+    getAllUsers(users);
+
+    // Update user in users array
+    for (int i = 0; i < USER_LIMIT && !existing; i++) {
+
+        // If username matches, update users array
+        if (!strcmp(users[i].username, user.username)){
+            users[i] = user;
+            existing = 1;
+        }
+
+        // Save last index
+        if (strlen(users[i].username) > 0)
+            lastIndex = i;
+    }
+
+    // Append to end of list if not pre-existing user
+    if (!existing)
+        users[lastIndex + 1] = user;
+
+    FILE *fptr;
+    fptr = fopen("users.bin", "wb");
+
+    if (fptr != NULL) {
+        fwrite(&users, sizeof(User), USER_LIMIT, fptr);
+        flag = 1;
+        fclose(fptr);
+    }
+
+    return flag;
+
 }

@@ -13,5 +13,7 @@
 #define TEST_SUITE
 
 void configTest();
+void encryptionTest();
+void userTests();
 
 #endif
