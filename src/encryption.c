@@ -9,7 +9,6 @@
 
 */
 
-#include <stdio.h>
 #include <string.h>
 
 void encrypt(char *plaintext, char *username, char *key, char *output) {
