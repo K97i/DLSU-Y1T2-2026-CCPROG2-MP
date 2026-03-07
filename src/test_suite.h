@@ -15,5 +15,6 @@
 void configTest();
 void encryptionTest();
 void userTests();
+void inputTests();
 
 #endif

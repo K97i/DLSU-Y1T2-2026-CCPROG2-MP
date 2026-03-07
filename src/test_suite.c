@@ -16,6 +16,7 @@
 #include "user_struct.h"
 #include "file_operation.h"
 #include "encryption.h"
+#include "string_helpers.h"
 
 /*
 
@@ -83,7 +84,7 @@ void encryptionTest() {
 
     encrypt(string, username, config.encryptionKey, output1);
     
-    printf("Output of encryption: %s\n", output1);
+    printf("Output of encryption: %s\n\n", output1);
 
     // Decrypt
 
@@ -93,7 +94,7 @@ void encryptionTest() {
 
     decrypt(output1, username, config.encryptionKey, output2);
 
-    printf("Output of decryption: %s\n", output2);
+    printf("Output of decryption: %s\n\n", output2);
 
 }
 
@@ -112,7 +113,7 @@ void userTests() {
 
     printf("Username: %s\n", user.username);
     printf("Password: %s\n", user.password);
-    printf("Admin: %d\n", user.administrator);
+    printf("Admin: %d\n\n", user.administrator);
 
     setUser(user);
 
@@ -124,7 +125,7 @@ void userTests() {
 
     printf("Username: %s\n", saved.username);
     printf("Password: %s\n", saved.password);
-    printf("Admin: %d\n", saved.administrator);
+    printf("Admin: %d\n\n", saved.administrator);
 
     // Multiple User Tests
 
@@ -158,7 +159,7 @@ void userTests() {
 
     printf("Username: %s\n", saved1.username);
     printf("Password: %s\n", saved1.password);
-    printf("Admin: %d\n", saved1.administrator);
+    printf("Admin: %d\n\n", saved1.administrator);
 
     User saved2 = getUser("JaneDoe");
 
@@ -166,7 +167,7 @@ void userTests() {
 
     printf("Username: %s\n", saved2.username);
     printf("Password: %s\n", saved2.password);
-    printf("Admin: %d\n", saved2.administrator);
+    printf("Admin: %d\n\n", saved2.administrator);
 
     User saved3 = getUser("Steve");
 
@@ -174,6 +175,26 @@ void userTests() {
 
     printf("Username: %s\n", saved3.username);
     printf("Password: %s\n", saved3.password);
-    printf("Admin: %d\n", saved3.administrator);
+    printf("Admin: %d\n\n", saved3.administrator);
 
+}
+
+void inputTests() {
+    printf("=== [ INPUT TEST ] ===\n\n");
+
+    char character;
+    printf("Input a character: ");
+    safeCharScanf(&character);
+
+    printf("Received: %c\n", character);
+
+    char hello[10] = { 0 };
+    printf("Input a string: ");
+    int check = safeStringScanf(hello, 10);
+
+    if (check) {
+        printf("WARNING! String overflowed, cut off at last character\n");
+    }
+
+    printf("Received: %s\n", hello);
 }

@@ -12,8 +12,8 @@
 #ifndef STRING_HELPERS
 #define STRING_HELPERS
 
-void flush_buffer();
-void safe_string_scanf(char *string, int length);
-char safe_char_scanf(char *character);
+void flushBuffer();
+int safeStringScanf(char *string, int arrayLength);
+char safeCharScanf(char *character);
 
 #endif
