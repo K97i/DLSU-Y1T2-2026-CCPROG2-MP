@@ -2,12 +2,14 @@
 
 	Search&Sort.c
 	
-	Functions that will perform the searching and sorting algorithims for the different databases
+	Functions that will perform the searching and sorting algorithms for the different databases
 	
 	Author: SACRAMENTO, Yvan Gregorio A.
 	Last Modified: 3-10-2026
 */
 
+#include <stdio.h>
+#include <string.h>
 /*
 	Uses binary search
 	param target stores the searched user
@@ -102,4 +104,5 @@ void SpeciesSort(Species database[], int speciesCount) {
 			database[first] = temp;
 		}
 	}
+
 }
