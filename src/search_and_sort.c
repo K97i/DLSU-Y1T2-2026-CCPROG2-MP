@@ -10,6 +10,9 @@
 
 #include <stdio.h>
 #include <string.h>
+
+#include <user_struct.h>
+#include <species_struct.h>
 /*
 	Uses binary search
 	param target stores the searched user
