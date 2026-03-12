@@ -11,8 +11,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#include <user_struct.h>
-#include <species_struct.h>
+#include "user_struct.h"
+#include "species_struct.h"
 /*
 	Uses binary search
 	param target stores the searched user
@@ -25,7 +25,7 @@ int UserSearch(User database[], int userCount, char *username, User *target) {
 		int mid = (start + end) / 2;
 		
 		if(strcmp(database[mid].username, username) == 0) {
-			target = database[mid];
+			*target = database[mid];
 			flag = 1;
 		}
 		else if(strcmp(database[mid].username, username) < 0) { //searches upper half
@@ -51,7 +51,7 @@ int SpeciesSearchSearch(Species database[], int speciesCount, char *species, Spe
 		int mid = (start + end) / 2;
 		
 		if(strcmp(database[mid].name, species) == 0) {
-			target = database[mid];
+			*target = database[mid];
 			flag = 1;
 		}
 		else if(strcmp(database[mid].name, species) < 0) { //searches upper half
@@ -75,7 +75,7 @@ void UserSort(User database[], int userCount) {
 		
 		//loops through the rest of the array
 		for(int j = i + 1; j < userCount; j++) {
-			if(strcmp(database[first].username, datebase[j].username) > 0)
+			if(strcmp(database[first].username, database[j].username) > 0)
 				first = j;
 		}
 		//swapping the structs
@@ -97,12 +97,12 @@ void SpeciesSort(Species database[], int speciesCount) {
 		
 		//loops through the rest of the array
 		for(int j = i + 1; j < speciesCount; j++) {
-			if(strcmp(database[first].name, datebase[j].names) > 0)
+			if(strcmp(database[first].name, database[j].name) > 0)
 				first = j;
 		}
 		//swapping the structs
 		if(first != i) {
-			User temp = database[i];
+			Species temp = database[i];
 			database[i] = database[first];
 			database[first] = temp;
 		}

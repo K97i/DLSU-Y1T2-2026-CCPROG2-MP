@@ -44,6 +44,7 @@ Config getConfig() {
         fclose(fptr);
     }
 
+
     return configRead;
 }
 
