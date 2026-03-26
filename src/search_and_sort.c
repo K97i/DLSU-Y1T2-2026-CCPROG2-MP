@@ -17,6 +17,7 @@
 	Uses binary search
 	param target stores the searched user
 	returns flag to determine if found
+	to update to UserData
 */
 int UserSearch(User database[], int userCount, char *username, User *target) {
 	int start = 0, end = userCount - 1, flag = 0;
@@ -43,6 +44,7 @@ int UserSearch(User database[], int userCount, char *username, User *target) {
 	Uses binary search
 	param target stores the searched species
 	returns flag to determine if found
+	to update to SpeciesData
 */
 int SpeciesSearchSearch(Species database[], int speciesCount, char *species, Species *target) {
 	int start = 0, end = speciesCount - 1, flag = 0;
@@ -67,6 +69,7 @@ int SpeciesSearchSearch(Species database[], int speciesCount, char *species, Spe
 
 /*
 	Uses selection sort
+	to update to UserData
 */
 void UserSort(User database[], int userCount) {
 	
@@ -89,6 +92,7 @@ void UserSort(User database[], int userCount) {
 
 /*
 	Uses selection sort
+	to update to SpeciesData
 */
 void SpeciesSort(Species database[], int speciesCount) {
 	
