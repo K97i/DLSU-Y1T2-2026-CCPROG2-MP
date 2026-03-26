@@ -5,7 +5,7 @@
     Contains tester functions for file_operations.c
 
     Author: EBORDE, Mikaelo D.
-    Last Modified: 3-3-2026
+    Last Modified: 3-26-2026
 
 */
 
@@ -99,6 +99,7 @@ void encryptionTest() {
 }
 
 void userTests() {
+    UserData users = { 0 };
     User user = { 0 };
 
     strcpy(user.username, "Markiplier");
@@ -115,67 +116,23 @@ void userTests() {
     printf("Password: %s\n", user.password);
     printf("Admin: %d\n\n", user.administrator);
 
-    setUser(user);
+    users.users[users.currentUserCount] = user;
+    users.currentUserCount++;
+    setUsers(users);
 
-    // Get user
+    // Get users
 
-    User saved = getUser("Markiplier");
+    UserData received = { 0 };
+    getUsers(&received);
 
-    printf("=== [ Saved Variables ] ===\n\n");
+    for (int i = 0 ; i < received.currentUserCount ; i++) {
+        User saved = received.users[i];
+        printf("=== [ Saved Variables ] ===\n\n");
 
-    printf("Username: %s\n", saved.username);
-    printf("Password: %s\n", saved.password);
-    printf("Admin: %d\n\n", saved.administrator);
-
-    // Multiple User Tests
-
-    printf("=== [ MULTIPLE USERS TEST ] ===\n\n");
-
-    User user1 = { 0 };
-
-    strcpy(user1.username, "JohnDoe");
-    strcpy(user1.password, "yespapa");
-    user1.administrator = 0;
-
-    User user2 = { 0 };
-
-    strcpy(user2.username, "JaneDoe");
-    strcpy(user2.password, "nopapa");
-    user2.administrator = 0;
-
-    User user3 = { 0 };
-
-    strcpy(user3.username, "Steve");
-    strcpy(user3.password, "dododo");
-    user3.administrator = 1;
-
-    setUser(user1);
-    setUser(user2);
-    setUser(user3);
-
-    User saved1 = getUser("JohnDoe");
-
-    printf("=== [ USER 1 ] ===\n\n");
-
-    printf("Username: %s\n", saved1.username);
-    printf("Password: %s\n", saved1.password);
-    printf("Admin: %d\n\n", saved1.administrator);
-
-    User saved2 = getUser("JaneDoe");
-
-    printf("=== [ USER 2 ] ===\n\n");
-
-    printf("Username: %s\n", saved2.username);
-    printf("Password: %s\n", saved2.password);
-    printf("Admin: %d\n\n", saved2.administrator);
-
-    User saved3 = getUser("Steve");
-
-    printf("=== [ USER 3 ] ===\n\n");
-
-    printf("Username: %s\n", saved3.username);
-    printf("Password: %s\n", saved3.password);
-    printf("Admin: %d\n\n", saved3.administrator);
+        printf("Username: %s\n", saved.username);
+        printf("Password: %s\n", saved.password);
+        printf("Admin: %d\n\n", saved.administrator);
+    }
 
 }
 

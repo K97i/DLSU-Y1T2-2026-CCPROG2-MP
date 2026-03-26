@@ -6,7 +6,7 @@
     Specifically get-set operations for the config file, user database, and species database.
 
     Author: EBORDE, Mikaelo D.
-    Last Modified: 3-3-2026
+    Last Modified: 3-26-2026
 
 */
 
@@ -37,10 +37,10 @@ Config getConfig() {
     Config configRead = { 0 };
 
     FILE *fptr;
-    fptr = fopen("config.bin", "rb");
+    fptr = fopen("config.txt", "r");
 
     if (fptr != NULL) {
-        fread(&configRead, sizeof(Config), sizeof(configRead) / sizeof(Config), fptr);
+        fscanf(fptr, "%s , %s", configRead.administratorKey, configRead.encryptionKey);
         fclose(fptr);
     }
 
@@ -62,10 +62,10 @@ int setConfig(const Config configWrite) {
     int flag = 0;
 
     FILE *fptr;
-    fptr = fopen("config.bin", "wb");
+    fptr = fopen("config.txt", "w");
 
     if (fptr != NULL) {
-        fwrite(&configWrite, sizeof(Config), sizeof(configWrite) / sizeof(Config), fptr);
+        fprintf(fptr, "%s , %s", configWrite.administratorKey, configWrite.encryptionKey);
         fclose(fptr);
         flag = 1;
     }
@@ -93,93 +93,77 @@ int resetConfig() {
 
 /*
 
-    getAllUsers()
+    getUsers()
 
-    Gets all users from DB
+    Gets users from DB
 
 */
 
-void getAllUsers(User array[USER_LIMIT]) {
-    User users[USER_LIMIT] = { 0 };
-
+void getUsers(UserData *userData) {
     FILE *fptr;
-    fptr = fopen("users.bin", "rb");
+    fptr = fopen("users.txt", "r");
 
     if (fptr != NULL) {
-        fread(&users, sizeof(User), USER_LIMIT, fptr);
+        fseek(fptr, 0, SEEK_SET);
+        fscanf(fptr, "%d", &userData->currentUserCount);
+
+        for (int i = 0 ; i < userData->currentUserCount ; i++) {
+            fscanf(fptr, "%s , %s , %d , %d", userData->users[i].username, 
+                                                userData->users[i].password,
+                                                &userData->users[i].administrator,
+                                                &userData->users[i].currentSpeciesCount);
+
+            for (int j = 0 ; j < userData->users[i].currentSpeciesCount ; j++) {
+                fscanf(fptr, "%s , %s , %f , %f , %d , %d",   userData->users[i].species[j].name,
+                                                                userData->users[i].species[j].biome,
+                                                                &userData->users[i].species[j].height,
+                                                                &userData->users[i].species[j].weight,
+                                                                &userData->users[i].species[j].sex,
+                                                                &userData->users[i].species[j].age);
+            }
+        }
+
         fclose(fptr);
     }
 
-    for (int i = 0; i < USER_LIMIT ; i++)
-        array[i] = users[i];
 }
 
 /*
 
-    getUser()
-
-    Gets specified user - TEMPORARY, will have to implement login checks
-
-*/
-
-User getUser(char *username) {
-    User users[USER_LIMIT] = { 0 };
-    User user = { 0 };
-
-    getAllUsers(users);
-
-    int found = 0;
-    for (int i = 0; i < USER_LIMIT && !found; i++) {
-        if (!strcmp(users[i].username, username)){
-            user = users[i];
-            found = 1;
-        }
-    }
-
-    return user;
-}
-
-/*
-
-    setUser()
+    setUsers()
 
     Sets user data
 
 */
-int setUser(User user) {
-    int flag = 0, existing = 0, lastIndex = -1;
-    
-    User users[USER_LIMIT] = { 0 };
-
-    getAllUsers(users);
-
-    // Update user in users array
-    for (int i = 0; i < USER_LIMIT && !existing; i++) {
-
-        // If username matches, update users array
-        if (!strcmp(users[i].username, user.username)){
-            users[i] = user;
-            existing = 1;
-        }
-
-        // Save last index
-        if (strlen(users[i].username) > 0)
-            lastIndex = i;
-    }
-
-    // Append to end of list if not pre-existing user
-    if (!existing)
-        users[lastIndex + 1] = user;
+int setUsers(const UserData userData) {
+    int flag = 0;
 
     FILE *fptr;
-    fptr = fopen("users.bin", "wb");
+    fptr = fopen("users.txt", "w");
 
     if (fptr != NULL) {
-        fwrite(&users, sizeof(User), USER_LIMIT, fptr);
+        fseek(fptr, 0, SEEK_SET);
+        fprintf(fptr, "%d\n", userData.currentUserCount);
+
+        for (int i = 0 ; i < userData.currentUserCount ; i++) {
+            fprintf(fptr, "%s , %s , %d , %d\n",    userData.users[i].username, 
+                                                    userData.users[i].password,
+                                                    userData.users[i].administrator,
+                                                    userData.users[i].currentSpeciesCount);
+
+            for (int j = 0 ; j < userData.users[i].currentSpeciesCount ; j++) {
+                fprintf(fptr, "%s , %s , %f , %f , %d , %d\n",  userData.users[i].species[j].name,
+                                                                userData.users[i].species[j].biome,
+                                                                userData.users[i].species[j].height,
+                                                                userData.users[i].species[j].weight,
+                                                                userData.users[i].species[j].sex,
+                                                                userData.users[i].species[j].age);
+            }
+        }
+
         flag = 1;
         fclose(fptr);
     }
 
     return flag;
-
 }
