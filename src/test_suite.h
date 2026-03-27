@@ -12,9 +12,6 @@
 #ifndef TEST_SUITE
 #define TEST_SUITE
 
-void configTest();
-void encryptionTest();
-void userTests();
-void inputTests();
+void testSuite();
 
 #endif

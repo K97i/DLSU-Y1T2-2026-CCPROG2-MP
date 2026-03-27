@@ -14,6 +14,7 @@
 
 void flushBuffer();
 int safeStringScanf(char *string, int arrayLength);
-char safeCharScanf(char *character);
+void safeCharScanf(char *character);
+int menuInputInt(int min, int max);
 
 #endif

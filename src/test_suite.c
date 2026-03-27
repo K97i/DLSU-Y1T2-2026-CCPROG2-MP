@@ -154,4 +154,18 @@ void inputTests() {
     }
 
     printf("Received: %s\n", hello);
+
+    menuInputInt(1,3);
+}
+
+void testSuite() {
+    
+    printf("=== [ TEST SUITE ] ===\n");
+
+    configTest();
+    encryptionTest();
+    userTests();
+    inputTests();
+
+    printf("\n\n");
 }

@@ -23,23 +23,27 @@ int safeStringScanf(char *string, int arrayLength) {
     char buffer; // if stdin is not empty after the for loop
 
     // EXAMPLE: 31 length == 30 characters consumed, null byte appended to end
-    for (int i = 0 ; i < arrayLength - 1 && !flag ; i++) {
+    for (int i = 0 ; i < arrayLength && !flag ; i++) {
         char temp;
         scanf("%c", &temp);
 
-        if (temp != '\n' && temp != EOF)
-            string[i] = temp;
+        if (temp != '\n' && temp != EOF){
+            // terminate string if too long
+            if (i == arrayLength - 1)
+                string[i] = '\0';
+            
+            else 
+                string[i] = temp;
+        }
 
         else {
             string[i] = '\0';
             flag = 1;
         }
+
     }
 
-    // explicit null termination in case of more than target length
-    string[arrayLength - 1] = '\0';
-
-    if (!flag && ( buffer = getchar()) != '\n' && buffer != EOF){
+    if (!flag && ( buffer = getchar() ) != '\n' && buffer != EOF){
         overflow = 1;
         flushBuffer();
     }
@@ -47,17 +51,41 @@ int safeStringScanf(char *string, int arrayLength) {
     return overflow;
 }
 
-char safeCharScanf(char *character) {
+void safeCharScanf(char *character) {
 
     scanf("%c", character);
 
     if (*character == '\n')
         *character = '\0';
 
-    // redundant if check for \n, but to keep consistent with surrounding code
-    else if (*character != '\n' && *character != EOF)
-        flushBuffer();
+    flushBuffer();
 
-    return *character;
+}
 
+void safeIntScanf(int *number) {
+
+    scanf("%d", number);
+
+    // remove any other input (like \n, malformed inputs)
+    flushBuffer();
+} 
+
+int menuInputInt(int min, int max) {
+    int input = 0, valid = 0;
+
+    // while invalid...
+    while (!valid) {
+        printf("Enter selection: ");
+        safeIntScanf(&input);
+
+        if (input < min || input > max) {
+            printf("Invalid selection!\n");
+        }
+
+        else {
+            valid = 1;
+        }
+    }
+
+    return input;
 }
