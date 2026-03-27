@@ -18,6 +18,7 @@
 #include "search_and_sort.h"
 #include "encryption.h"
 #include "file_operation.h"
+#include "user_array_operations.h"
 
 #define BANNED_WORDS_LIST 2
 
@@ -42,71 +43,78 @@ int checkIfBanned(char input[UN_PW_LENGTH]) {
 }
 
 void loginMenu(UserData *userData, Config *config) {
-    User user = { 0 }, retrieved = { 0 };
-    char temp[UN_PW_LENGTH] = "";
-    int unFlag = 0, pwFlag = 0, exitFlag = 0, failCounter = 3;
-
-    printf("=== [ LOGIN ] ===\n\n");
-    printf("Enter \"[EXIT]\" to exit this menu at any time.\n");
-
-    while (!unFlag && !exitFlag) {
-        printf("Enter Username: ");
-        safeStringScanf(user.username, UN_PW_LENGTH);
-
-        if (!strcmp("[EXIT]", user.username))
-            exitFlag = 1;
-
-        else if (UserSearch(*userData, user.username, &retrieved))
-            unFlag = 1;
-
-        else
-            printf("Username not found!\n");
+    if (userData->currentUserCount < 1) {
+        printf("No users registered!\n");
     }
 
-    while (!pwFlag && !exitFlag) {
+    else {
+        User user = { 0 }, retrieved = { 0 };
+        char temp[UN_PW_LENGTH] = "";
+        int unFlag = 0, pwFlag = 0, exitFlag = 0, failCounter = 3;
 
-        printf("Enter Password: ");
-        safeStringScanf(temp, UN_PW_LENGTH);
-        encrypt(temp, user.username, config, user.password);
+        printf("=== [ LOGIN ] ===\n\n");
+        printf("Enter \"[EXIT]\" to exit this menu at any time.\n");
 
-        if (!strcmp("[EXIT]", temp))
-            exitFlag = 1;
+        while (!unFlag && !exitFlag) {
+            printf("Enter Username: ");
+            safeStringScanf(user.username, UN_PW_LENGTH);
 
-        else if (!strcmp(user.password, retrieved.password))
-            user = retrieved;
+            if (!strcmp("[EXIT]", user.username))
+                exitFlag = 1;
 
-        else {
-            if (failCounter > 0) {
-                printf("Incorrect password! %d attempts remaining.\n", failCounter);
-                failCounter--;
+            else if (UserSearch(userData, user.username, &retrieved))
+                unFlag = 1;
+
+            else
+                printf("Username not found!\n");
+        }
+
+        while (!pwFlag && !exitFlag) {
+
+            printf("Enter Password: ");
+            safeStringScanf(temp, UN_PW_LENGTH);
+            encrypt(temp, user.username, config, user.password);
+
+            if (!strcmp("[EXIT]", temp))
+                exitFlag = 1;
+
+            else if (!strcmp(user.password, retrieved.password))
+                user = retrieved;
+
+            else {
+                if (failCounter > 0) {
+                    printf("Incorrect password! %d attempts remaining.\n", failCounter);
+                    failCounter--;
+                }
+
+                else {
+                    printf("Login Failed! Please try again.\n");
+                    exitFlag = 1;
+                }
+                
+            }
+
+        }
+
+        if (unFlag && pwFlag && !exitFlag) {
+            printf("Logged in.\n");
+
+            if (user.administrator) {
+                // adminMenu(userData, &user); 
             }
 
             else {
-                printf("Login Failed! Please try again.\n");
-                exitFlag = 1;
+                // userMenu(userData, &user);
             }
-            
-        }
-
-    }
-
-    if (unFlag && pwFlag && !exitFlag) {
-        printf("Logged in.\n");
-
-        if (user.administrator) {
-            // adminMenu(userData, &user); 
-        }
-
-        else {
-            // userMenu(userData, &user);
         }
     }
+    
 }
 
 void registerMenu(UserData *userData, Config *config) {
 
     if (userData->currentUserCount < USER_LIMIT) {
-        User user = { 0 };
+        User user = { 0 }, tempSearch = { 0 };
         char temp[UN_PW_LENGTH] = "", select = '\0';
         int unFlag = 0, pwFlag = 0, exitFlag = 0, adminFlag = 0;
 
@@ -123,6 +131,9 @@ void registerMenu(UserData *userData, Config *config) {
 
             else if (checkIfBanned(user.username))
                 printf("Invalid Username! (part of banned words list)\n");
+
+            else if (UserSearch(userData, user.username, &tempSearch))
+                printf("User already exists!\n");
 
             else
                 unFlag = 1;
@@ -191,7 +202,7 @@ void registerMenu(UserData *userData, Config *config) {
             
         }
 
-        // AddUser(userData, &user);
+        addUser(userData, &user);
     }
     
     else {

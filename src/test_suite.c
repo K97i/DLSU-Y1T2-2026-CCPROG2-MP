@@ -118,7 +118,7 @@ void userTests() {
 
     users.users[users.currentUserCount] = user;
     users.currentUserCount++;
-    setUsers(users);
+    setUsers(&users);
 
     // Get users
 

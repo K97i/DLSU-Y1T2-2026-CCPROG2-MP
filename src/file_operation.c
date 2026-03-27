@@ -6,7 +6,7 @@
     Specifically get-set operations for the config file, user database, and species database.
 
     Author: EBORDE, Mikaelo D.
-    Last Modified: 3-26-2026
+    Last Modified: 3-27-2026
 
 */
 
@@ -135,7 +135,7 @@ void getUsers(UserData *userData) {
     Sets user data
 
 */
-int setUsers(const UserData userData) {
+int setUsers(const UserData *userData) {
     int flag = 0;
 
     FILE *fptr;
@@ -143,21 +143,21 @@ int setUsers(const UserData userData) {
 
     if (fptr != NULL) {
         fseek(fptr, 0, SEEK_SET);
-        fprintf(fptr, "%d\n", userData.currentUserCount);
+        fprintf(fptr, "%d\n", userData->currentUserCount);
 
-        for (int i = 0 ; i < userData.currentUserCount ; i++) {
-            fprintf(fptr, "%s , %s , %d , %d\n",    userData.users[i].username, 
-                                                    userData.users[i].password,
-                                                    userData.users[i].administrator,
-                                                    userData.users[i].currentSpeciesCount);
+        for (int i = 0 ; i < userData->currentUserCount ; i++) {
+            fprintf(fptr, "%s , %s , %d , %d\n",    userData->users[i].username, 
+                                                    userData->users[i].password,
+                                                    userData->users[i].administrator,
+                                                    userData->users[i].currentSpeciesCount);
 
-            for (int j = 0 ; j < userData.users[i].currentSpeciesCount ; j++) {
-                fprintf(fptr, "%s , %s , %f , %f , %d , %d\n",  userData.users[i].species[j].name,
-                                                                userData.users[i].species[j].biome,
-                                                                userData.users[i].species[j].height,
-                                                                userData.users[i].species[j].weight,
-                                                                userData.users[i].species[j].sex,
-                                                                userData.users[i].species[j].age);
+            for (int j = 0 ; j < userData->users[i].currentSpeciesCount ; j++) {
+                fprintf(fptr, "%s , %s , %f , %f , %d , %d\n",  userData->users[i].species[j].name,
+                                                                userData->users[i].species[j].biome,
+                                                                userData->users[i].species[j].height,
+                                                                userData->users[i].species[j].weight,
+                                                                userData->users[i].species[j].sex,
+                                                                userData->users[i].species[j].age);
             }
         }
 

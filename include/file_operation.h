@@ -5,7 +5,7 @@
     Header file for file_operations.c to use in other parts of the program
 
     Author: EBORDE, Mikaelo D.
-    Last Modified: 3-26-2026
+    Last Modified: 3-27-2026
 
 */
 
@@ -20,6 +20,6 @@ int setConfig(Config configWrite);
 int resetConfig();
 
 void getUsers(UserData *userData);
-int setUsers(const UserData userData);
+int setUsers(const UserData *userData);
 
 #endif
