@@ -5,7 +5,7 @@
 	Functions that will perform the searching and sorting algorithms for the different databases
 	
 	Author: SACRAMENTO, Yvan Gregorio A.
-	Last Modified: 3-10-2026
+	Last Modified: 3-26-2026
 */
 
 #include <stdio.h>
@@ -71,21 +71,21 @@ int SpeciesSearchSearch(Species database[], int speciesCount, char *species, Spe
 	Uses selection sort
 	to update to UserData
 */
-void UserSort(User database[], int userCount) {
+void UserSort(UserData database) {
 	
-	for(int i = 0; i < userCount - 2; i++) {
+	for(int i = 0; i < database.currentUserCount - 2; i++) {
 		int first = i;
 		
 		//loops through the rest of the array
-		for(int j = i + 1; j < userCount; j++) {
-			if(strcmp(database[first].username, database[j].username) > 0)
+		for(int j = i + 1; j < database.currentUserCount; j++) {
+			if(strcmp(database.users[first].username, database.users[j].username) > 0)
 				first = j;
 		}
 		//swapping the structs
 		if(first != i) {
-			User temp = database[i];
-			database[i] = database[first];
-			database[first] = temp;
+			User temp = database.users[i];
+			database.users[i] = database.users[first];
+			database.users[first] = temp;
 		}
 	}
 }
