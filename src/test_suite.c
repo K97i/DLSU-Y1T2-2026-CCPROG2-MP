@@ -5,7 +5,7 @@
     Contains tester functions for file_operations.c
 
     Author: EBORDE, Mikaelo D.
-    Last Modified: 3-26-2026
+    Last Modified: 3-28-2026
 
 */
 
@@ -82,7 +82,7 @@ void encryptionTest() {
     printf("Username: %s\n", username);
     printf("Encryption Key: %s\n", config.encryptionKey);
 
-    encrypt(string, username, config.encryptionKey, output1);
+    encrypt(string, username, &config, output1);
     
     printf("Output of encryption: %s\n\n", output1);
 
@@ -92,7 +92,7 @@ void encryptionTest() {
 
     printf("Ciphertext: %s\n", output1);
 
-    decrypt(output1, username, config.encryptionKey, output2);
+    decrypt(output1, username, &config, output2);
 
     printf("Output of decryption: %s\n\n", output2);
 

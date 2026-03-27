@@ -3,32 +3,37 @@
 #include "test_suite.h"
 #include "string_helpers.h"
 #include "logo.h"
+#include "login_register.h"
+#include "file_operation.h"
 
 /*
     There are 2 hard problems in computer science: cache invalidation, naming things, and off-by-1 errors.
     - Leon Bambrick
 */
 
-void firstMenu() {
+void firstMenu(UserData *userData, Config *config) {
     int exit = 0, select = 0;
 
     // while not exit...
     while (!exit) {
+        printf("=== [ CHARDEX ] ===\n\n");
         printf("[1] Login\n");
         printf("[2] Register\n");
         printf("[3] Test Suite (will reset everything!)\n");
-        printf("[4] Exit\n");
+        printf("[4] Exit\n\n");
         select = menuInputInt(1, 4);
+
+        printf("\n");
 
         switch (select) {
             // Login
             case 1:
-                // loginMenu();
+                loginMenu(userData, config);
                 break;
 
             // Register
             case 2:
-                // registerMenu();
+                registerMenu(userData, config);
                 break;
             
             // Test Suite
@@ -48,11 +53,14 @@ void firstMenu() {
 }
 
 int main() {
-    chardexLogo();
+    // Load Params
+    Config config = getConfig();
+    UserData userData = { 0 };
+    getUsers(&userData);
 
-    printf("=== [ CHARDEX ] ===\n\n");
+    chardexLogo();
     
-    firstMenu();
+    firstMenu(&userData, &config);
 
     return 0;
 }

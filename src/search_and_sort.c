@@ -19,20 +19,20 @@
 	returns flag to determine if found
 	to update to UserData
 */
-int UserSearch(User database[], int userCount, char *username, User *target) {
-	int start = 0, end = userCount - 1, flag = 0;
+int UserSearch(UserData userData, char *username, User *target) {
+	int start = 0, end = userData.currentUserCount - 1, flag = 0;
 	
 	while(flag != 1 && start < end) {
 		int mid = (start + end) / 2;
 		
-		if(strcmp(database[mid].username, username) == 0) {
-			*target = database[mid];
+		if(strcmp(userData.users[mid].username, username) == 0) {
+			*target = userData.users[mid];
 			flag = 1;
 		}
-		else if(strcmp(database[mid].username, username) < 0) { //searches upper half
+		else if(strcmp(userData.users[mid].username, username) < 0) { //searches upper half
 			start = mid + 1;
 		}
-		else if(strcmp(database[mid].username, username) > 0) { //searches lower half
+		else if(strcmp(userData.users[mid].username, username) > 0) { //searches lower half
 			end = mid - 1;
 		}
 	}

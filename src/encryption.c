@@ -5,13 +5,15 @@
     Contains the main XOR encryption function
 
     Author: EBORDE, Mikaelo D.
-    Last Modified: 3-3-2026
+    Last Modified: 3-27-2026
 
 */
 
 #include <string.h>
 
-void encrypt(char *plaintext, char *username, char *key, char *output) {
+#include "config_struct.h"
+
+void encrypt(char *plaintext, char *username, Config *config, char *output) {
 
     // Encrypt with Username
 
@@ -22,16 +24,16 @@ void encrypt(char *plaintext, char *username, char *key, char *output) {
     // Encrypt with encryption key
 
     for (int i = 0; i < (int) strlen(output); i++) {
-        output[i] = output[i] ^ key[i % (int) strlen(key)]; 
+        output[i] = output[i] ^ config->encryptionKey[i % (int) strlen(config->encryptionKey)]; 
     }
 }
 
-void decrypt(char *ciphertext, char *username, char *key, char *output) {
+void decrypt(char *ciphertext, char *username, Config *config, char *output) {
 
     // Decrypt with encryption key
 
     for (int i = 0; i < (int) strlen(ciphertext); i++) {
-        output[i] = ciphertext[i] ^ key[i % (int) strlen(key)]; 
+        output[i] = ciphertext[i] ^ config->encryptionKey[i % (int) strlen(config->encryptionKey)]; 
     }
 
     // Decrypt with Username

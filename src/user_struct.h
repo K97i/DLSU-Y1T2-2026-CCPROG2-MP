@@ -18,17 +18,17 @@
 #define UN_PW_LENGTH 31 // 30 characters + null
 
 typedef struct {
-    char username[UN_PW_LENGTH];
-    char password[UN_PW_LENGTH];
+	Species species[SPECIES_LIMIT];
     int administrator;
     int currentSpeciesCount;
-	Species species[SPECIES_LIMIT];
+    char username[UN_PW_LENGTH];
+    char password[UN_PW_LENGTH];
 } User;
 
 // to save to database
 typedef struct {
-    int currentUserCount;
     User users[USER_LIMIT];
+    int currentUserCount;
 } UserData;
 
 #endif

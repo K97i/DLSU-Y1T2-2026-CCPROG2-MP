@@ -15,7 +15,7 @@
 #include "user_struct.h"
 #include "species_struct.h"
 
-int UserSearch(User database[], int userCount, char *username, User *target);
+int UserSearch(const UserData userData, char *username, User *target);
 int SpeciesSearchSearch(Species database[], int speciesCount, char *species, Species *target);
 void UserSort(User database[], int userCount);
 void SpeciesSort(Species database[], int speciesCount);

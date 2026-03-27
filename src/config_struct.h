@@ -12,9 +12,11 @@
 #ifndef CONFIG_STRUCT
 #define CONFIG_STRUCT
 
+#define CONFIG_STRING_LEN 31 // 30 characters + null byte
+
 typedef struct {
-    char administratorKey[32]; // 31 characters + null byte
-    char encryptionKey[32]; // 31 characters + null byte
+    char administratorKey[CONFIG_STRING_LEN]; 
+    char encryptionKey[CONFIG_STRING_LEN];
 } Config;
 
 #endif
