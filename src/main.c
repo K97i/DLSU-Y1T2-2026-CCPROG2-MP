@@ -2,6 +2,7 @@
 
 #include "test_suite.h"
 #include "string_helpers.h"
+#include "logo.h"
 
 /*
     There are 2 hard problems in computer science: cache invalidation, naming things, and off-by-1 errors.
@@ -47,6 +48,8 @@ void firstMenu() {
 }
 
 int main() {
+    chardexLogo();
+
     printf("=== [ CHARDEX ] ===\n\n");
     
     firstMenu();

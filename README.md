@@ -1,5 +1,6 @@
 <h1 align="center">Chardex</h1>
 <p align="center">
+    <img width="600px" src="./github-assets/chardex-logo.png"></img><br/>
     <i>(Charmander + Pokedex, working title)</i><br/><br/>
     <b> CCPROG2 S19B (T2, 2025-2026) - MP Project</b><br/>
     <i>Authors:</i> <br/>
