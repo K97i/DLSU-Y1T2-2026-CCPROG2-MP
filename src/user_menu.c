@@ -15,6 +15,7 @@
 #include "user_struct.h"
 #include "species_struct.h"
 #include "string_helpers.h"
+#include "pokedex_menu.h"
 
 void userMenu(UserData *userData, int userIndex, SDB *sDB) {
     int exit = 0, select = 0;
@@ -25,7 +26,8 @@ void userMenu(UserData *userData, int userIndex, SDB *sDB) {
         printf("[1] Own Pokedex\n");
         printf("[2] Species Database\n");
         printf("[3] Leaderboard\n");
-        printf("[4] Logout\n\n");
+        printf("[4] Logout\n");
+        printf("\n");
         select = menuInputInt(1, 4);
 
         printf("\n");
@@ -33,7 +35,7 @@ void userMenu(UserData *userData, int userIndex, SDB *sDB) {
         switch (select) {
             // Own Pokedex
             case 1:
-                // ownPokedexMenu(userData, userIndex, sDB);
+                ownPokedexMenu(userData, userIndex, sDB);
                 break;
 
             // Species Database

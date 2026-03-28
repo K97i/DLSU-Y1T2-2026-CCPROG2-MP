@@ -203,9 +203,10 @@ int setSpecies(SDB *sDB) {
         fprintf(fptr, "%d\n", sDB->currentSpeciesCount);
 
         for (int i = 0 ; i < sDB->currentSpeciesCount ; i++) {
-            fprintf(fptr, "%s , %s , %d", sDB->species[i].name, 
+            fprintf(fptr, "%s , %s , %d , %s", sDB->species[i].name, 
                                                 sDB->species[i].biome,
-                                                sDB->species[i].userInputCount);
+                                                sDB->species[i].userInputCount,
+                                                sDB->species[i].description);
         }
 
         flag = 1;
