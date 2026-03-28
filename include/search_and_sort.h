@@ -5,7 +5,7 @@
 	Header file for search_and_sort.c
 	
 	Author: EBORDE, Mikaelo D.
-	Last Modified: 3-26-2026
+	Last Modified: 3-28-2026
 
 */
 
@@ -20,6 +20,9 @@ int SpeciesDataBaseSearch(const SDB *database, char *species);
 void UserSort(UserData *database);
 void SpeciesDataBaseSort(SDB *database);
 int SpeciesUserSearch(const User *data, char *species);
+<<<<<<< Updated upstream
 void SpeciesUserSort(Species database[]);
+=======
+>>>>>>> Stashed changes
 
 #endif
