@@ -22,7 +22,7 @@
 int UserSearch(const UserData *userData, char *username) {
 	int start = 0, end = userData->currentUserCount - 1, flag = -1;
 	
-	while(flag == -1 && start < end) {
+	while(flag == -1 && start <= end) {
 		int mid = (start + end) / 2;
 		
 		if(strcmp(userData->users[mid].username, username) == 0) {
@@ -48,7 +48,7 @@ int UserSearch(const UserData *userData, char *username) {
 int SpeciesDataBaseSearch(const SDB *database, char *species) {
 	int start = 0, end = database->currentSpeciesCount - 1, flag = -1;
 	
-	while(flag == -1 && start < end) {
+	while(flag == -1 && start <= end) {
 		int mid = (start + end) / 2;
 		
 		if(strcmp(database->species[mid].name, species) == 0) {
@@ -109,5 +109,43 @@ void SpeciesSort(SDB *database) {
 			database->species[first] = temp;
 		}
 	}
+}
 
+int SpeciesUserSearch(const User *data, char *species) {
+	int start = 0, end = data->currentSpeciesCount - 1, flag = -1;
+	
+	while(flag == -1 && start <= end) {
+		int mid = (start + end) / 2;
+		
+		if(strcmp(data->species[mid].name, species) == 0) {
+			flag = mid;
+		}
+		else if(strcmp(data->species[mid].name, species) < 0) { //searches upper half
+			start = mid + 1;
+		}
+		else if(strcmp(data->species[mid].name, species) > 0) { //searches lower half
+			end = mid - 1;
+		}
+	}
+	
+	return flag;
+}
+
+void SpeciesUserSort(User *data) {
+
+	for(int i = 0; i < data->currentSpeciesCount - 2; i++) {
+		int first = i;
+		
+		//loops through the rest of the array
+		for(int j = i + 1; j < data->currentSpeciesCount; j++) {
+			if(strcmp(data->species[first].name, data->species[j].name) > 0)
+				first = j;
+		}
+		//swapping the structs
+		if(first != i) {
+			Species temp = data->species[i];
+			data->species[i] = data->species[first];
+			data->species[first] = temp;
+		}
+	}
 }
