@@ -20,31 +20,31 @@ void leaderboardMenu(UserData userData, SDB speciesDataBase) {
 	int exit = 0, select = 0;
 
     // while not exit...
-    while (!exit) {
-        printf(" [ LEADERBOARD ] \n");
-        printf("[1] User Leaderboard\n");
-        printf("[2] Species Leaderboard\n");
-				printf("[3] Exit\n");
-				select = menuInputInt(1, 3);
+  while (!exit) {
+    printf(" [ LEADERBOARD ] \n");
+    printf("[1] User Leaderboard\n");
+    printf("[2] Species Leaderboard\n");
+		printf("[3] Exit\n");
+		select = menuInputInt(1, 3);
 
-				printf("\n");
+		printf("\n");
 
-        switch (select) {
-					// User Leaderboard
-					case 1: 
-						UserLeaderboard(userData);
-						break;
+    switch (select) {
+			// User Leaderboard
+			case 1: 
+				UserLeaderboard(userData);
+				break;
 
-					// Species Leaderboard
-					case 2:
-						SpeciesLeaderboard(speciesDataBase);
-						break;
+			// Species Leaderboard
+			case 2:
+				SpeciesLeaderboard(speciesDataBase);
+				break;
 
-					// Exit
-					case 3:
-						exit = 1;
-				}
+			// Exit
+			case 3:
+				exit = 1;
 		}
+	}
 }
 
 void UserLeaderboard(UserData database) {
@@ -84,13 +84,16 @@ void UserLeaderboard(UserData database) {
     switch (select) {
 			// Search Username
 			case 1:
-				User target = { 0 };
 				char username[UN_PW_LENGTH] = { 0 };
 
+				printf(" [ SEARCH USERNAME ] ");
 				printf("Enter the Name of the User: ");
 				safeCharScanf(username);
-				UserSearch(&database, username, &target); //confirm param for UserData
-				//print user data (need the index)
+				int index = UserSearch(&database, username);
+				printf("%s %d %s\n", 
+														database.users[index].username, 
+														database.users[index].administrator, 
+														database.users[index].species[database.users[index].currentSpeciesCount]);
 				break;
 			
 			// Exit Menu
@@ -101,6 +104,7 @@ void UserLeaderboard(UserData database) {
 }
 
 void SpeciesLeaderboard(SDB database) {
+	int exit = 0, select = 0;
 
   for(int i = 0; i < database.currentSpeciesCount - 2; i++) {
 		int first = i;
@@ -118,9 +122,35 @@ void SpeciesLeaderboard(SDB database) {
 		}
   }
 
+	printf(" [ SPECIES LEADERBOARD ]");
 	for(int r = 1; r <= 10; r++) {
-		printf("%d. %s %d", r, 
+		printf("%d. %s %d\n", r, 
 													database.species[r-1].name,
 													database.species[r-1].userInputCount);
+	}
+	while(!exit) {
+		printf("[1] Search Species\n");
+    printf("[2] Exit Menu\n");
+		select = menuInputInt(1, 2);
+		
+		printf("\n");
+
+    switch (select) {
+			// Search Species
+			case 1:
+				char species[WORD_LIMIT] = { 0 };
+				printf(" [ SEARCH SPECIES ] ");
+				printf("Enter the Name of the Species: ");
+				safeCharScanf(species);
+				int index = UserSearch(&database, species);
+				printf("%s %d\n",
+												database.species[index].name,
+												database.species[index].userInputCount);
+				break;
+			
+			// Exit Menu
+			case 2:
+					exit = 1;
+		}
 	}
 }
