@@ -142,7 +142,7 @@ void SpeciesLeaderboard(SDB database) {
 				printf(" [ SEARCH SPECIES ] ");
 				printf("Enter the Name of the Species: ");
 				safeCharScanf(species);
-				int index = UserSearch(&database, species);
+				int index = SpeciesDataBaseSearch(&database, species);
 				printf("%s %d\n",
 												database.species[index].name,
 												database.species[index].userInputCount);
