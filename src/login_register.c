@@ -19,6 +19,7 @@
 #include "encryption.h"
 #include "file_operation.h"
 #include "user_array_operations.h"
+#include "user_menu.h"
 
 #define BANNED_WORDS_LIST 2
 
@@ -99,16 +100,18 @@ void loginMenu(UserData *userData, Config *config) {
         }
 
         if (unFlag && pwFlag && !exitFlag) {
-            printf("Logged in.\n");
+            printf("Logged in.\n\n");
 
             if (user.administrator) {
                 // adminMenu(userData, &user); 
             }
 
             else {
-                // userMenu(userData, &user);
+                userMenu(userData, &user);
             }
         }
+
+        printf("\n");
     }
     
 }
@@ -215,6 +218,8 @@ void registerMenu(UserData *userData, Config *config) {
     else {
         printf("Sorry! Maximum amount of users are registered.\n");
     }
+
+    printf("\n");
 }
 
 void resetPasswordMenu(UserData *userData, Config *config) {
