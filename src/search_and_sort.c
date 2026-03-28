@@ -13,6 +13,8 @@
 
 #include "user_struct.h"
 #include "species_struct.h"
+
+
 /*
 	Uses binary search
 	return flag returns the index
@@ -23,7 +25,7 @@ int UserSearch(const UserData *userData, char *username) {
 	while(flag == -1 && start <= end) {
 		int mid = (start + end) / 2;
 		
-		if(strcmp(userData->users[mid].username, username) == 0) {
+		if(strcmp(userData->users[mid].username, username) == 0) { //assigns the index to flag
 			flag = mid;
 		}
 		else if(strcmp(userData->users[mid].username, username) < 0) { //searches upper half
@@ -47,7 +49,7 @@ int SpeciesDataBaseSearch(const SDB *database, char *species) {
 	while(flag == -1 && start <= end) {
 		int mid = (start + end) / 2;
 		
-		if(strcmp(database->species[mid].name, species) == 0) {
+		if(strcmp(database->species[mid].name, species) == 0) { //assigns the index to flag
 			flag = mid;
 		}
 		else if(strcmp(database->species[mid].name, species) < 0) { //searches upper half
@@ -114,7 +116,7 @@ int SpeciesUserSearch(const User *data, char *species) {
 	
 	for(int i = 0; i < data->currentSpeciesCount; i++) {
 		if(strcmp(data->species[i].name, species) == 0)
-			flag = i;
+			flag = i; // assigns the index to flag
 	}
 
 	return flag;

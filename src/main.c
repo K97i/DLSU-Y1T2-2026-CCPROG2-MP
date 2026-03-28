@@ -1,3 +1,14 @@
+/*
+
+	main.c
+	
+	Main file for the program
+	
+	Author: EBORDE, Mikaelo D.
+	Last Modified: 3-28-2026
+*/
+
+
 #include <stdio.h>
 
 #include "test_suite.h"
@@ -11,6 +22,9 @@
     - Leon Bambrick
 */
 
+/*
+    Function prints the first menu which includes the login, register, reset password, and test suite functions
+*/
 void firstMenu(UserData *userData, Config *config) {
     int exit = 0, select = 0;
 
@@ -22,7 +36,7 @@ void firstMenu(UserData *userData, Config *config) {
         printf("[3] Reset Password\n");
         printf("[4] Test Suite (will reset everything!)\n");
         printf("[5] Exit\n\n");
-        select = menuInputInt(1, 5);
+        select = menuInputInt(1, 5); // accepts the user's input from 1-5
 
         printf("\n");
 
@@ -64,7 +78,7 @@ int main() {
     UserData userData = { 0 };
     getUsers(&userData);
 
-    chardexLogo();
+    chardexLogo(); // calls the function to print the program logo
     
     firstMenu(&userData, &config);
 

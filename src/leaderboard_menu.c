@@ -16,6 +16,9 @@
 #include "search_and_sort.h"
 #include "string_helpers.h"
 
+/*
+	Function prints the Leaderboard Menu
+*/
 void leaderboardMenu(UserData userData, SDB speciesDataBase) {
 	int exit = 0, select = 0;
 
@@ -25,7 +28,7 @@ void leaderboardMenu(UserData userData, SDB speciesDataBase) {
     printf("[1] User Leaderboard\n");
     printf("[2] Species Leaderboard\n");
 		printf("[3] Exit\n");
-		select = menuInputInt(1, 3);
+		select = menuInputInt(1, 3); //accepts the user's input (1-3)
 
 		printf("\n");
 
@@ -47,6 +50,9 @@ void leaderboardMenu(UserData userData, SDB speciesDataBase) {
 	}
 }
 
+/*
+	Function prints the User Leaderboard Menu
+*/
 void UserLeaderboard(UserData database) {
 	int exit = 0, select = 0, sum = 0;
 	float averageSpU = 0.0;
@@ -60,7 +66,7 @@ void UserLeaderboard(UserData database) {
 			if(database.users[first].currentSpeciesCount < database.users[j].currentSpeciesCount)
 				first = j;
 		}
-		//swapping the structs
+		//swaps the structs
 		if(first != i) {
 			User temp = database.users[i];
 			database.users[i] = database.users[first];
@@ -74,6 +80,7 @@ void UserLeaderboard(UserData database) {
 	}
 	averageSpU = sum / database.currentUserCount;
 
+
 	printf(" [ USER LEADERBOARD ] \n");
 	//Displays Top 10
 	for(int r = 1; r <= 10 && r <= database.currentUserCount; r++) {
@@ -85,7 +92,7 @@ void UserLeaderboard(UserData database) {
 	while(!exit) {
 		printf("[1] Search Username\n");
     printf("[2] Exit Menu\n");
-		select = menuInputInt(1, 2);
+		select = menuInputInt(1, 2); //accepts the user's input (1-2)
 		
 		printf("\n Average Species per User: %.2f\n", averageSpU);
 		printf("\n");
@@ -97,8 +104,8 @@ void UserLeaderboard(UserData database) {
 
 				printf(" [ SEARCH USERNAME ] ");
 				printf("Enter the Name of the User: ");
-				safeCharScanf(username);
-				int index = UserSearch(&database, username);
+				safeCharScanf(username); //accepts the user's username input
+				int index = UserSearch(&database, username); // searches the user in the User Database
 				printf("%s %d %s\n", 
 														database.users[index].username, 
 														database.users[index].administrator, 
@@ -112,9 +119,13 @@ void UserLeaderboard(UserData database) {
 	}
 }
 
+/*
+	Function prints the Species Leaderboard Menu
+*/
 void SpeciesLeaderboard(SDB database) {
 	int exit = 0, select = 0;
 
+	//Sorts the database by user count in descending order
   for(int i = 0; i < database.currentSpeciesCount - 1; i++) {
 		int first = i;
 		
@@ -140,7 +151,7 @@ void SpeciesLeaderboard(SDB database) {
 	while(!exit) {
 		printf("[1] Search Species\n");
     printf("[2] Exit Menu\n");
-		select = menuInputInt(1, 2);
+		select = menuInputInt(1, 2); //accepts the user's input (1-2)
 		
 		printf("\n");
 
@@ -150,8 +161,8 @@ void SpeciesLeaderboard(SDB database) {
 				char species[WORD_LIMIT] = { 0 };
 				printf(" [ SEARCH SPECIES ] ");
 				printf("Enter the Name of the Species: ");
-				safeCharScanf(species);
-				int index = SpeciesDataBaseSearch(&database, species);
+				safeCharScanf(species); //accepts the user's species input
+				int index = SpeciesDataBaseSearch(&database, species);  // searches the species in the Species Database
 				printf("%s %d\n",
 												database.species[index].name,
 												database.species[index].userInputCount);
