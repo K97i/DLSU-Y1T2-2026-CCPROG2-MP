@@ -37,29 +37,43 @@ void searchUserPokedex(UserData *userData, int userIndex, SDB *sDB) {
     char temp[WORD_LIMIT] = "";
     int exit = 0, speciesUserIndex = -1, speciesDatabaseIndex = -1;
 
-    while (!exit) {
-        printf("Search own Pokedex for: ");
-        safeStringScanf(temp, WORD_LIMIT);
+    printf("Enter \"[EXIT]\" to exit this menu at any time.\n");
 
-        if (!strcmp("[EXIT]", temp))
-            exit = 1;
+    if (userData->users[userIndex].currentSpeciesCount > 0) {
+        while (!exit) {
+            printf("Search own Pokedex for: ");
+            safeStringScanf(temp, WORD_LIMIT);
 
-        else
-            speciesUserIndex = SpeciesUserSearch(&userData->users[userIndex], temp);
+            if (!strcmp("[EXIT]", temp))
+                exit = 1;
 
-        if (!exit && speciesUserIndex != -1) {
-            printf("Found!\n");
+            else
+                speciesUserIndex = SpeciesUserSearch(&userData->users[userIndex], temp);
 
-            // Printing Name
-            printSpecies(&userData->users[userIndex].species[speciesUserIndex], 0);
-            printf("\n");
+            if (!exit && speciesUserIndex != -1) {
+                printf("Found!\n");
 
-            // Printing Special Info
-            speciesDatabaseIndex = SpeciesDataBaseSearch(sDB, userData->users[userIndex].species[speciesUserIndex].name);
-            printSpeciesSpecialInfo(&userData->users[userIndex].species[speciesUserIndex], sDB, speciesDatabaseIndex);
+                // Printing Name
+                printSpecies(&userData->users[userIndex].species[speciesUserIndex], 0);
+                printf("\n");
 
-            printf("\n");
+                // Printing Special Info
+                speciesDatabaseIndex = SpeciesDataBaseSearch(sDB, userData->users[userIndex].species[speciesUserIndex].name);
+                printSpeciesSpecialInfo(&userData->users[userIndex].species[speciesUserIndex], sDB, speciesDatabaseIndex);
+
+                printf("\n");
+            }
+
+            else if (!exit && speciesUserIndex < 0) {
+                printf("Not found! :(\n");
+                printf("\n");
+            }
         }
+    }
+
+    else {
+        printf("Empty Pokedex! :(\n");
+        printf("\n");
     }
 }
 

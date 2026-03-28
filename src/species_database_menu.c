@@ -16,13 +16,19 @@
 #include "string_helpers.h"
 #include "display_helpers.h"
 #include "search_and_sort.h"
+#include "edit_species_database.h"
 
 void searchWholeDatabase(SDB *sDB) {
     char temp[WORD_LIMIT] = "";
     int exit = 0, speciesDatabaseIndex = -1;
 
+    printf("=== [ SEARCH DATABASE ] ===\n");
+    printf("\n");
+    printf("Enter \"[EXIT]\" to exit this menu at any time.\n");
+    printf("\n");
+
     while (!exit) {
-        printf("Search own Pokedex for: ");
+        printf("Search the Database for: ");
         safeStringScanf(temp, WORD_LIMIT);
 
         if (!strcmp("[EXIT]", temp))
@@ -32,7 +38,13 @@ void searchWholeDatabase(SDB *sDB) {
             speciesDatabaseIndex = SpeciesDataBaseSearch(sDB, temp);
 
         if (!exit && speciesDatabaseIndex != -1) {
-            printf("Found!\n");
+            printf("Found!");
+            printf("\n");
+            printf("\n");
+
+            printf("=========");
+            printf("\n");
+            printf("\n");
 
             // Printing Name
             printSpeciesData(&sDB->species[speciesDatabaseIndex], 0);
@@ -41,6 +53,14 @@ void searchWholeDatabase(SDB *sDB) {
             // Printing Special Info
             printSpeciesDatabaseInfo(&sDB->species[speciesDatabaseIndex]);
 
+            printf("\n");
+            printf("=========");
+            printf("\n");
+            printf("\n");
+        }
+
+        else if (!exit && speciesDatabaseIndex < 0) {
+            printf("Not found! :(\n");
             printf("\n");
         }
     }
@@ -51,10 +71,16 @@ void speciesDatabaseUserMenu(SDB *sDB) {
 
     while (!exit) {
 
+        printf("\n");
+        printf("=== [ SPECIES DATABASE ] ===\n");
+        printf("\n");
+
+
         for (int i = 0 ; i < sDB->currentSpeciesCount ; i++) {
-            printSpeciesData(&sDB->species[i], i);
+            printSpeciesData(&sDB->species[i], i + 1);
         }
 
+        printf("\n");
         printf("[1] Search Species\n");
         printf("[2] Exit Menu\n");
         printf("\n");
@@ -83,10 +109,16 @@ void speciesDatabaseAdminMenu(SDB *sDB) {
 
     while (!exit) {
 
+        printf("\n");
+        printf("=== [ SPECIES DATABASE ] ===\n");
+        printf("\n");
+
+
         for (int i = 0 ; i < sDB->currentSpeciesCount ; i++) {
-            printSpeciesData(&sDB->species[i], i);
+            printSpeciesData(&sDB->species[i], i + 1);
         }
 
+        printf("\n");
         printf("[1] Search Species\n");
         printf("[2] Edit Database\n");
         printf("[3] Exit Menu\n");
@@ -103,7 +135,7 @@ void speciesDatabaseAdminMenu(SDB *sDB) {
             
             // Edit Database
             case 2:
-                // editSpeciesDatabase(sDB);
+                editSpeciesDatabase(sDB);
                 break;
             
             // Exit
@@ -112,6 +144,8 @@ void speciesDatabaseAdminMenu(SDB *sDB) {
                 break;
 
         }
+
+        printf("\n");
 
     }
 }

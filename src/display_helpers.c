@@ -20,14 +20,14 @@ void printSpecies(Species *species, int numbered) {
     if (numbered)
         printf("%d: ", numbered);
 
-    printf("%s", species->name);
+    printf("%s\n", species->name);
 }
 
-void printSpeciesData(Species *species, int numbered) {
+void printSpeciesData(SpeciesData *species, int numbered) {
     if (numbered)
         printf("%d: ", numbered);
 
-    printf("%s", species->name);
+    printf("%s\n", species->name);
 }
 
 void printSpeciesDatabaseInfo(SpeciesData *species) {
@@ -57,8 +57,6 @@ void printSpeciesSpecialInfo(Species *species, SDB *sDB, int databaseIndex) {
 
     else
         species->sex % 2 ? strcpy(sex, "Male") : strcpy(sex, "Female");
-
-    
 
     if (databaseIndex != -1)
         printSpeciesDatabaseInfo(&sDB->species[databaseIndex]);

@@ -40,7 +40,7 @@ Config getConfig() {
     fptr = fopen("config.txt", "r");
 
     if (fptr != NULL) {
-        fscanf(fptr, "%s , %s", configRead.administratorKey, configRead.encryptionKey);
+        fscanf(fptr, "%[^\t]\t%[^\n]", configRead.administratorKey, configRead.encryptionKey);
         fclose(fptr);
     }
 
@@ -65,30 +65,12 @@ int setConfig(const Config configWrite) {
     fptr = fopen("config.txt", "w");
 
     if (fptr != NULL) {
-        fprintf(fptr, "%s , %s", configWrite.administratorKey, configWrite.encryptionKey);
+        fprintf(fptr, "%s\t%s", configWrite.administratorKey, configWrite.encryptionKey);
         fclose(fptr);
         flag = 1;
     }
 
     return flag;
-}
-
-/*
-
-    resetConfig()
-
-    Resets the config to defaults.
-
-    <return> int - Boolean if write is successful, 1 if success, 0 if fail. </return>
-
-*/
-int resetConfig() {
-    Config configDefaults;
-
-    strcpy(configDefaults.administratorKey, "OVERRIDE-1234");
-    strcpy(configDefaults.encryptionKey, "N0T-@3S-3NCRYPT10N");
-
-    return setConfig(configDefaults);
 }
 
 /*
@@ -108,18 +90,19 @@ void getUsers(UserData *userData) {
         fscanf(fptr, "%d", &userData->currentUserCount);
 
         for (int i = 0 ; i < userData->currentUserCount ; i++) {
-            fscanf(fptr, "%s , %s , %d , %d", userData->users[i].username, 
+            fscanf(fptr, " %[^\t]\t%[^\t]\t%d\t%d", userData->users[i].username, 
                                                 userData->users[i].password,
                                                 &userData->users[i].administrator,
                                                 &userData->users[i].currentSpeciesCount);
 
             for (int j = 0 ; j < userData->users[i].currentSpeciesCount ; j++) {
-                fscanf(fptr, "%s , %f , %f , %d , %d",   userData->users[i].species[j].name,
+                fscanf(fptr, " %[^\t]\t%f\t%f\t%d\t%d",   userData->users[i].species[j].name,
                                                                 &userData->users[i].species[j].height,
                                                                 &userData->users[i].species[j].weight,
                                                                 &userData->users[i].species[j].sex,
                                                                 &userData->users[i].species[j].age);
             }
+            
         }
 
         fclose(fptr);
@@ -145,13 +128,13 @@ int setUsers(const UserData *userData) {
         fprintf(fptr, "%d\n", userData->currentUserCount);
 
         for (int i = 0 ; i < userData->currentUserCount ; i++) {
-            fprintf(fptr, "%s , %s , %d , %d\n",    userData->users[i].username, 
+            fprintf(fptr, "%s\t%s\t%d\t%d\n",    userData->users[i].username, 
                                                     userData->users[i].password,
                                                     userData->users[i].administrator,
                                                     userData->users[i].currentSpeciesCount);
 
             for (int j = 0 ; j < userData->users[i].currentSpeciesCount ; j++) {
-                fprintf(fptr, "%s , %f , %f , %d , %d\n",  userData->users[i].species[j].name,
+                fprintf(fptr, "%s\t%f\t%f\t%d\t%d\n",  userData->users[i].species[j].name,
                                                                 userData->users[i].species[j].height,
                                                                 userData->users[i].species[j].weight,
                                                                 userData->users[i].species[j].sex,
@@ -182,7 +165,7 @@ void getSpecies(SDB *sDB) {
         fscanf(fptr, "%d", &sDB->currentSpeciesCount);
 
         for (int i = 0 ; i < sDB->currentSpeciesCount ; i++) {
-            fscanf(fptr, "%s , %s , %d , %d , %s", sDB->species[i].name, 
+            fscanf(fptr, " %[^\t]\t%[^\t]\t%d\t%d\t%[^\n]", sDB->species[i].name, 
                                                     sDB->species[i].biome,
                                                     &sDB->species[i].conservationStatus,
                                                     &sDB->species[i].userInputCount,
@@ -190,6 +173,7 @@ void getSpecies(SDB *sDB) {
         }
 
         fclose(fptr);
+
     }
 
 }
@@ -205,7 +189,7 @@ int setSpecies(SDB *sDB) {
         fprintf(fptr, "%d\n", sDB->currentSpeciesCount);
 
         for (int i = 0 ; i < sDB->currentSpeciesCount ; i++) {
-            fprintf(fptr, "%s , %s , %d , %d , %s", sDB->species[i].name, 
+            fprintf(fptr, "%s\t%s\t%d\t%d\t%s\n", sDB->species[i].name, 
                                                     sDB->species[i].biome,
                                                     sDB->species[i].conservationStatus,
                                                     sDB->species[i].userInputCount,

@@ -17,7 +17,6 @@
 
 Config getConfig();
 int setConfig(Config configWrite);
-int resetConfig();
 
 void getUsers(UserData *userData);
 int setUsers(const UserData *userData);

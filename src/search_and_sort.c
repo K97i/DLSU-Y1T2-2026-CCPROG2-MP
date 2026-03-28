@@ -47,7 +47,7 @@ int SpeciesDataBaseSearch(const SDB *database, char *species) {
 	int start = 0, end = database->currentSpeciesCount - 1, flag = -1;
 	
 	while(flag == -1 && start <= end) {
-		int mid = (start + end) / 2;
+		int mid = start + (end - start) / 2;
 		
 		if(strcmp(database->species[mid].name, species) == 0) { //assigns the index to flag
 			flag = mid;

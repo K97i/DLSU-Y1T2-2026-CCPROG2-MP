@@ -83,7 +83,7 @@ void loginMenu(UserData *userData, Config *config) {
             getSpecies(&sDB);
 
             if (userData->users[index].administrator) {
-                // adminMenu(userData, &user, &sDB); 
+                adminMenu(userData, index, &sDB); 
             }
 
             else {

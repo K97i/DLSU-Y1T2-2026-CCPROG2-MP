@@ -17,6 +17,7 @@
 #include "file_operation.h"
 #include "encryption.h"
 #include "string_helpers.h"
+#include "reset_databases.h"
 
 /*
 
@@ -49,9 +50,7 @@ void configTest() {
 
     printf(" === [ CONFIG DEFAULTS TESTING ] ===\n\n");
 
-    resetConfig();
-
-    configRead = getConfig();
+    resetConfig(&configRead);
 
     printf("Default Override Key: %s\n", configRead.administratorKey);
     printf("Default Encryption Key: %s\n", configRead.encryptionKey);

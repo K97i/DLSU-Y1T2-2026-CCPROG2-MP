@@ -16,6 +16,7 @@
 #include "logo.h"
 #include "login_register.h"
 #include "file_operation.h"
+#include "reset_databases.h"
 
 /*
     There are 2 hard problems in computer science: cache invalidation, naming things, and off-by-1 errors.
@@ -35,8 +36,9 @@ void firstMenu(UserData *userData, Config *config) {
         printf("[2] Register\n");
         printf("[3] Reset Password\n");
         printf("[4] Test Suite (will reset everything!)\n");
-        printf("[5] Exit\n\n");
-        select = menuInputInt(1, 5); // accepts the user's input from 1-5
+        printf("[5] Reset Databases\n");
+        printf("[6] Exit\n\n");
+        select = menuInputInt(1, 6);
 
         printf("\n");
 
@@ -61,8 +63,13 @@ void firstMenu(UserData *userData, Config *config) {
                 testSuite();
                 break;
             
-            // Exit
+            // Reset
             case 5:
+                resetDatabases(userData, config);
+                break;
+            
+            // Exit
+            case 6:
                 exit = 1;
                 break;
 
