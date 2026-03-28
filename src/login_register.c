@@ -22,28 +22,6 @@
 #include "user_menu.h"
 #include "species_struct.h"
 
-#define BANNED_WORDS_LIST 2
-
-int checkIfBanned(char input[UN_PW_LENGTH]) {
-    char bannedWords[BANNED_WORDS_LIST][UN_PW_LENGTH] = {
-        "[EXIT]", " , "
-    };
-    int flag = 0;
-
-    // for each banned word...
-    for (int i = 0 ; i < BANNED_WORDS_LIST && !flag ; i++) {
-        // for each substring...
-        for (int j = 0 ; j < strlen(input) - strlen(bannedWords[i] - 1) && !flag ; j++) {
-            // if substring matches banned word...
-            if (!strncmp(input + j, bannedWords[i], strlen(bannedWords[i]))) {
-                flag = 1;
-            }
-        }
-    }
-
-    return flag;
-}
-
 void loginMenu(UserData *userData, Config *config) {
     if (userData->currentUserCount < 1) {
         printf("No users registered!\n");
@@ -136,7 +114,7 @@ void registerMenu(UserData *userData, Config *config) {
             if (!strcmp("[EXIT]", temp))
                 exitFlag = 1;
 
-            else if (checkIfBanned(temp))
+            else if (checkIfBanned(temp, UN_PW_LENGTH))
                 printf("Invalid Username! (part of banned words list)\n");
 
             else if (UserSearch(userData, temp) != -1)
@@ -157,7 +135,7 @@ void registerMenu(UserData *userData, Config *config) {
             if (!strcmp("[EXIT]", temp))
                 exitFlag = 1;
 
-            else if (checkIfBanned(temp))
+            else if (checkIfBanned(temp, UN_PW_LENGTH))
                 printf("Invalid Password! (part of banned words list)\n");
 
             else if (!strcmp(user.username, temp))
@@ -279,7 +257,7 @@ void resetPasswordMenu(UserData *userData, Config *config) {
                 if (!strcmp("[EXIT]", temp))
                     exitFlag = 1;
 
-                else if (checkIfBanned(temp))
+                else if (checkIfBanned(temp, UN_PW_LENGTH))
                     printf("Invalid Password! (part of banned words list)\n");
 
                 else if (!strcmp(userData->users[index].username, temp))

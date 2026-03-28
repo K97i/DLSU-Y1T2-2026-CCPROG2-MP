@@ -16,5 +16,6 @@ void flushBuffer();
 int safeStringScanf(char *string, int arrayLength);
 void safeCharScanf(char *character);
 int menuInputInt(int min, int max);
+int checkIfBanned(char input[], int wordLength);
 
 #endif

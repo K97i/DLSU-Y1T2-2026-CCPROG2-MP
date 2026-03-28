@@ -1,3 +1,14 @@
+/*
+
+	species_database_menu.c
+	
+	Contains the menu for accessing the species database
+	
+	Author: EBORDE, Mikaelo D.
+	Last Modified: 3-28-2026
+
+*/
+
 #include <stdio.h>
 #include <string.h>
 

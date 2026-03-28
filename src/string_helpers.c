@@ -12,6 +12,9 @@
 #include <stdio.h>
 #include <string.h>
 
+#define BANNED_WORDS_LIST 2
+#define BANNED_WORDS_LENGTH 10
+
 void flushBuffer() {
     char character;
     while ( ( character = getchar()) != '\n' && character != EOF);
@@ -88,4 +91,25 @@ int menuInputInt(int min, int max) {
     }
 
     return input;
+}
+
+
+int checkIfBanned(char input[], int wordLength) {
+    char bannedWords[BANNED_WORDS_LIST][BANNED_WORDS_LENGTH] = {
+        "[EXIT]", " , "
+    };
+    int flag = 0;
+
+    // for each banned word...
+    for (int i = 0 ; i < BANNED_WORDS_LIST && !flag ; i++) {
+        // for each substring...
+        for (int j = 0 ; j < strlen(input) - strlen(bannedWords[i] - 1) && !flag ; j++) {
+            // if substring matches banned word...
+            if (!strncmp(input + j, bannedWords[i], strlen(bannedWords[i]))) {
+                flag = 1;
+            }
+        }
+    }
+
+    return flag;
 }
