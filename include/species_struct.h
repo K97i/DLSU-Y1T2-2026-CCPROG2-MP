@@ -14,6 +14,7 @@
 #define SPECIES_LIMIT 50 // 50 maximum species can be encoded into the database
 #define WORD_LIMIT 41 //40 characters + null
 
+// struct for user's species
 typedef struct {
 	char name[WORD_LIMIT]; //includes the Genus and Species
 	float height; //Unit of measurement: cm
