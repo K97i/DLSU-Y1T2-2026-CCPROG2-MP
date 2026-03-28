@@ -16,14 +16,38 @@
 #include "species_struct.h"
 #include "string_helpers.h"
 
-void printSpecies(Species *species, int numbered, int customNumber) {
+void printSpecies(Species *species, int numbered) {
     if (numbered)
         printf("%d: ", numbered);
 
     printf("%s", species->name);
 }
 
-void printSpeciesInfo(Species *species, SDB *sDB, int databaseIndex) {
+void printSpeciesData(Species *species, int numbered) {
+    if (numbered)
+        printf("%d: ", numbered);
+
+    printf("%s", species->name);
+}
+
+void printSpeciesDatabaseInfo(SpeciesData *species) {
+    char conservationStatus[WORD_LIMIT] = "";
+    
+    if (species->conservationStatus == 2)
+        strcpy(conservationStatus, "Least Concern");
+
+    else if (species->conservationStatus == 1)
+        strcpy(conservationStatus, "Vulnerable");
+
+    else
+        strcpy(conservationStatus, "Exticnt");
+
+    printf("%s\n\n", species->description);
+    printf("Conservation Status: %s\n", conservationStatus);
+    printf("Biome: %s\n", species->biome);
+}
+
+void printSpeciesSpecialInfo(Species *species, SDB *sDB, int databaseIndex) {
     // CALCULATION 1
     char sex[WORD_LIMIT] = "";
     float bodyMassIndex = species->weight * (species->height * species->height);
@@ -36,10 +60,8 @@ void printSpeciesInfo(Species *species, SDB *sDB, int databaseIndex) {
 
     
 
-    if (databaseIndex != -1) {
-        printf("%s\n\n", sDB->species[databaseIndex].description);
-        printf("Biome: %s\n", sDB->species[databaseIndex].biome);
-    }
+    if (databaseIndex != -1)
+        printSpeciesDatabaseInfo(&sDB->species[databaseIndex]);
 
     printf("Sex: %s\n", sex);
     printf("Age: %d\n", species->age);

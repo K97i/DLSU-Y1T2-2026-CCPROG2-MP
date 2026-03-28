@@ -18,22 +18,12 @@
 #include "search_and_sort.h"
 #include "display_helpers.h"
 
-int searchSpeciesDatabase(SDB *sDB, char *speciesName) {
-    int flag = -1;
-
-    for (int i = 0 ; i < sDB->currentSpeciesCount && flag != -1 ; i++)
-        if (!strcmp(sDB->species[i].name, speciesName))
-            flag = i;
-
-    return flag;
-}
-
 void printPokedex(UserData *userData, int userIndex) {
     printf("=== [ %s's Pokedex ] ===\n\n", userData->users[userIndex].username);
 
     if (userData->users[userIndex].currentSpeciesCount > 0) {
         for (int i = 0 ; i < userData->users[userIndex].currentSpeciesCount ; i++)
-            printSpecies(&userData->users[userIndex].species[i], 1, i);
+            printSpecies(&userData->users[userIndex].species[i], i);
     }
 
     else {
@@ -43,7 +33,7 @@ void printPokedex(UserData *userData, int userIndex) {
     printf("\n");
 }
 
-void searchPokedex(UserData *userData, int userIndex, SDB *sDB) {
+void searchUserPokedex(UserData *userData, int userIndex, SDB *sDB) {
     char temp[WORD_LIMIT] = "";
     int exit = 0, speciesUserIndex = -1, speciesDatabaseIndex = -1;
 
@@ -61,20 +51,16 @@ void searchPokedex(UserData *userData, int userIndex, SDB *sDB) {
             printf("Found!\n");
 
             // Printing Name
-            printSpecies(&userData->users[userIndex].species[speciesUserIndex], 0, 0);
+            printSpecies(&userData->users[userIndex].species[speciesUserIndex], 0);
             printf("\n");
 
             // Printing Special Info
-            speciesDatabaseIndex = searchSpeciesDatabase(sDB, userData->users[userIndex].species[speciesUserIndex].name);
-            printSpeciesInfo(&userData->users[userIndex].species[speciesUserIndex], sDB, speciesDatabaseIndex);
+            speciesDatabaseIndex = SpeciesDataBaseSearch(sDB, userData->users[userIndex].species[speciesUserIndex].name);
+            printSpeciesSpecialInfo(&userData->users[userIndex].species[speciesUserIndex], sDB, speciesDatabaseIndex);
 
             printf("\n");
         }
     }
-}
-
-void addToPokedex(UserData *userData, int userIndex, SDB *sDB) {
-    
 }
 
 void editPokedex(UserData *userData, int userIndex, SDB *sDB) {
@@ -126,7 +112,7 @@ void displayPokedex(UserData *userData, int userIndex, SDB *sDB) {
         switch (select) {
             // Search Species from Pokedex
             case 1:
-                searchPokedex(userData, userIndex, sDB);
+                searchUserPokedex(userData, userIndex, sDB);
                 break;
             
             // Exit

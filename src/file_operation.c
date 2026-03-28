@@ -182,9 +182,11 @@ void getSpecies(SDB *sDB) {
         fscanf(fptr, "%d", &sDB->currentSpeciesCount);
 
         for (int i = 0 ; i < sDB->currentSpeciesCount ; i++) {
-            fscanf(fptr, "%s , %s , %d", sDB->species[i].name, 
-                                                sDB->species[i].biome,
-                                                &sDB->species[i].userInputCount);
+            fscanf(fptr, "%s , %s , %d , %d , %s", sDB->species[i].name, 
+                                                    sDB->species[i].biome,
+                                                    &sDB->species[i].conservationStatus,
+                                                    &sDB->species[i].userInputCount,
+                                                    sDB->species[i].description);
         }
 
         fclose(fptr);
@@ -203,10 +205,11 @@ int setSpecies(SDB *sDB) {
         fprintf(fptr, "%d\n", sDB->currentSpeciesCount);
 
         for (int i = 0 ; i < sDB->currentSpeciesCount ; i++) {
-            fprintf(fptr, "%s , %s , %d , %s", sDB->species[i].name, 
-                                                sDB->species[i].biome,
-                                                sDB->species[i].userInputCount,
-                                                sDB->species[i].description);
+            fprintf(fptr, "%s , %s , %d , %d , %s", sDB->species[i].name, 
+                                                    sDB->species[i].biome,
+                                                    sDB->species[i].conservationStatus,
+                                                    sDB->species[i].userInputCount,
+                                                    sDB->species[i].description);
         }
 
         flag = 1;

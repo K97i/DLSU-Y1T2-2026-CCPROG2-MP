@@ -4,7 +4,9 @@
 #include "user_struct.h"
 #include "species_struct.h"
 
-void printSpecies(Species *species, int numbered, int customNumber);
-void printSpeciesInfo(Species *species, SDB *sDB, int databaseIndex);
+void printSpecies(Species *species, int numbered);
+void printSpeciesData(SpeciesData *species, int numbered);
+void printSpeciesDatabaseInfo(SpeciesData *species);
+void printSpeciesSpecialInfo(Species *species, SDB *sDB, int databaseIndex);
 
 #endif

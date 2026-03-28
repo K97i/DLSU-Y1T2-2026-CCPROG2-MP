@@ -11,8 +11,8 @@
 #ifndef SPECIES_STRUCT
 #define SPECIES_STRUCT
 
-#define DESCRIPTION_LIMIT 300
 #define SPECIES_LIMIT 50 // 50 maximum species can be encoded into the database
+#define DESCRIPTION_LIMIT 301 // 300 characters + null
 #define WORD_LIMIT 41 //40 characters + null
 
 // struct for user's species
@@ -29,6 +29,7 @@ typedef struct {
 	char description[DESCRIPTION_LIMIT];
 	char name[WORD_LIMIT];
 	char biome[WORD_LIMIT];
+	int conservationStatus; // 2 = Least Concern, 1 = Vulnerable, 0 = Extinct
 	int userInputCount;
 } SpeciesData;
 
