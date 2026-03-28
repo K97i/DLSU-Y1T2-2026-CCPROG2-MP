@@ -20,13 +20,19 @@ typedef struct {
 	int sex; // 1 for male and 2 for female (0 is undefined)
 	int age;
 	char name[WORD_LIMIT]; //includes the Genus and Species
-	char biome[WORD_LIMIT];
 } Species;
 
 // to save to host database
 typedef struct {
-	Species species[SPECIES_LIMIT];
-	int currentSpeciesCount;
+	char name[WORD_LIMIT];
+	int userInputCount;
+	char biome[WORD_LIMIT];
 } SpeciesData;
+
+//array of the species data
+typedef struct {
+    SpeciesData species[SPECIES_LIMIT];
+    int currentSpeciesCount;
+} SDB;
 
 #endif

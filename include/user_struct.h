@@ -19,8 +19,8 @@
 
 typedef struct {
 	Species species[SPECIES_LIMIT];
-    int administrator;
     int currentSpeciesCount;
+    int administrator;
     char username[UN_PW_LENGTH];
     char password[UN_PW_LENGTH];
 } User;
