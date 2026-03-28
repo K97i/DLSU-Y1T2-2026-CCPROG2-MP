@@ -12,7 +12,7 @@
 #ifndef ENCRYPTION_FUNCTIONS
 #define ENCRYPTION_FUNCTIONS
 
-void encrypt(char *plaintext, char *username, Config *config, char *output);
-void decrypt(char *ciphertext, char *username, Config *config, char *output);
+void encrypt(char *plaintext, Config *config, char *output);
+void decrypt(char *ciphertext, Config *config, char *output);
 
 #endif

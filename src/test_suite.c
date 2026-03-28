@@ -70,7 +70,6 @@ void encryptionTest() {
 
     Config config = getConfig();
     char string[10] = "Hello";
-    char username[10] = "MERK";
     char output1[10] = "", output2[10] = "";
     printf("=== [ ENCRYPT / DECRYPT TEST ] ===\n\n");
 
@@ -79,10 +78,9 @@ void encryptionTest() {
     printf(" === [ ENCRYPTION TEST ] ===\n\n");
 
     printf("Plaintext: %s\n", string);
-    printf("Username: %s\n", username);
     printf("Encryption Key: %s\n", config.encryptionKey);
 
-    encrypt(string, username, &config, output1);
+    encrypt(string, &config, output1);
     
     printf("Output of encryption: %s\n\n", output1);
 
@@ -92,7 +90,7 @@ void encryptionTest() {
 
     printf("Ciphertext: %s\n", output1);
 
-    decrypt(output1, username, &config, output2);
+    decrypt(output1, &config, output2);
 
     printf("Output of decryption: %s\n\n", output2);
 

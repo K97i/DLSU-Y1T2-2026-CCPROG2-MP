@@ -19,9 +19,10 @@ void firstMenu(UserData *userData, Config *config) {
         printf("=== [ CHARDEX ] ===\n\n");
         printf("[1] Login\n");
         printf("[2] Register\n");
-        printf("[3] Test Suite (will reset everything!)\n");
-        printf("[4] Exit\n\n");
-        select = menuInputInt(1, 4);
+        printf("[3] Reset Password\n");
+        printf("[4] Test Suite (will reset everything!)\n");
+        printf("[5] Exit\n\n");
+        select = menuInputInt(1, 5);
 
         printf("\n");
 
@@ -35,14 +36,19 @@ void firstMenu(UserData *userData, Config *config) {
             case 2:
                 registerMenu(userData, config);
                 break;
+
+            // Password Reset
+            case 3:
+                resetPasswordMenu(userData, config);
+                break;
             
             // Test Suite
-            case 3:
+            case 4:
                 testSuite();
                 break;
             
             // Exit
-            case 4:
+            case 5:
                 exit = 1;
                 break;
 

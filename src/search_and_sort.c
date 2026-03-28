@@ -23,17 +23,15 @@ int UserSearch(UserData *userData, char *username, User *target) {
 	int start = 0, end = userData->currentUserCount - 1, flag = 0;
 
 	// if only one user
-	if (userData->currentUserCount - 1 == 0) {
+	if (userData->currentUserCount - 1 == 0 && !strcmp(userData->users[0].username, username)) {
 		*target = userData->users[0];
 		flag = 1;
 	} 
 	
 	else {
-		while(flag != 1 && start < end) {
+		while(flag != 1 && start <= end) {
 			int mid = (start + end) / 2;
 
-			printf("Current UN: %s\n", userData->users[mid].username);
-			
 			if(strcmp(userData->users[mid].username, username) == 0) {
 				*target = userData->users[mid];
 				flag = 1;
@@ -61,7 +59,7 @@ int UserSearch(UserData *userData, char *username, User *target) {
 int SpeciesSearch(Species database[], int speciesCount, char *species, Species *target) {
 	int start = 0, end = speciesCount - 1, flag = 0;
 	
-	while(flag != 1 && start < end) {
+	while(flag != 1 && start <= end) {
 		int mid = (start + end) / 2;
 		
 		if(strcmp(database[mid].name, species) == 0) {

@@ -73,13 +73,15 @@ void loginMenu(UserData *userData, Config *config) {
 
             printf("Enter Password: ");
             safeStringScanf(temp, UN_PW_LENGTH);
-            encrypt(temp, user.username, config, user.password);
+            encrypt(temp, config, user.password);
 
             if (!strcmp("[EXIT]", temp))
                 exitFlag = 1;
 
-            else if (!strcmp(user.password, retrieved.password))
+            else if (!strcmp(user.password, retrieved.password)){
                 user = retrieved;
+                pwFlag = 1;
+            }
 
             else {
                 if (failCounter > 0) {
@@ -151,11 +153,16 @@ void registerMenu(UserData *userData, Config *config) {
             else if (checkIfBanned(temp))
                 printf("Invalid Password! (part of banned words list)\n");
 
+            else if (!strcmp(user.username, temp))
+                printf("Invalid Password! (password cannot be the same as the username)\n");
+
             else {
-                encrypt(temp, user.username, config, user.password);
+                encrypt(temp, config, user.password);
+                
                 printf("Confirm password: ");
                 safeStringScanf(temp, UN_PW_LENGTH);
-                encrypt(temp, user.username, config, temp);
+                
+                encrypt(temp, config, temp);
 
                 if (!strcmp(user.password, temp)){
                     pwFlag = 1;
@@ -207,5 +214,90 @@ void registerMenu(UserData *userData, Config *config) {
     
     else {
         printf("Sorry! Maximum amount of users are registered.\n");
+    }
+}
+
+void resetPasswordMenu(UserData *userData, Config *config) {
+    if (userData->currentUserCount < 1) {
+        printf("No users registered!\n");
+    }
+
+    else {
+        User user = { 0 };
+        char temp[UN_PW_LENGTH] = "";
+        int unFlag = 0, overrideFlag = 0, pwFlag = 0, exitFlag = 0;
+
+        printf("=== [ PASSWORD RESET ] ===\n\n");
+        printf("Enter \"[EXIT]\" to exit this menu at any time.\n");
+
+        while (!unFlag && !exitFlag) {
+            printf("Enter Username: ");
+            safeStringScanf(user.username, UN_PW_LENGTH);
+
+            if (!strcmp("[EXIT]", user.username))
+                exitFlag = 1;
+
+            else if (UserSearch(userData, user.username, &user))
+                unFlag = 1;
+
+            else
+                printf("Username not found!\n");
+        }
+
+        while (!overrideFlag && !exitFlag) {
+            printf("Enter override key: ");
+            safeStringScanf(temp, CONFIG_STRING_LEN);
+
+            if (!strcmp("[EXIT]", user.username))
+                exitFlag = 1;
+
+            else if (!strcmp(temp, config->administratorKey))
+                overrideFlag = 1;
+
+            else {
+                printf("Invalid override key!\n");
+            }
+            
+        }
+
+        if (unFlag && overrideFlag && !exitFlag) {
+            while (!pwFlag && !exitFlag) {
+
+                printf("Enter Password: ");
+                safeStringScanf(temp, UN_PW_LENGTH);
+
+                if (!strcmp("[EXIT]", temp))
+                    exitFlag = 1;
+
+                else if (checkIfBanned(temp))
+                    printf("Invalid Password! (part of banned words list)\n");
+
+                else if (!strcmp(user.username, temp))
+                    printf("Invalid Password! (password cannot be the same as the username)");
+
+                else {
+                    encrypt(temp, config, user.password);
+                    printf("Confirm password: ");
+                    safeStringScanf(temp, UN_PW_LENGTH);
+                    encrypt(temp, config, temp);
+
+                    if (!strcmp(user.password, temp)){
+                        pwFlag = 1;
+                        printf("Confirmation success!\n");
+                        printf("Password reset successful! Login to Chardex using the new password.\n");
+                        updateUser(userData, &user);
+                    }
+
+                    else if (!strcmp("[EXIT]", temp))
+                        exitFlag = 1;
+
+                    else
+                        printf("Confirmation mismatch!\n");
+                }
+
+            }
+
+        }
+
     }
 }

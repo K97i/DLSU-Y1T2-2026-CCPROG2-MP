@@ -17,5 +17,6 @@
 
 void loginMenu(UserData *userData, Config *config);
 void registerMenu(UserData *userData, Config *config);
+void resetPasswordMenu(UserData *userData, Config *config);
 
 #endif

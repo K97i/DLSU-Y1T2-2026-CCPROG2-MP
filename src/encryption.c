@@ -9,26 +9,22 @@
 
 */
 
+#include <stdio.h>
 #include <string.h>
 
 #include "config_struct.h"
 
-void encrypt(char *plaintext, char *username, Config *config, char *output) {
-
-    // Encrypt with Username
-
-    for (int i = 0; i < (int) strlen(plaintext); i++) {
-        output[i] = plaintext[i] ^ username[i % (int) strlen(username)]; 
-    }
+void encrypt(char *plaintext, Config *config, char *output) {
 
     // Encrypt with encryption key
 
-    for (int i = 0; i < (int) strlen(output); i++) {
-        output[i] = output[i] ^ config->encryptionKey[i % (int) strlen(config->encryptionKey)]; 
+    for (int i = 0; i < (int) strlen(plaintext); i++) {
+        output[i] = plaintext[i] ^ config->encryptionKey[i % (int) strlen(config->encryptionKey)]; 
     }
+
 }
 
-void decrypt(char *ciphertext, char *username, Config *config, char *output) {
+void decrypt(char *ciphertext, Config *config, char *output) {
 
     // Decrypt with encryption key
 
@@ -36,9 +32,4 @@ void decrypt(char *ciphertext, char *username, Config *config, char *output) {
         output[i] = ciphertext[i] ^ config->encryptionKey[i % (int) strlen(config->encryptionKey)]; 
     }
 
-    // Decrypt with Username
-
-    for (int i = 0; i < (int) strlen(output); i++) {
-        output[i] = output[i] ^ username[i % (int) strlen(username)]; 
-    }
 }
