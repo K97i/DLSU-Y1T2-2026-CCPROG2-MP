@@ -22,4 +22,7 @@ int resetConfig();
 void getUsers(UserData *userData);
 int setUsers(const UserData *userData);
 
+void getSpecies(SDB *sDB);
+int setSpecies(SDB *sDB);
+
 #endif

@@ -13,7 +13,8 @@
 #define USER_MENU
 
 #include "user_struct.h"
+#include "species_struct.h"
 
-void userMenu(UserData *userData, User *user);
+void userMenu(UserData *userData, int userIndex, SDB *sDB);
 
 #endif

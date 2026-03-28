@@ -173,7 +173,7 @@ int setUsers(const UserData *userData) {
     Sets species data
 
 */
-int getSpecies(SDB *sDB) {
+void getSpecies(SDB *sDB) {
     FILE *fptr;
     fptr = fopen("species.txt", "r");
 

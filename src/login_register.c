@@ -20,6 +20,7 @@
 #include "file_operation.h"
 #include "user_array_operations.h"
 #include "user_menu.h"
+#include "species_struct.h"
 
 #define BANNED_WORDS_LIST 2
 
@@ -49,21 +50,21 @@ void loginMenu(UserData *userData, Config *config) {
     }
 
     else {
-        User user = { 0 }, retrieved = { 0 };
         char temp[UN_PW_LENGTH] = "";
-        int unFlag = 0, pwFlag = 0, exitFlag = 0, failCounter = 3;
+        int unFlag = 0, pwFlag = 0, exitFlag = 0, failCounter = 3, index = -1;
 
         printf("=== [ LOGIN ] ===\n\n");
         printf("Enter \"[EXIT]\" to exit this menu at any time.\n");
 
         while (!unFlag && !exitFlag) {
             printf("Enter Username: ");
-            safeStringScanf(user.username, UN_PW_LENGTH);
+            safeStringScanf(temp, UN_PW_LENGTH);
+            index = UserSearch(userData, temp);
 
-            if (!strcmp("[EXIT]", user.username))
+            if (!strcmp("[EXIT]", temp))
                 exitFlag = 1;
 
-            else if (UserSearch(userData, user.username, &retrieved))
+            else if (index != -1)
                 unFlag = 1;
 
             else
@@ -74,15 +75,13 @@ void loginMenu(UserData *userData, Config *config) {
 
             printf("Enter Password: ");
             safeStringScanf(temp, UN_PW_LENGTH);
-            encrypt(temp, config, user.password);
+            encrypt(temp, config, temp);
 
             if (!strcmp("[EXIT]", temp))
                 exitFlag = 1;
 
-            else if (!strcmp(user.password, retrieved.password)){
-                user = retrieved;
+            else if (!strcmp(userData->users[index].password, temp))
                 pwFlag = 1;
-            }
 
             else {
                 if (failCounter > 0) {
@@ -102,12 +101,15 @@ void loginMenu(UserData *userData, Config *config) {
         if (unFlag && pwFlag && !exitFlag) {
             printf("Logged in.\n\n");
 
-            if (user.administrator) {
-                // adminMenu(userData, &user); 
+            SDB sDB;
+            getSpecies(&sDB);
+
+            if (userData->users[index].administrator) {
+                // adminMenu(userData, &user, &sDB); 
             }
 
             else {
-                userMenu(userData, &user);
+                userMenu(userData, index, &sDB);
             }
         }
 
@@ -119,7 +121,7 @@ void loginMenu(UserData *userData, Config *config) {
 void registerMenu(UserData *userData, Config *config) {
 
     if (userData->currentUserCount < USER_LIMIT) {
-        User user = { 0 }, tempSearch = { 0 };
+        User user = { 0 };
         char temp[UN_PW_LENGTH] = "", select = '\0';
         int unFlag = 0, pwFlag = 0, exitFlag = 0, adminFlag = 0;
 
@@ -129,19 +131,21 @@ void registerMenu(UserData *userData, Config *config) {
         while (!unFlag && !exitFlag) {
 
             printf("Enter Username: ");
-            safeStringScanf(user.username, UN_PW_LENGTH);
+            safeStringScanf(temp, UN_PW_LENGTH);
             
-            if (!strcmp("[EXIT]", user.username))
+            if (!strcmp("[EXIT]", temp))
                 exitFlag = 1;
 
-            else if (checkIfBanned(user.username))
+            else if (checkIfBanned(temp))
                 printf("Invalid Username! (part of banned words list)\n");
 
-            else if (UserSearch(userData, user.username, &tempSearch))
+            else if (UserSearch(userData, temp) != -1)
                 printf("User already exists!\n");
 
-            else
+            else{
+                strcpy(user.username, temp);
                 unFlag = 1;
+            }
 
         }
 
@@ -207,12 +211,12 @@ void registerMenu(UserData *userData, Config *config) {
                 printf("Registering as normal user...\n");
             }
 
+            addUser(userData, &user);
             printf("Registered! Login to account to use Chardex.\n");
             adminFlag = 1;
             
         }
 
-        addUser(userData, &user);
     }
     
     else {
@@ -228,21 +232,21 @@ void resetPasswordMenu(UserData *userData, Config *config) {
     }
 
     else {
-        User user = { 0 };
-        char temp[UN_PW_LENGTH] = "";
-        int unFlag = 0, overrideFlag = 0, pwFlag = 0, exitFlag = 0;
+        char temp[UN_PW_LENGTH] = "", encrypted[UN_PW_LENGTH] = "";
+        int unFlag = 0, overrideFlag = 0, pwFlag = 0, exitFlag = 0, index = -1;
 
         printf("=== [ PASSWORD RESET ] ===\n\n");
         printf("Enter \"[EXIT]\" to exit this menu at any time.\n");
 
         while (!unFlag && !exitFlag) {
             printf("Enter Username: ");
-            safeStringScanf(user.username, UN_PW_LENGTH);
+            safeStringScanf(temp, UN_PW_LENGTH);
+            index = UserSearch(userData, temp);
 
-            if (!strcmp("[EXIT]", user.username))
+            if (!strcmp("[EXIT]", temp))
                 exitFlag = 1;
 
-            else if (UserSearch(userData, user.username, &user))
+            else if (index != -1)
                 unFlag = 1;
 
             else
@@ -253,7 +257,7 @@ void resetPasswordMenu(UserData *userData, Config *config) {
             printf("Enter override key: ");
             safeStringScanf(temp, CONFIG_STRING_LEN);
 
-            if (!strcmp("[EXIT]", user.username))
+            if (!strcmp("[EXIT]", temp))
                 exitFlag = 1;
 
             else if (!strcmp(temp, config->administratorKey))
@@ -270,6 +274,7 @@ void resetPasswordMenu(UserData *userData, Config *config) {
 
                 printf("Enter Password: ");
                 safeStringScanf(temp, UN_PW_LENGTH);
+                encrypt(temp, config, encrypted);
 
                 if (!strcmp("[EXIT]", temp))
                     exitFlag = 1;
@@ -277,20 +282,23 @@ void resetPasswordMenu(UserData *userData, Config *config) {
                 else if (checkIfBanned(temp))
                     printf("Invalid Password! (part of banned words list)\n");
 
-                else if (!strcmp(user.username, temp))
-                    printf("Invalid Password! (password cannot be the same as the username)");
+                else if (!strcmp(userData->users[index].username, temp))
+                    printf("Invalid Password! (password cannot be the same as the username)\n");
+
+                else if (!strcmp(userData->users[index].password, encrypted))
+                    printf("Invalid Password! (password cannot be the same as the old password)\n");
 
                 else {
-                    encrypt(temp, config, user.password);
                     printf("Confirm password: ");
                     safeStringScanf(temp, UN_PW_LENGTH);
                     encrypt(temp, config, temp);
 
-                    if (!strcmp(user.password, temp)){
+                    if (!strcmp(userData->users[index].password, temp)){
+                        strcpy(userData->users[index].password, temp);
+                        setUsers(userData);
                         pwFlag = 1;
                         printf("Confirmation success!\n");
                         printf("Password reset successful! Login to Chardex using the new password.\n");
-                        updateUser(userData, &user);
                     }
 
                     else if (!strcmp("[EXIT]", temp))

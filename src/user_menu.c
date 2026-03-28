@@ -13,14 +13,15 @@
 #include <string.h>
 
 #include "user_struct.h"
+#include "species_struct.h"
 #include "string_helpers.h"
 
-void userMenu(UserData *userData, User *user) {
+void userMenu(UserData *userData, int userIndex, SDB *sDB) {
     int exit = 0, select = 0;
 
     // while not exit...
     while (!exit) {
-        printf("=== [ WELCOME %s. ] ===\n\n", user->username);
+        printf("=== [ WELCOME %s. ] ===\n\n", userData->users[userIndex].username);
         printf("[1] Own Pokedex\n");
         printf("[2] Species Database\n");
         printf("[3] Leaderboard\n");
@@ -32,17 +33,17 @@ void userMenu(UserData *userData, User *user) {
         switch (select) {
             // Own Pokedex
             case 1:
-                // ownPokedexMenu(userData, user, SDB);
+                // ownPokedexMenu(userData, userIndex, sDB);
                 break;
 
             // Species Database
             case 2:
-                // speciesDatabaseUserMenu(SDB);
+                // speciesDatabaseUserMenu(sDB);
                 break;
 
             // Leaderboard
             case 3:
-                // leaderboardMenu(userData, SDB);
+                // leaderboardMenu(userData, sDB);
                 break;
             
             // Exit
@@ -56,12 +57,12 @@ void userMenu(UserData *userData, User *user) {
     }
 }
 
-void adminMenu(UserData *userData, User *user) {
+void adminMenu(UserData *userData, int userIndex, SDB *sDB) {
     int exit = 0, select = 0;
 
     // while not exit...
     while (!exit) {
-        printf("=== [ WELCOME %s! ] ===\n\n", user->username);
+        printf("=== [ WELCOME %s! ] ===\n\n", userData->users[userIndex].username);
         printf("[1] Own Pokedex\n");
         printf("[2] Species Database (admin)\n");
         printf("[3] Leaderboard\n");
@@ -73,17 +74,17 @@ void adminMenu(UserData *userData, User *user) {
         switch (select) {
             // Own Pokedex
             case 1:
-                // ownPokedexMenu(userData, user, SDB);
+                // ownPokedexMenu(userData, userIndex, sDB);
                 break;
 
             // Species Database
             case 2:
-                // speciesDatabaseAdminMenu(SDB);
+                // speciesDatabaseAdminMenu(sDB);
                 break;
 
             // Leaderboard
             case 3:
-                // leaderboardMenu(userData, SDB);
+                // leaderboardMenu(userData, sDB);
                 break;
             
             // Exit
