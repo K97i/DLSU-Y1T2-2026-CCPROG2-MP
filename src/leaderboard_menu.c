@@ -48,8 +48,10 @@ void leaderboardMenu(UserData userData, SDB speciesDataBase) {
 }
 
 void UserLeaderboard(UserData database) {
-	int exit = 0, select = 0;
+	int exit = 0, select = 0, sum = 0;
+	float averageSpU = 0.0;
 
+	//Sorts the database by species count in descending order
 	for(int i = 0; i < database.currentUserCount - 1; i++) {
 		int first = i;
 		
@@ -66,6 +68,12 @@ void UserLeaderboard(UserData database) {
 		}
 	}
 
+	//Solves for the average of species per user
+	for(int k = 0; k < database.currentUserCount; k++) {
+		sum += database.users[k].currentSpeciesCount;
+	}
+	averageSpU = sum / database.currentUserCount;
+
 	printf(" [ USER LEADERBOARD ] \n");
 	//Displays Top 10
 	for(int r = 1; r <= 10 && r <= database.currentUserCount; r++) {
@@ -79,6 +87,7 @@ void UserLeaderboard(UserData database) {
     printf("[2] Exit Menu\n");
 		select = menuInputInt(1, 2);
 		
+		printf("\n Average Species per User: %.2f\n", averageSpU);
 		printf("\n");
 
     switch (select) {
