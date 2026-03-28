@@ -5,7 +5,7 @@
 	Functions that will perform the searching and sorting algorithms for the different databases
 	
 	Author: SACRAMENTO, Yvan Gregorio A.
-	Last Modified: 3-26-2026
+	Last Modified: 3-28-2026
 */
 
 #include <stdio.h>
@@ -15,9 +15,7 @@
 #include "species_struct.h"
 /*
 	Uses binary search
-	param target stores the searched user
-	returns flag to determine if found
-	to update to UserData
+	return flag returns the index
 */
 int UserSearch(const UserData *userData, char *username) {
 	int start = 0, end = userData->currentUserCount - 1, flag = -1;
@@ -41,9 +39,7 @@ int UserSearch(const UserData *userData, char *username) {
 
 /*
 	Uses binary search
-	param target stores the searched species
-	returns flag to determine if found
-	to update to SpeciesData
+	return flag returns the index
 */
 int SpeciesDataBaseSearch(const SDB *database, char *species) {
 	int start = 0, end = database->currentSpeciesCount - 1, flag = -1;
@@ -67,7 +63,6 @@ int SpeciesDataBaseSearch(const SDB *database, char *species) {
 
 /*
 	Uses selection sort
-	to update to UserData
 */
 void UserSort(UserData *database) {
 	
@@ -90,7 +85,6 @@ void UserSort(UserData *database) {
 
 /*
 	Uses selection sort
-	to update to SpeciesData
 */
 void SpeciesSort(SDB *database) {
 	
@@ -111,6 +105,10 @@ void SpeciesSort(SDB *database) {
 	}
 }
 
+/*
+	Uses binary search
+	return flag returns the index
+*/
 int SpeciesUserSearch(const User *data, char *species) {
 	int start = 0, end = data->currentSpeciesCount - 1, flag = -1;
 	
@@ -131,6 +129,9 @@ int SpeciesUserSearch(const User *data, char *species) {
 	return flag;
 }
 
+/*
+	Uses selection sort
+*/
 void SpeciesUserSort(User *data) {
 
 	for(int i = 0; i < data->currentSpeciesCount - 2; i++) {
