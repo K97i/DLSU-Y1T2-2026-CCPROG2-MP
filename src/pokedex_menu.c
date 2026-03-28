@@ -84,7 +84,7 @@ void editPokedex(UserData *userData, int userIndex, SDB *sDB) {
             
             // Remove from Pokedex
             case 2:
-                // removeFromPokedex(userData, userIndex);
+                // removeFromPokedex(userData, userIndex, sDB);
                 break;
             
             // Exit
@@ -95,6 +95,99 @@ void editPokedex(UserData *userData, int userIndex, SDB *sDB) {
         }
 
     }
+}
+
+void addToPokedex(UserData *userData, int userIndex, SDB *sDB) {
+    char species[WORD_LIMIT] = { 0 };
+    int sex = 0, age = 0, select = 0, i = userData->users[userIndex].currentSpeciesCount;
+    float height = 0.0, weight = 0.0;
+
+    printf("Enter the species you want to add: ");
+    safeCharScanf(species);
+
+    int index = SpeciesDataBaseSearch(sDB, species); //searches the Species Database if it's in the list
+    int flag = SpeciesUserSearch(&userData->users[userIndex], species); //searches the pokedex of the user
+
+    if(index != -1 && flag == -1) { //checks if the species exist in the database and the user doesn't have it yet in their pokedex
+        printf("Input the Height of the Species: ");
+        scanf("%f", height);
+        printf("Input the Weight of the Species: ");
+        scanf("%f", weight);
+        printf("Input the Age of the Species: ");
+        scanf("%d", age);
+        printf("Input the Sex of the Species (1-male, 2-female, and 0-undefined): ");
+        scanf("%d", sex);
+
+        printf("\nConfirm Addtion?\n");
+        printf("[1] yes\n");
+        printf("[2] no\n");
+        select = menuInputInt(1,2);
+
+        printf("\n");
+
+        switch(select) {
+            // Add the data into the user's pokedex
+            case 1:
+                strcpy(userData->users[userIndex].species[i-1].name, species);
+                userData->users[userIndex].species[i-1].height = height;
+                userData->users[userIndex].species[i-1].weight = weight;
+                userData->users[userIndex].species[i-1].age = age;
+                userData->users[userIndex].species[i-1].sex = sex;
+                userData->users->currentSpeciesCount++;
+                break;
+            
+            // Cancels
+            case 2:
+                printf("Addition successfully canceled\n");
+                break;
+        }
+    }
+    else
+        printf("Not a valid species\n");
+}
+
+void removeFromPokedex(UserData *userData, int userIndex) {
+    char species[WORD_LIMIT] = { 0 };
+    int select = 0;
+
+    printf("Enter the species you want to remove: ");
+    safeCharScanf(species);
+
+    int index = SpeciesUserSearch(&userData->users[userIndex], species); //searches the User's Database if it's in the list
+
+    if(index != -1) {
+        printf("\nConfirm Removal?\n");
+        printf("[1] yes\n");
+        printf("[2] no\n");
+        select = menuInputInt(1,2);
+
+        printf("\n");
+
+        switch(select) {
+            //Remove the data in the user's pokedex
+            case 1:
+                strcpy(userData->users[userIndex].species[index].name, "");
+                userData->users[userIndex].species[index].height = 0.0;
+                userData->users[userIndex].species[index].weight = 0.0;
+                userData->users[userIndex].species[index].age = 0;
+                userData->users[userIndex].species[index].sex = 0;
+
+                //shifts the pokedex entries 
+                for(int i = index; i < userData->users[userIndex].currentSpeciesCount - 1; i++) {
+                    userData->users[userIndex].species[i] = userData->users[userIndex].species[i++];
+                }
+                userData->users->currentSpeciesCount--;
+                break;
+            
+            //Cancels
+            case 2:
+                printf("Removal successfully canceled\n");
+                break;
+        }
+    }
+    else
+        printf("This species is not in your pokedex\n");
+
 }
 
 void displayPokedex(UserData *userData, int userIndex, SDB *sDB) {
