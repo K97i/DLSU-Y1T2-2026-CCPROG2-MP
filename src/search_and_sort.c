@@ -66,7 +66,7 @@ int SpeciesDataBaseSearch(const SDB *database, char *species) {
 */
 void UserSort(UserData *database) {
 	
-	for(int i = 0; i < database->currentUserCount - 2; i++) {
+	for(int i = 0; i < database->currentUserCount - 1; i++) {
 		int first = i;
 		
 		//loops through the rest of the array
@@ -88,7 +88,7 @@ void UserSort(UserData *database) {
 */
 void SpeciesSort(SDB *database) {
 	
-	for(int i = 0; i < database->currentSpeciesCount - 2; i++) {
+	for(int i = 0; i < database->currentSpeciesCount - 1; i++) {
 		int first = i;
 		
 		//loops through the rest of the array
@@ -134,7 +134,7 @@ int SpeciesUserSearch(const User *data, char *species) {
 */
 void SpeciesUserSort(User *data) {
 
-	for(int i = 0; i < data->currentSpeciesCount - 2; i++) {
+	for(int i = 0; i < data->currentSpeciesCount - 1; i++) {
 		int first = i;
 		
 		//loops through the rest of the array
