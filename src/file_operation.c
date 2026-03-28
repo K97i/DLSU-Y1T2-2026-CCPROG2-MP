@@ -6,7 +6,7 @@
     Specifically get-set operations for the config file, user database, and species database.
 
     Author: EBORDE, Mikaelo D.
-    Last Modified: 3-27-2026
+    Last Modified: 3-28-2026
 
 */
 
@@ -114,8 +114,7 @@ void getUsers(UserData *userData) {
                                                 &userData->users[i].currentSpeciesCount);
 
             for (int j = 0 ; j < userData->users[i].currentSpeciesCount ; j++) {
-                fscanf(fptr, "%s , %s , %f , %f , %d , %d",   userData->users[i].species[j].name,
-                                                                userData->users[i].species[j].biome,
+                fscanf(fptr, "%s , %f , %f , %d , %d",   userData->users[i].species[j].name,
                                                                 &userData->users[i].species[j].height,
                                                                 &userData->users[i].species[j].weight,
                                                                 &userData->users[i].species[j].sex,
@@ -152,13 +151,61 @@ int setUsers(const UserData *userData) {
                                                     userData->users[i].currentSpeciesCount);
 
             for (int j = 0 ; j < userData->users[i].currentSpeciesCount ; j++) {
-                fprintf(fptr, "%s , %s , %f , %f , %d , %d\n",  userData->users[i].species[j].name,
-                                                                userData->users[i].species[j].biome,
+                fprintf(fptr, "%s , %f , %f , %d , %d\n",  userData->users[i].species[j].name,
                                                                 userData->users[i].species[j].height,
                                                                 userData->users[i].species[j].weight,
                                                                 userData->users[i].species[j].sex,
                                                                 userData->users[i].species[j].age);
             }
+        }
+
+        flag = 1;
+        fclose(fptr);
+    }
+
+    return flag;
+}
+
+/*
+
+    getSpecies()
+
+    Sets species data
+
+*/
+int getSpecies(SDB *sDB) {
+    FILE *fptr;
+    fptr = fopen("species.txt", "r");
+
+    if (fptr != NULL) {
+        fseek(fptr, 0, SEEK_SET);
+        fscanf(fptr, "%d", &sDB->currentSpeciesCount);
+
+        for (int i = 0 ; i < sDB->currentSpeciesCount ; i++) {
+            fscanf(fptr, "%s , %s , %d", sDB->species[i].name, 
+                                                sDB->species[i].biome,
+                                                &sDB->species[i].userInputCount);
+        }
+
+        fclose(fptr);
+    }
+
+}
+
+int setSpecies(SDB *sDB) {
+    int flag = 0;
+
+    FILE *fptr;
+    fptr = fopen("species.txt", "w");
+
+    if (fptr != NULL) {
+        fseek(fptr, 0, SEEK_SET);
+        fprintf(fptr, "%d\n", sDB->currentSpeciesCount);
+
+        for (int i = 0 ; i < sDB->currentSpeciesCount ; i++) {
+            fprintf(fptr, "%s , %s , %d", sDB->species[i].name, 
+                                                sDB->species[i].biome,
+                                                sDB->species[i].userInputCount);
         }
 
         flag = 1;

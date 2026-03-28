@@ -5,7 +5,7 @@
     Header file to define the User struct
 
     Author: EBORDE, Mikaelo D.
-    Last Modified: 3-26-2026
+    Last Modified: 3-28-2026
 
 */
 
@@ -19,10 +19,10 @@
 
 typedef struct {
 	Species species[SPECIES_LIMIT];
-    int currentSpeciesCount;
-    int administrator;
     char username[UN_PW_LENGTH];
     char password[UN_PW_LENGTH];
+    int currentSpeciesCount;
+    int administrator;
 } User;
 
 // to save to database
