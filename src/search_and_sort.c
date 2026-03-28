@@ -19,16 +19,14 @@
 	returns flag to determine if found
 	to update to UserData
 */
-int UserSearch(const UserData *userData, char *username, User *target) {
-	int start = 0, end = userData->currentUserCount - 1, index = -1, flag = 0;
+int UserSearch(const UserData *userData, char *username) {
+	int start = 0, end = userData->currentUserCount - 1, flag = -1;
 	
-	while(flag != 1 && start < end) {
+	while(flag == -1 && start < end) {
 		int mid = (start + end) / 2;
 		
 		if(strcmp(userData->users[mid].username, username) == 0) {
-			*target = userData->users[mid];
-			flag = 1;
-			index = mid;
+			flag = mid;
 		}
 		else if(strcmp(userData->users[mid].username, username) < 0) { //searches upper half
 			start = mid + 1;
@@ -38,7 +36,7 @@ int UserSearch(const UserData *userData, char *username, User *target) {
 		}
 	}
 	
-	return index;
+	return flag;
 }
 
 /*
@@ -47,16 +45,14 @@ int UserSearch(const UserData *userData, char *username, User *target) {
 	returns flag to determine if found
 	to update to SpeciesData
 */
-int SpeciesDataBaseSearch(const SDB *database, char *species, SpeciesData *target) {
-	int start = 0, end = database->currentSpeciesCount - 1, flag = 0, index = -1;
+int SpeciesDataBaseSearch(const SDB *database, char *species) {
+	int start = 0, end = database->currentSpeciesCount - 1, flag = -1;
 	
-	while(flag != 1 && start < end) {
+	while(flag == -1 && start < end) {
 		int mid = (start + end) / 2;
 		
 		if(strcmp(database->species[mid].name, species) == 0) {
-			*target = database->species[mid];
-			flag = 1;
-			index = mid;
+			flag = mid;
 		}
 		else if(strcmp(database->species[mid].name, species) < 0) { //searches upper half
 			start = mid + 1;
@@ -66,7 +62,7 @@ int SpeciesDataBaseSearch(const SDB *database, char *species, SpeciesData *targe
 		}
 	}
 	
-	return index;
+	return flag;
 }
 
 /*
