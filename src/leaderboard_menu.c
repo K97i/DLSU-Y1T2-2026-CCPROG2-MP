@@ -50,7 +50,7 @@ void leaderboardMenu(UserData userData, SDB speciesDataBase) {
 void UserLeaderboard(UserData database) {
 	int exit = 0, select = 0;
 
-	for(int i = 0; i < database.currentUserCount - 2; i++) {
+	for(int i = 0; i < database.currentUserCount - 1; i++) {
 		int first = i;
 		
 		//loops through the rest of the array
@@ -106,7 +106,7 @@ void UserLeaderboard(UserData database) {
 void SpeciesLeaderboard(SDB database) {
 	int exit = 0, select = 0;
 
-  for(int i = 0; i < database.currentSpeciesCount - 2; i++) {
+  for(int i = 0; i < database.currentSpeciesCount - 1; i++) {
 		int first = i;
 		
 		//loops through the rest of the array
