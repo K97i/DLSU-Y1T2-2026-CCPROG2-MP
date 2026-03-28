@@ -106,47 +106,16 @@ void SpeciesSort(SDB *database) {
 }
 
 /*
-	Uses binary search
+	Uses linear search
 	return flag returns the index
 */
 int SpeciesUserSearch(const User *data, char *species) {
-	int start = 0, end = data->currentSpeciesCount - 1, flag = -1;
+	int flag = -1;
 	
-	while(flag == -1 && start <= end) {
-		int mid = (start + end) / 2;
-		
-		if(strcmp(data->species[mid].name, species) == 0) {
-			flag = mid;
-		}
-		else if(strcmp(data->species[mid].name, species) < 0) { //searches upper half
-			start = mid + 1;
-		}
-		else if(strcmp(data->species[mid].name, species) > 0) { //searches lower half
-			end = mid - 1;
-		}
+	for(int i = 0; i < data->currentSpeciesCount; i++) {
+		if(strcmp(data->species[i].name, species) == 0)
+			flag = i;
 	}
-	
+
 	return flag;
-}
-
-/*
-	Uses selection sort
-*/
-void SpeciesUserSort(User *data) {
-
-	for(int i = 0; i < data->currentSpeciesCount - 1; i++) {
-		int first = i;
-		
-		//loops through the rest of the array
-		for(int j = i + 1; j < data->currentSpeciesCount; j++) {
-			if(strcmp(data->species[first].name, data->species[j].name) > 0)
-				first = j;
-		}
-		//swapping the structs
-		if(first != i) {
-			Species temp = data->species[i];
-			data->species[i] = data->species[first];
-			data->species[first] = temp;
-		}
-	}
 }
