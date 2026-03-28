@@ -72,7 +72,7 @@ void UserLeaderboard(UserData database) {
 		printf("%d. %s %d %s\n", r, 
 														database.users[r-1].username, 
 														database.users[r-1].administrator, 
-														database.users[r-1].species[database.users[r-1].currentSpeciesCount]);
+														database.users[r-1].species[database.users[r-1].currentSpeciesCount-1].name);
 	}
 	while(!exit) {
 		printf("[1] Search Username\n");
@@ -93,7 +93,7 @@ void UserLeaderboard(UserData database) {
 				printf("%s %d %s\n", 
 														database.users[index].username, 
 														database.users[index].administrator, 
-														database.users[index].species[database.users[index].currentSpeciesCount]);
+														database.users[index].species[database.users[index].currentSpeciesCount-1].name);
 				break;
 			
 			// Exit Menu
