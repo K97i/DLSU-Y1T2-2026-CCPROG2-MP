@@ -252,13 +252,10 @@ void addToPokedex(UserData *userData, int userIndex, SDB *sDB) {
                 setSpecies(sDB);
 
                 printf("Confirmed! Congratulations on your new specimen!\n");
-                printf("Happy hunting!\n");
-                printf("\n");
                 break;
 
             case 2:
                 printf("Addition cancelled.\n");
-                printf("\n");
                 exitFlag = 1;
                 break;
                 

@@ -40,6 +40,7 @@ void configTest() {
     // Sets config
     setConfig(configTest);
 
+    // Reads saved config
     configRead = getConfig();
 
     printf("Saved Override Key: %s\n", configRead.administratorKey);
@@ -203,14 +204,17 @@ void testSuite() {
             configTest();
             break;
 
+        // Encryption Test
         case 2:
             encryptionTest();
             break;
 
+        // User Database Test
         case 3:
             userTests();
             break;
 
+        // Input Tests
         case 4:
             inputTests();
             break;

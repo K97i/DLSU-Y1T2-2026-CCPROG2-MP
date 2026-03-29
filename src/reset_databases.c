@@ -4,6 +4,7 @@
 #include "user_struct.h"
 #include "species_struct.h"
 #include "config_struct.h"
+#include "encryption.h"
 #include "string_helpers.h"
 #include "file_operation.h"
 #include "search_and_sort.h"
@@ -25,6 +26,83 @@ void resetConfig(Config *config) {
 
     *config = configDefaults;
     setConfig(*config);
+}
+
+/*
+
+    @name   resetSpeciesToRealSpecies();
+
+    @brief  Fills the SpeciesDataBase with predefined real species
+
+
+*/
+void resetSpeciesToRealSpecies() {
+
+    SDB sDB = { 0 };
+
+    /*
+        Gray Wolf (Canis lupus)
+
+        Data sourced from:
+        https://nationalzoo.si.edu/animals/gray-wolf
+        https://www.sciencedirect.com/topics/agricultural-and-biological-sciences/canis-lupus
+    */
+    strcpy(sDB.species[0].name, "Canis lupus");
+    strcpy(sDB.species[0].biome, "Forest");
+    strcpy(sDB.species[0].description, "Canis lupus is commonly known as the wolf, from which the domestic dog, Canis lupus familiaris, is descended. It exhibits social structures that include dominance relationships within its social unit.");
+    sDB.species[0].conservationStatus = 2;
+
+    /*
+        Bobcat (Lynx rufus)
+
+        Data sourced from:
+        https://nationalzoo.si.edu/animals/bobcat
+    */
+    strcpy(sDB.species[1].name, "Lynx rufus");
+    strcpy(sDB.species[1].biome, "Forest");
+    strcpy(sDB.species[1].description, "Lynx rufus, commonly known as the bobcat, are often confused with the other three \"lynx\" species, the Canadian lynx, Iberian lynx and Eurasian lynx. Bobcats are slightly smaller than other lynx and live in warmer climates at lower latitudes.");
+    sDB.species[1].conservationStatus = 2;
+
+    /*
+        Tawny Owl (Strix aluco)
+
+        Data sourced from:
+        https://ebird.org/species/tawowl1
+        https://datazone.birdlife.org/species/factsheet/tawny-owl-strix-aluco
+    */
+    strcpy(sDB.species[2].name, "Strix aluco");
+    strcpy(sDB.species[2].biome, "Forest");
+    strcpy(sDB.species[2].description, "Strix aluco, commonly known as the tawny owl, are medium-sized owls with deep black eyes, strictly nocturnal and infrequently seen.");
+    sDB.species[2].conservationStatus = 2;
+
+    /*
+        Common snapping turtle (Chelydra serpentina)
+
+        Data sourced from:
+        https://animaldiversity.org/accounts/Chelydra_serpentina/
+        https://ontarionature.org/programs/community-science/reptile-amphibian-atlas/snapping-turtle/
+    */
+    strcpy(sDB.species[3].name, "Chelydra serpentina");
+    strcpy(sDB.species[3].biome, "Swamps");
+    strcpy(sDB.species[3].description, "Chelydra serpentina, commonly known as the common snapping turtle, normally has a shell length ranging from 8 -18 1/2\" and has a tail nearly as long as the shell.");
+    sDB.species[3].conservationStatus = 2;
+
+    /*
+        Koala (Phascolarctos cinereus)
+
+        Data sourced from:
+        https://animaldiversity.org/accounts/Chelydra_serpentina/
+        https://ontarionature.org/programs/community-science/reptile-amphibian-atlas/snapping-turtle/
+    */
+    strcpy(sDB.species[4].name, "Phascolarctos cinereus");
+    strcpy(sDB.species[4].biome, "Forest");
+    strcpy(sDB.species[4].description, "Phascolarctos cinereus is more commonly known as the koala. Virtually tailless, koala bodies are stout and gray, with a pale yellow or cream-coloured chest and mottling on the rump.");
+    sDB.species[4].conservationStatus = 1;
+
+    sDB.currentSpeciesCount = 5;
+
+    SpeciesDataBaseSort(&sDB); //Sorts the inputs
+    setSpecies(&sDB); //Writes it into the text file
 }
 
 /*
@@ -65,7 +143,7 @@ void resetSpeciesToPokemon() {
     strcpy(sDB.species[3].description, "The Fire Mouse Pokemon. It is timid, and always curls itself up in a ball. If attacked, it flares up its back for protection.");
     sDB.species[3].conservationStatus = 1;
 
-    // Cyndaquil
+    // Togepi
     strcpy(sDB.species[4].name, "Togepi");
     strcpy(sDB.species[4].biome, "Johto");
     strcpy(sDB.species[4].description, "The Spike Ball Pokemon. The shell seems to be filled with joy. It is said that it will share good luck when treated kindly.");
@@ -81,13 +159,32 @@ void resetSpeciesToPokemon() {
 
     @name   resetUserConfig();
 
-    @brief  Empties the UserData 
+    @brief  Resets UserData to default
 
     @param  *userData   Pointer to the array of users used globally
+    @param  *userData   Pointer to the configuration struct
 
 */
-void resetUserData(UserData *userData) {
+void resetUserData(UserData *userData, Config *config) {
     UserData clean = { 0 };
+    User new = { 0 }, reg = { 0 };
+
+    // Admin user
+    strcpy(new.username, "admin");
+    encrypt("Charmander!", config, new.password);
+    new.administrator = 1;
+
+    // Reg user
+    strcpy(reg.username, "test");
+    encrypt("notAdmin", config, reg.password);
+
+    // Set users to clean
+    clean.users[0] = new;
+    clean.users[1] = reg;
+    clean.currentUserCount = 2;
+
+    // Sort and save
+    UserSort(&clean);
     *userData = clean;
     setUsers(userData);
 }
@@ -159,9 +256,10 @@ void resetDatabases(UserData *userData, Config *config) {
     }
 
     if (firstConfirmation && secondConfirmation && overrideFlag && !exitFlag) {
-        resetUserData(userData);
-        resetSpeciesToPokemon();
         resetConfig(config);
+        resetUserData(userData, config);
+        //resetSpeciesToPokemon();
+        resetSpeciesToRealSpecies();
     }
 
 }
