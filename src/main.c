@@ -42,7 +42,7 @@ void firstMenu(UserData *userData, Config *config) {
         printf("[1] Login\n");
         printf("[2] Register\n");
         printf("[3] Reset Password\n");
-        printf("[4] Test Suite (will reset everything!)\n");
+        printf("[4] Test Suite\n");
         printf("[5] Reset Databases\n");
         printf("[6] Exit Program\n");
         printf("\n");
@@ -104,8 +104,10 @@ int main() {
     
     firstMenu(&userData, &config);
 
-    printf("Thank you for using Chardex!\n");
-    printf("\"Let's get this place HUMID!\" - Bulbasaur, Pokopoia (2026)\n");
+    printf("=== [ Thank you for using Chardex! ] ===\n");
+    printf("\n");
+    printf("\"Let's get this place HUMID!\"\n");
+    printf("\t- Bulbasaur, Pokopoia (2026)\n");
 
     return 0;
 }

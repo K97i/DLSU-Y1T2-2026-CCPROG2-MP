@@ -177,17 +177,55 @@ void inputTests() {
 
 	@name	testSuite();
 
-    @brief	Full test suite, runs all functions
+    @brief	Full test suite, menu for all functions
 
 */
 void testSuite() {
-    
-    printf("=== [ TEST SUITE ] ===\n");
+    int select = 0;
 
-    configTest();
-    encryptionTest();
-    userTests();
-    inputTests();
+    printf("=== [ TEST SUITE ] ===\n");
+    printf("\n");
+
+    // Show options
+    printf("[1] Config Test (will reset config file!)\n");
+    printf("[2] Encryption Test\n");
+    printf("[3] User Database Test (will reset user database!)\n");
+    printf("[4] Input Test\n");
+    printf("[5] Run All Tests\n");
+    printf("[6] Exit Menu\n");
+    printf("\n");
+
+    select = menuInputInt(1, 6);
+    
+    switch (select) {
+        // Config Test
+        case 1:
+            configTest();
+            break;
+
+        case 2:
+            encryptionTest();
+            break;
+
+        case 3:
+            userTests();
+            break;
+
+        case 4:
+            inputTests();
+            break;
+
+        case 5:
+            configTest();
+            encryptionTest();
+            userTests();
+            inputTests();
+            break;
+
+        case 6:
+            break;
+
+    }
 
     printf("\n\n");
 }

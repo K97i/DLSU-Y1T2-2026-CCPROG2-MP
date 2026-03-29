@@ -65,13 +65,13 @@ void searchWholeDatabase(SDB *sDB) {
             printf("\n");
             printf("=========");
             printf("\n");
-            printf("\n");
         }
 
         else if (!exit && speciesDatabaseIndex < 0) {
             printf("Not found! :(\n");
-            printf("\n");
         }
+        
+        printf("\n");
     }
 }
 
