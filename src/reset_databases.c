@@ -55,7 +55,7 @@ void resetSpeciesToPokemon() {
 
     sDB.currentSpeciesCount = 5;
 
-    SpeciesSort(&sDB);
+    SpeciesDataBaseSort(&sDB);
     setSpecies(&sDB);
 }
 

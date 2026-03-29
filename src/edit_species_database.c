@@ -311,7 +311,7 @@ void addSpecies(SDB *sDB) {
                 case 1:
                     sDB->species[sDB->currentSpeciesCount] = newSpecies;
                     sDB->currentSpeciesCount++;
-                    SpeciesSort(sDB);
+                    SpeciesDataBaseSort(sDB);
                     setSpecies(sDB);
 
                     printf("Added species to database.\n");
