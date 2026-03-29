@@ -18,6 +18,6 @@ void safeCharScanf(char *character);
 void safeIntScanf(int *number);
 void safeFloatScanf(float *number);
 int menuInputInt(int min, int max);
-int checkIfBanned(char input[], int wordLength);
+int checkIfBanned(char *input, int wordLength);
 
 #endif
