@@ -24,7 +24,14 @@
 */
 
 /*
-    Function prints the first menu which includes the login, register, reset password, and test suite functions
+
+	@name	firstMenu();
+
+    @brief	First screen for user
+
+    @param	userData	Pointer to the user database data
+    @param	config      Pointer to the configuration data
+
 */
 void firstMenu(UserData *userData, Config *config) {
     int exit = 0, select = 0;
@@ -80,8 +87,15 @@ void firstMenu(UserData *userData, Config *config) {
 
 }
 
+/*
+
+    @name	main();
+
+    @brief	Entrypoint of program
+
+*/
 int main() {
-    // Load Params
+    // Load configs, userdata
     Config config = getConfig();
     UserData userData = { 0 };
     getUsers(&userData);
