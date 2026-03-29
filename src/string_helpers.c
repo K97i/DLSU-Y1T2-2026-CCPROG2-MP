@@ -68,8 +68,9 @@ int safeStringScanf(char *string, int arrayLength) {
 
     }
 
-    // Flushes stdin
-    flushBuffer();
+    if (!flag){
+        flushBuffer();
+    }
 
     return overflow;
 }
@@ -92,8 +93,9 @@ void safeCharScanf(char *character) {
     if (*character == '\n' || *character == EOF)
         *character = '\0';
 
-    // Flush stdin
-    flushBuffer();
+    else
+        // Flush stdin
+        flushBuffer();
 
 }
 
@@ -125,8 +127,9 @@ void safeIntScanf(int *number) {
             printf("Re-enter Input: ");
         }
 
-        // remove any other input (like \n, malformed inputs)
-        flushBuffer();
+        if (temp != '\n' && temp != EOF)
+            // remove any other input (like \n, malformed inputs)
+            flushBuffer();
     }
 } 
 
@@ -159,8 +162,9 @@ void safeFloatScanf(float *number) {
             printf("Re-enter Input: ");
         }
 
-        // remove any other input (like \n, malformed inputs)
-        flushBuffer();
+        if (temp != '\n' && temp != EOF)
+            // remove any other input (like \n, malformed inputs)
+            flushBuffer();
     }
 } 
 
