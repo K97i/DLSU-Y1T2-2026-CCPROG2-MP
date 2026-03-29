@@ -40,8 +40,8 @@ void searchSpeciesLeaderboard(SDB *database) {
 		printf("\n");
 		printf("Enter the Name of the Species: ");
 
-		//accepts the user's species input
-		safeStringScanf(species, WORD_LIMIT);
+		//gets the user's input and clears the input stream
+		safeStringScanf(species, WORD_LIMIT); 
 		printf("\n");
 
 		// Exit if "[EXIT]" is inputted
@@ -106,8 +106,8 @@ void searchUserLeaderboard(UserData *database) {
 		// Get input
 		printf("Enter the Name of the User: ");
 
-		//accepts the user's username input
-		safeStringScanf(username, UN_PW_LENGTH);
+		//gets the user's input and clears the input stream
+		safeStringScanf(username, UN_PW_LENGTH); 
 		printf("\n");
 
 		// Exit if "[EXIT]" is inputted
@@ -181,7 +181,7 @@ UserData sortUserLeaderboard(UserData *database) {
 
 /*
 
-		@name	sortUserLeaderboard();
+		@name	sortSpeciesDataBase();
 
     @brief	Sorts the database by userInputCount
 
