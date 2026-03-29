@@ -21,7 +21,18 @@
 #include "account_options.h"
 #include "leaderboard_menu.h"
 
+/*
 
+	@name	userMenu();
+
+    @brief	Main menu for a regular user
+
+    @param  *userData   Pointer to the array of users used globally
+    @param  userIndex   Index of the current user in the userData->users array
+    @param  *config     Pointer to the program configuration data
+    @param  *sDB        Pointer to the species database used globally
+
+*/
 void userMenu(UserData *userData, int userIndex, Config *config, SDB *sDB) {
     int exit = 0, select = 0;
 
@@ -34,6 +45,8 @@ void userMenu(UserData *userData, int userIndex, Config *config, SDB *sDB) {
         printf("[4] Account Settings\n");
         printf("[5] Logout\n");
         printf("\n");
+
+        // Get user input
         select = menuInputInt(1, 5);
 
         printf("\n");
@@ -70,6 +83,18 @@ void userMenu(UserData *userData, int userIndex, Config *config, SDB *sDB) {
     }
 }
 
+/*
+
+	@name	adminMenu();
+
+    @brief	Main menu for an administrator
+
+    @param  *userData   Pointer to the array of users used globally
+    @param  userIndex   Index of the current user in the userData->users array
+    @param  *config     Pointer to the program configuration data
+    @param  *sDB        Pointer to the species database used globally
+
+*/
 void adminMenu(UserData *userData, int userIndex, Config *config, SDB *sDB) {
     int exit = 0, select = 0;
 
@@ -82,6 +107,8 @@ void adminMenu(UserData *userData, int userIndex, Config *config, SDB *sDB) {
         printf("[4] Account Settings\n");
         printf("[5] Logout\n");
         printf("\n");
+
+        // Get input from user
         select = menuInputInt(1, 5);
 
         printf("\n");
