@@ -14,11 +14,13 @@
 
 #include "user_struct.h"
 #include "species_struct.h"
+#include "config_struct.h"
 #include "string_helpers.h"
 #include "pokedex_menu.h"
 #include "species_database_menu.h"
+#include "account_options.h"
 
-void userMenu(UserData *userData, int userIndex, SDB *sDB) {
+void userMenu(UserData *userData, int userIndex, Config *config, SDB *sDB) {
     int exit = 0, select = 0;
 
     // while not exit...
@@ -27,9 +29,12 @@ void userMenu(UserData *userData, int userIndex, SDB *sDB) {
         printf("[1] Own Pokedex\n");
         printf("[2] Species Database\n");
         printf("[3] Leaderboard\n");
-        printf("[4] Logout\n");
+        printf("[4] Account Settings\n");
+        printf("[5] Logout\n");
         printf("\n");
-        select = menuInputInt(1, 4);
+        select = menuInputInt(1, 5);
+
+        printf("\n");
 
         switch (select) {
             // Own Pokedex
@@ -47,8 +52,13 @@ void userMenu(UserData *userData, int userIndex, SDB *sDB) {
                 // leaderboardMenu(userData, sDB);
                 break;
             
-            // Exit
+            // Account Settings
             case 4:
+                exit = accountMenu(userData, userIndex, config, sDB);
+                break;
+            
+            // Exit
+            case 5:
                 exit = 1;
                 printf("Thank you for using Chardex!\n");
                 break;
@@ -58,7 +68,7 @@ void userMenu(UserData *userData, int userIndex, SDB *sDB) {
     }
 }
 
-void adminMenu(UserData *userData, int userIndex, SDB *sDB) {
+void adminMenu(UserData *userData, int userIndex, Config *config, SDB *sDB) {
     int exit = 0, select = 0;
 
     // while not exit...
@@ -67,10 +77,13 @@ void adminMenu(UserData *userData, int userIndex, SDB *sDB) {
         printf("[1] Own Pokedex\n");
         printf("[2] Species Database (admin)\n");
         printf("[3] Leaderboard\n");
-        printf("[4] Logout\n");
+        printf("[4] Account Settings\n");
+        printf("[5] Logout\n");
         printf("\n");
-        select = menuInputInt(1, 4);
+        select = menuInputInt(1, 5);
 
+        printf("\n");
+        
         switch (select) {
             // Own Pokedex
             case 1:
@@ -87,8 +100,13 @@ void adminMenu(UserData *userData, int userIndex, SDB *sDB) {
                 // leaderboardMenu(userData, sDB);
                 break;
             
-            // Exit
+            // Account Settings
             case 4:
+                exit = accountMenu(userData, userIndex, config, sDB);
+                break;
+            
+            // Exit
+            case 5:
                 exit = 1;
                 printf("Thank you for using Chardex!\n");
                 break;

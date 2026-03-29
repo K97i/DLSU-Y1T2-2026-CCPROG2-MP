@@ -61,6 +61,7 @@ void printSpeciesSpecialInfo(Species *species, SDB *sDB, int databaseIndex) {
     if (databaseIndex != -1)
         printSpeciesDatabaseInfo(&sDB->species[databaseIndex]);
 
+    printf("\n");
     printf("Sex: %s\n", sex);
     printf("Age: %d\n", species->age);
     printf("Weight: %0.1f kg\n", species->weight);

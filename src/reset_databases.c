@@ -105,7 +105,7 @@ void resetDatabases(UserData *userData, Config *config) {
     }
 
     while (!overrideFlag && !exitFlag) {
-        printf("Enter override key to reset: \n");
+        printf("Enter override key to reset: ");
         
         safeStringScanf(overrideTemp, CONFIG_STRING_LEN);
 

@@ -15,7 +15,7 @@
 #include "user_struct.h"
 #include "species_struct.h"
 
-void userMenu(UserData *userData, int userIndex, SDB *sDB);
-void adminMenu(UserData *userData, int userIndex, SDB *sDB);
+void userMenu(UserData *userData, int userIndex, Config *config, SDB *sDB);
+void adminMenu(UserData *userData, int userIndex, Config *config, SDB *sDB);
 
 #endif

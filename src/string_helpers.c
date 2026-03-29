@@ -76,11 +76,13 @@ void safeIntScanf(int *number) {
 
         else {
             printf("Invalid Input!\n");
+            printf("\n");
+            printf("Re-enter Input: ");
         }
-    }
 
-    // remove any other input (like \n, malformed inputs)
-    flushBuffer();
+        // remove any other input (like \n, malformed inputs)
+        flushBuffer();
+    }
 } 
 
 void safeFloatScanf(float *number) {
@@ -95,11 +97,13 @@ void safeFloatScanf(float *number) {
 
         else {
             printf("Invalid Input!\n");
+            printf("\n");
+            printf("Re-enter Input: ");
         }
-    }
 
-    // remove any other input (like \n, malformed inputs)
-    flushBuffer();
+        // remove any other input (like \n, malformed inputs)
+        flushBuffer();
+    }
 } 
 
 int menuInputInt(int min, int max) {
@@ -117,6 +121,7 @@ int menuInputInt(int min, int max) {
         else {
             valid = 1;
         }
+
     }
 
     return input;
