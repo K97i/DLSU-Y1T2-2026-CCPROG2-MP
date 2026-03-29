@@ -66,8 +66,37 @@ void safeCharScanf(char *character) {
 }
 
 void safeIntScanf(int *number) {
+    int valid = 0, temp = 0;
 
-    scanf("%d", number);
+    while (!valid) {
+        if (scanf("%d", &temp) == 1) {
+            *number = temp;
+            valid = 1;
+        }
+
+        else {
+            printf("Invalid Input!\n");
+        }
+    }
+
+    // remove any other input (like \n, malformed inputs)
+    flushBuffer();
+} 
+
+void safeFloatScanf(float *number) {
+    int valid = 0;
+    float temp = 0.0;
+
+    while (!valid) {
+        if (scanf("%f", &temp) == 1) {
+            *number = temp;
+            valid = 1;
+        }
+
+        else {
+            printf("Invalid Input!\n");
+        }
+    }
 
     // remove any other input (like \n, malformed inputs)
     flushBuffer();
