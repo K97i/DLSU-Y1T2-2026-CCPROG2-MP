@@ -21,9 +21,9 @@
 
 /*
 
-    configTest()
+	@name	configTest();
 
-    Tests Config read / writes, etc.
+    @brief	Tests Config database file operations
 
 */
 void configTest() {
@@ -37,6 +37,7 @@ void configTest() {
     strcpy(configTest.administratorKey, "Hi!");
     strcpy(configTest.encryptionKey, "Hello!");
 
+    // Sets config
     setConfig(configTest);
 
     configRead = getConfig();
@@ -60,9 +61,9 @@ void configTest() {
 
 /*
 
-    encryptionTest()
+	@name	encryptionTest();
 
-    Tests XOR encryption / decryption functions
+    @brief	Tests XOR encryption
 
 */
 void encryptionTest() {
@@ -95,6 +96,13 @@ void encryptionTest() {
 
 }
 
+/*
+
+	@name	userTests();
+
+    @brief	Tests User database file operations
+
+*/
 void userTests() {
     UserData users = { 0 };
     User user = { 0 };
@@ -133,15 +141,24 @@ void userTests() {
 
 }
 
+/*
+
+	@name	inputTests();
+
+    @brief	Tests safeScanf functions
+
+*/
 void inputTests() {
     printf("=== [ INPUT TEST ] ===\n\n");
 
+    // Tests character input
     char character;
     printf("Input a character: ");
     safeCharScanf(&character);
 
     printf("Received: %c\n", character);
 
+    // Tests string input
     char hello[10] = { 0 };
     printf("Input a string: ");
     int check = safeStringScanf(hello, 10);
@@ -152,9 +169,17 @@ void inputTests() {
 
     printf("Received: %s\n", hello);
 
+    // Tests menu system
     menuInputInt(1,3);
 }
 
+/*
+
+	@name	testSuite();
+
+    @brief	Full test suite, runs all functions
+
+*/
 void testSuite() {
     
     printf("=== [ TEST SUITE ] ===\n");
