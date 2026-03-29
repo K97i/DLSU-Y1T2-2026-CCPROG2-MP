@@ -15,12 +15,17 @@ Chardex is a re-implementation of one of the most important tools in Pokemon, th
 
 <i>In line with <b>United Nations Sustainable Development Goals (SDGs) 14 (Life on Water), and 15 (Life on Land).</b></i>
 
-# Run Locally
+# Build and Run
 
-## Requirements
+## Locally
+
+### Requirements
+
 On Windows, the GNU C Compiler (GCC) is used for compilation.
 On Unix-type systems, Clang is used instead.
 
+### Steps
+
 1. Open any shell in this folder (on Windows 11, right-click in the folder then click terminal)
-2. Run `./build.bat` if on Windows (requires GCC), or `./build.sh` if on MacOS/Linux/Unix (requires Clang)
+2. Run `./build.bat` (Command Prompt) or `./build.ps1` (Powershell) if on Windows (requires GCC), or `./build.sh` if on MacOS/Linux/Unix (requires Clang)
 3. Run the compiled "chardex" application. (`./chardex.exe` if on Windows, `./chardex` if on Unix)
