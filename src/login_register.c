@@ -360,6 +360,10 @@ void resetPasswordMenu(UserData *userData, Config *config) {
                 else if (checkIfBanned(temp, UN_PW_LENGTH))
                     printf("Invalid Password! (part of banned words list)\n");
 
+                // If PW is less than 3 chars, block
+                else if ((int) strlen(temp) < 3)
+                    printf("Password too short!\n");
+
                 // If PW == UN, block
                 else if (!strcmp(userData->users[index].username, temp))
                     printf("Invalid Password! (password cannot be the same as the username)\n");

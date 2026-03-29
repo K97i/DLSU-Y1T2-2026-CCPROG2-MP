@@ -118,6 +118,10 @@ int changePassword(UserData *userData, int userIndex, Config *config) {
             else if (checkIfBanned(temp, UN_PW_LENGTH))
                 printf("Invalid Password! (part of banned words list)\n");
 
+            // If PW is less than 3 chars, block
+            else if ((int) strlen(temp) < 3)
+                printf("Password too short!\n");
+
             else if (!strcmp(userData->users[userIndex].username, temp))
                 printf("Invalid Password! (password cannot be the same as the username)\n");
 
