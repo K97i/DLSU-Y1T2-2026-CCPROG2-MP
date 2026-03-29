@@ -22,7 +22,7 @@
 
     @brief	Searches for input in the sorted species database
 
-    @param	database	Pointer of the sorted species array
+    @param	database	Pointer to the sorted species array
 
 */
 void searchSpeciesLeaderboard(SDB *database) {
@@ -89,7 +89,7 @@ void searchSpeciesLeaderboard(SDB *database) {
 
     @brief	Searches for input in the sorted userdata array
 
-    @param	database	Pointer of the sorted userdata array
+    @param	database	Pointer to the sorted userdata array
 
 */
 void searchUserLeaderboard(UserData *database) {
@@ -151,7 +151,7 @@ void searchUserLeaderboard(UserData *database) {
 
     @brief	Sorts the database by currentSpeciesCount
 
-    @param	database	Pointer of the unsorted userdata array
+    @param	database	Pointer to the unsorted userdata array
 
     @return	The sorted array
 
@@ -185,7 +185,7 @@ UserData sortUserLeaderboard(UserData *database) {
 
     @brief	Sorts the database by userInputCount
 
-    @param	database	Pointer of the unsorted species array
+    @param	database	Pointer to the unsorted species array
 
     @return	The sorted array
 

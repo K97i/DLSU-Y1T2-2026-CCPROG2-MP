@@ -30,7 +30,7 @@
     @brief	Gets the config from config.bin and returns the config struct
 
     @param	plaintext   Input string
-    @param	config      Pointer of the configuration struct (where the encryption key lies)
+    @param	config      Pointer to the configuration struct (where the encryption key lies)
     @param	output	    Output string
 
     @return result of read operation, returns the saved config file

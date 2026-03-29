@@ -22,8 +22,8 @@
 
     @brief	Basic print of the specimen name
 
-    @param	species     Pointer of the species data
-    @param	numbered	Pointer of the index of the species to edit
+    @param	species     Pointer to the species data
+    @param	numbered	Pointer to the index of the species to edit
 
 */
 void printSpecies(Species *species, int numbered) {
@@ -40,8 +40,8 @@ void printSpecies(Species *species, int numbered) {
 
     @brief	Basic print of the specimen name, but for SpeciesData
 
-    @param	species     Pointer of the species data
-    @param	numbered	Pointer of the index of the species to edit
+    @param	species     Pointer to the species data
+    @param	numbered	Pointer to the index of the species to edit
 
 */
 void printSpeciesData(SpeciesData *species, int numbered) {
@@ -58,7 +58,7 @@ void printSpeciesData(SpeciesData *species, int numbered) {
 
     @brief	Prints the metadata from the species database
 
-    @param	species     Pointer of the species data
+    @param	species     Pointer to the species data
 
 */
 void printSpeciesDatabaseInfo(SpeciesData *species) {
@@ -86,8 +86,8 @@ void printSpeciesDatabaseInfo(SpeciesData *species) {
 
     @brief	Prints all available metadata for the specimen
 
-    @param	species     Pointer of the species data
-    @param	species     Pointer of the species array
+    @param	species     Pointer to the species data
+    @param	species     Pointer to the species array
     @param	species     Index of the species in the species array 
 
 */

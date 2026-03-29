@@ -21,7 +21,7 @@
     @brief	Encrypts the data given
 
     @param	plaintext   Input string
-    @param	config      Pointer of the configuration struct (where the encryption key lies)
+    @param	config      Pointer to the configuration struct (where the encryption key lies)
     @param	output	    Output string
 
 */

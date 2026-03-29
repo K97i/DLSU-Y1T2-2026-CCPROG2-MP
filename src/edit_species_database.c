@@ -24,8 +24,8 @@
 
     @brief	Edits the conservation status of the selected species
 
-    @param	sDB	            Pointer of the species array
-    @param	speciesIndex	Pointer of the index of the species to edit
+    @param	sDB	            Pointer to the species array
+    @param	speciesIndex	Pointer to the index of the species to edit
 
 */
 void editConservationStatus(SDB *sDB, int speciesIndex) {
@@ -75,8 +75,8 @@ void editConservationStatus(SDB *sDB, int speciesIndex) {
 
     @brief	Edits the biome of the selected species
 
-    @param	sDB	            Pointer of the species array
-    @param	speciesIndex	Pointer of the index of the species to edit
+    @param	sDB	            Pointer to the species array
+    @param	speciesIndex	Pointer to the index of the species to edit
 
 */
 void editBiome(SDB *sDB, int speciesIndex) {
@@ -119,8 +119,8 @@ void editBiome(SDB *sDB, int speciesIndex) {
 
     @brief	Edits the Description of the selected species
 
-    @param	sDB	            Pointer of the species array
-    @param	speciesIndex	Pointer of the index of the species to edit
+    @param	sDB	            Pointer to the species array
+    @param	speciesIndex	Pointer to the index of the species to edit
 
 */
 void editDescription(SDB *sDB, int speciesIndex) {
@@ -164,8 +164,8 @@ void editDescription(SDB *sDB, int speciesIndex) {
 
     @brief	Holds options to edit specified species
 
-    @param	sDB	            Pointer of the species array
-    @param	speciesIndex	Pointer of the index of the species to edit
+    @param	sDB	            Pointer to the species array
+    @param	speciesIndex	Pointer to the index of the species to edit
 
 */
 void editSpeciesSubMenu(SDB *sDB, int speciesIndex) {
@@ -216,7 +216,7 @@ void editSpeciesSubMenu(SDB *sDB, int speciesIndex) {
 
     @brief	Selects species to edit
 
-    @param	sDB     Pointer of the species array
+    @param	sDB     Pointer to the species array
 
 */
 void editSpecies(SDB *sDB) {
@@ -254,7 +254,7 @@ void editSpecies(SDB *sDB) {
 
     @brief	Adds a new species to the species array
 
-    @param	sDB     Pointer of the species array
+    @param	sDB     Pointer to the species array
 
 */
 void addSpecies(SDB *sDB) {
@@ -428,7 +428,7 @@ void addSpecies(SDB *sDB) {
 
     @brief	Main menu for options to edit the species array
 
-    @param	sDB     Pointer of the species array
+    @param	sDB     Pointer to the species array
 
 */
 void editSpeciesDatabase(SDB *sDB) {
