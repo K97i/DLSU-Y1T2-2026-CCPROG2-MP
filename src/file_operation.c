@@ -87,16 +87,16 @@ void getUsers(UserData *userData) {
 
     if (fptr != NULL) {
         fseek(fptr, 0, SEEK_SET);
-        fscanf(fptr, "%d", &userData->currentUserCount);
+        fscanf(fptr, "%d\n", &userData->currentUserCount);
 
         for (int i = 0 ; i < userData->currentUserCount ; i++) {
-            fscanf(fptr, " %[^\t]\t%[^\t]\t%d\t%d", userData->users[i].username, 
+            fscanf(fptr, "%[^\t]%*c%[^\t]%*c%d\t%d\n", userData->users[i].username, 
                                                 userData->users[i].password,
                                                 &userData->users[i].administrator,
                                                 &userData->users[i].currentSpeciesCount);
 
             for (int j = 0 ; j < userData->users[i].currentSpeciesCount ; j++) {
-                fscanf(fptr, " %[^\t]\t%f\t%f\t%d\t%d",   userData->users[i].species[j].name,
+                fscanf(fptr, "%[^\t]\t%f\t%f\t%d\t%d\n",   userData->users[i].species[j].name,
                                                                 &userData->users[i].species[j].height,
                                                                 &userData->users[i].species[j].weight,
                                                                 &userData->users[i].species[j].sex,
