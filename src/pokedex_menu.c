@@ -85,6 +85,17 @@ void searchUserPokedex(UserData *userData, int userIndex, SDB *sDB) {
     }
 }
 
+/*
+
+    @name   addToPokedex();
+
+    @brief  Menu for adding species in a given user's pokedex
+
+    @param  *userData   Pointer to the array of users used globally
+    @param  userIndex   Index of the current user in the userData->users array
+    @param  *sDB        Pointer to the species database 
+
+*/
 void addToPokedex(UserData *userData, int userIndex, SDB *sDB) {
     Species new = { 0 };
     char temp[WORD_LIMIT] = { 0 };
@@ -236,11 +247,22 @@ void addToPokedex(UserData *userData, int userIndex, SDB *sDB) {
     printf("\n");
 }
 
+/*
+
+    @name   removeFromPokedex();
+
+    @brief  Menu for removing species in a given user's pokedex
+
+    @param  *userData   Pointer to the array of users used globally
+    @param  userIndex   Index of the current user in the userData->users array
+    @param  *sDB        Pointer to the species database 
+
+*/
 void removeFromPokedex(UserData *userData, int userIndex, SDB *sDB) {
     char temp[WORD_LIMIT] = { 0 };
     int searchIndex = -1, dbIndex = -1, select = 0, exitFlag = 0, nameFlag = 0, confirmFlag = 0;
 
-    while (!nameFlag && !exitFlag) {
+    while (!nameFlag && !exitFlag) { //continues looping until either a valid species input or user exits
 
         printf("Enter the species you want to remove: ");
         safeStringScanf(temp, WORD_LIMIT);
@@ -250,7 +272,7 @@ void removeFromPokedex(UserData *userData, int userIndex, SDB *sDB) {
         if (!strcmp("[EXIT]", temp))
             exitFlag = 1;
 
-        else if (searchIndex != -1)
+        else if (searchIndex != -1) //checks if the species is in the user's pokedex
             nameFlag = 1;
             
         else
@@ -302,6 +324,17 @@ void removeFromPokedex(UserData *userData, int userIndex, SDB *sDB) {
 
 }
 
+/*
+
+    @name   editPokedex();
+
+    @brief  Main Menu for adding and removing species from the user's pokedex
+
+    @param  *userData   Pointer to the array of users used globally
+    @param  userIndex   Index of the current user in the userData->users array
+    @param  *sDB        Pointer to the species database 
+
+*/
 void editPokedex(UserData *userData, int userIndex, SDB *sDB) {
     int exit = 0, select = 0;
 
