@@ -5,7 +5,7 @@
     <b> CCPROG2 S19B (T2, 2025-2026) - MP Project</b><br/>
     <i>Authors:</i> <br/>
     EBORDE, Mikaelo<br/>
-    SACRAMENTO, Yvan <br/>
+    SACRAMENTO, Yvan<br/>
 </p>
 
 ---
