@@ -163,8 +163,14 @@ void registerMenu(UserData *userData, Config *config) {
             else if (UserSearch(userData, temp) != -1)
                 printf("User already exists!\n");
 
-            else{
+            // If UN is less than 3 chars, block
+            else if ((int) strlen(temp) < 3)
+                printf("Username too short!\n");
+
+            else {
                 strcpy(user.username, temp);
+                printf("Received input: %s\n", user.username);
+                printf("\n");
                 unFlag = 1;
             }
 
@@ -183,6 +189,10 @@ void registerMenu(UserData *userData, Config *config) {
             // If PW contains banned string, block
             else if (checkIfBanned(temp, UN_PW_LENGTH))
                 printf("Invalid Password! (part of banned words list)\n");
+
+            // If PW is less than 3 chars, block
+            else if ((int) strlen(temp) < 3)
+                printf("Password too short!\n");
 
             // If PW == UN, block
             else if (!strcmp(user.username, temp))
