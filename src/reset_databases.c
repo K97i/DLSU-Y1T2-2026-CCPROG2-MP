@@ -8,6 +8,15 @@
 #include "file_operation.h"
 #include "search_and_sort.h"
 
+/*
+
+    @name   resetConfig();
+
+    @brief  Resets the config to its defaults
+
+    @param  *config Pointer to the program configuration data
+
+*/
 void resetConfig(Config *config) {
     Config configDefaults;
 
@@ -18,11 +27,20 @@ void resetConfig(Config *config) {
     setConfig(*config);
 }
 
+/*
+
+    @name   resetSpeciesToPokemon();
+
+    @brief  Fills the SpeciesDataBase with predefined Pokemons
+
+
+*/
 void resetSpeciesToPokemon() {
 
     // All data / lore pulled from https://bulbapedia.bulbagarden.net
     SDB sDB = { 0 };
 
+    //Fills the species database 
     // Greninja
     strcpy(sDB.species[0].name, "Greninja");
     strcpy(sDB.species[0].biome, "Kalos");
@@ -55,16 +73,35 @@ void resetSpeciesToPokemon() {
 
     sDB.currentSpeciesCount = 5;
 
-    SpeciesDataBaseSort(&sDB);
-    setSpecies(&sDB);
+    SpeciesDataBaseSort(&sDB); //Sorts the inputs
+    setSpecies(&sDB); //Writes it into the text file
 }
 
+/*
+
+    @name   resetUserConfig();
+
+    @brief  Empties the UserData 
+
+    @param  *userData   Pointer to the array of users used globally
+
+*/
 void resetUserData(UserData *userData) {
     UserData clean = { 0 };
     *userData = clean;
     setUsers(userData);
 }
 
+/*
+
+    @name   resetDatabases();
+
+    @brief  Main function that resets the user and species database as well as the config
+
+    @param  *userData   Pointer to the array of users used globally
+    @param  *config     Pointer to the program configuration data
+
+*/
 void resetDatabases(UserData *userData, Config *config) {
     char overrideTemp[CONFIG_STRING_LEN] = "";
     int firstConfirmation = 0, secondConfirmation = 0, overrideFlag = 0,
@@ -107,7 +144,7 @@ void resetDatabases(UserData *userData, Config *config) {
     while (!overrideFlag && !exitFlag) {
         printf("Enter override key to reset: ");
         
-        safeStringScanf(overrideTemp, CONFIG_STRING_LEN);
+        safeStringScanf(overrideTemp, CONFIG_STRING_LEN); //gets the user's input and clears the input stream
 
         if (!strcmp("[EXIT]", overrideTemp))
             exitFlag = 1;
