@@ -20,28 +20,35 @@
 
 	@name	searchSpeciesLeaderboard();
 
-    @brief	Searches for input in the sorted database
+    @brief	Searches for input in the sorted species database
 
-    @param	database	Pointer of the species array
+    @param	database	Pointer of the sorted species array
 
 */
 void searchSpeciesLeaderboard(SDB *database) {
 	char species[WORD_LIMIT] = { 0 };
 	int exitFlag = 0, searchFlag = 0, searchIndex = -1;
 
+	// Title
 	printf("=== [ SEARCH SPECIES ] ===\n");
 	printf("\n");
 	printf("Enter \"[EXIT]\" to exit this menu at any time.\n");
 	printf("\n");
 
 	while (!exitFlag) {
+		// Get input from user
 		printf("\n");
 		printf("Enter the Name of the Species: ");
-		safeStringScanf(species, WORD_LIMIT); //accepts the user's species input
 
+		//accepts the user's species input
+		safeStringScanf(species, WORD_LIMIT);
+		printf("\n");
+
+		// Exit if "[EXIT]" is inputted
 		if (!strcmp("[EXIT]", species))
 			exitFlag = 1;
 
+		// Else, check database
 		else {
 
 			// Manual linear search, as it is sorted by count instead of name
@@ -52,6 +59,7 @@ void searchSpeciesLeaderboard(SDB *database) {
 				}
 			}
 
+			// If in database, print
 			if (searchIndex != -1) {
 				printf("Found!\n");
 				printf("\n");
@@ -75,23 +83,38 @@ void searchSpeciesLeaderboard(SDB *database) {
 
 }
 
+/*
+
+	@name	searchUserLeaderboard();
+
+    @brief	Searches for input in the sorted userdata array
+
+    @param	database	Pointer of the sorted userdata array
+
+*/
 void searchUserLeaderboard(UserData *database) {
 	char username[UN_PW_LENGTH] = { 0 };
 	int exitFlag = 0, searchFlag = 0, searchIndex = -1;
 
+	// Title
 	printf("=== [ SEARCH USERNAME ] ===\n");
 	printf("\n");
 	printf("Enter \"[EXIT]\" to exit this menu at any time.\n");
 	printf("\n");
 	
 	while (!exitFlag) {
+		// Get input
 		printf("Enter the Name of the User: ");
-		safeStringScanf(username, UN_PW_LENGTH); //accepts the user's username input
+
+		//accepts the user's username input
+		safeStringScanf(username, UN_PW_LENGTH);
 		printf("\n");
 
+		// Exit if "[EXIT]" is inputted
 		if (!strcmp("[EXIT]", username))
 			exitFlag = 1;
 
+		// Else, check in database
 		else {
 
 			// Manual linear search, as it is sorted by count instead of name
@@ -102,6 +125,7 @@ void searchUserLeaderboard(UserData *database) {
 				}
 			}
 
+			// If found, print
 			if (searchIndex != -1) {
 				
 				printf("Found!\n");
@@ -121,6 +145,17 @@ void searchUserLeaderboard(UserData *database) {
 	}
 }
 
+/*
+
+	@name	sortUserLeaderboard();
+
+    @brief	Sorts the database by currentSpeciesCount
+
+    @param	database	Pointer of the unsorted userdata array
+
+    @return	The sorted array
+
+*/
 UserData sortUserLeaderboard(UserData *database) {
 	UserData new = *database;
 
@@ -144,6 +179,17 @@ UserData sortUserLeaderboard(UserData *database) {
 	return new;
 }
 
+/*
+
+	@name	sortUserLeaderboard();
+
+    @brief	Sorts the database by userInputCount
+
+    @param	database	Pointer of the unsorted species array
+
+    @return	The sorted array
+
+*/
 SDB sortSpeciesDatabase(SDB *database) {
 
 	SDB new = *database;
@@ -177,8 +223,8 @@ SDB sortSpeciesDatabase(SDB *database) {
     @param  database	Copy of the array of users used globally
 */
 void UserLeaderboard(UserData *database) {
-	int exit = 0, select = 0, sum = 0;
-	float averageSpU = 0.0;
+	int exit = 0, select = 0;
+	float sum = 0.0, averageSpU = 0.0;
 
 	UserData sorted = sortUserLeaderboard(database);
 
@@ -198,7 +244,7 @@ void UserLeaderboard(UserData *database) {
 		for(int r = 0; r < 10 && r < sorted.currentUserCount && sorted.users[r].currentSpeciesCount > 0; r++) {
 			printf("%d. %s (%d species added, latest: %s)\n", r + 1, 
 									sorted.users[r].username, 
-									sorted.users[r].administrator, 
+									sorted.users[r].currentSpeciesCount, 
 									sorted.users[r].species[sorted.users[r].currentSpeciesCount-1].name);
 		}
 
@@ -210,7 +256,8 @@ void UserLeaderboard(UserData *database) {
     	printf("[2] Exit Menu\n");
 		printf("\n");
 
-		select = menuInputInt(1, 2); //accepts the user's input (1-2)
+		//accepts the user's input (1-2)
+		select = menuInputInt(1, 2);
 		
 		printf("\n");
 
@@ -237,8 +284,8 @@ void UserLeaderboard(UserData *database) {
     @param	database   Copy of the species database used globally
 */
 void SpeciesLeaderboard(SDB *database) {
-	int exit = 0, select = 0, sum = 0;
-	float averageUpS;
+	int exit = 0, select = 0;
+	float sum = 0.0, averageUpS;
 
 	SDB sorted = sortSpeciesDatabase(database);
 
@@ -275,7 +322,8 @@ void SpeciesLeaderboard(SDB *database) {
 			
 			// Exit Menu
 			case 2:
-					exit = 1;
+				exit = 1;
+				break;
 		}
 	}
 }
@@ -294,6 +342,7 @@ void leaderboardMenu(UserData *userData, SDB *speciesDataBase) {
 
     // while not exit...
   while (!exit) {
+	// Title and option
     printf("=== [ LEADERBOARD ] ===\n");
 	printf("\n");
     printf("[1] User Leaderboard\n");
@@ -301,7 +350,8 @@ void leaderboardMenu(UserData *userData, SDB *speciesDataBase) {
 	printf("[3] Exit Menu\n");
 	printf("\n");
 
-	select = menuInputInt(1, 3); //accepts the user's input (1-3)
+	//accepts the user's input (1-3)
+	select = menuInputInt(1, 3); 
 
 	printf("\n");
 
@@ -319,6 +369,7 @@ void leaderboardMenu(UserData *userData, SDB *speciesDataBase) {
 			// Exit
 			case 3:
 				exit = 1;
+				break;
 		}
 	}
 }

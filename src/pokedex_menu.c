@@ -215,11 +215,8 @@ void addToPokedex(UserData *userData, int userIndex, SDB *sDB) {
                 setUsers(userData);
 
                 // Update species index
-                int dbIndex = SpeciesDataBaseSearch(sDB, temp);
-                if (dbIndex != -1){
-                    sDB->species[dbIndex].userInputCount++;
-                    setSpecies(sDB);
-                }
+                sDB->species[tempDB].userInputCount++;
+                setSpecies(sDB);
 
                 printf("Confirmed! Congratulations on your new specimen!\n");
                 printf("Happy hunting!\n");
