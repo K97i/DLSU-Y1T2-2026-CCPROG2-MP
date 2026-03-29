@@ -54,6 +54,10 @@ void searchUserPokedex(UserData *userData, int userIndex, SDB *sDB) {
             if (!exit && speciesUserIndex != -1) {
                 printf("Found!\n");
 
+                printf("=========");
+                printf("\n");
+                printf("\n");
+
                 // Printing Name
                 printSpecies(&userData->users[userIndex].species[speciesUserIndex], 0);
                 printf("\n");
@@ -62,6 +66,9 @@ void searchUserPokedex(UserData *userData, int userIndex, SDB *sDB) {
                 speciesDatabaseIndex = SpeciesDataBaseSearch(sDB, userData->users[userIndex].species[speciesUserIndex].name);
                 printSpeciesSpecialInfo(&userData->users[userIndex].species[speciesUserIndex], sDB, speciesDatabaseIndex);
 
+                printf("\n");
+                printf("=========");
+                printf("\n");
                 printf("\n");
             }
 
@@ -103,16 +110,19 @@ void addToPokedex(UserData *userData, int userIndex, SDB *sDB) {
             exitFlag = 1;
 
         //checks if the species exist in the database and the user doesn't have it yet in their pokedex
-        else if(tempDB != -1 && tempUser == -1) {
+        else if(tempDB != -1 && tempUser <= -1) {
             nameFlag = 1;
             strcpy(new.name, temp);
         }
 
-        else
+        else if (tempDB <= -1)
             printf("Not found in species database!\n");
+
+        else if (tempUser != -1)
+            printf("Species already in Pokedex!\n");
     }
 
-    while (!heightFlag) {
+    while (!heightFlag && !exitFlag) {
         printf("Enter the height of the species: ");
         safeFloatScanf(&tempFloat);
 
@@ -126,7 +136,7 @@ void addToPokedex(UserData *userData, int userIndex, SDB *sDB) {
         }
     }
 
-    while (!weightFlag) {
+    while (!weightFlag && !exitFlag) {
         printf("Enter the weight of the species: ");
         safeFloatScanf(&tempFloat);
 
@@ -140,7 +150,7 @@ void addToPokedex(UserData *userData, int userIndex, SDB *sDB) {
         }
     }
 
-    while (!ageFlag) {
+    while (!ageFlag && !exitFlag) {
         printf("Enter the age of the species: ");
         safeIntScanf(&tempInt);
 
@@ -175,14 +185,11 @@ void addToPokedex(UserData *userData, int userIndex, SDB *sDB) {
     
     while (!confirmFlag && !exitFlag) {
 
-        if (new.sex == 2)
-            strcpy(temp, "Female");
-
-        else if (new.sex == 1)
-            strcpy(temp, "Male");
+        if (new.sex == 0)
+            strcpy(temp, "Undefined");
 
         else
-            strcpy(temp, "Undefined");
+            new.sex % 2 ? strcpy(temp, "Male") : strcpy(temp, "Female");
 
 
         printf("Confirm addition?\n");
@@ -221,11 +228,12 @@ void addToPokedex(UserData *userData, int userIndex, SDB *sDB) {
         }
     }
 
+    printf("\n");
 }
 
-void removeFromPokedex(UserData *userData, int userIndex) {
+void removeFromPokedex(UserData *userData, int userIndex, SDB *sDB) {
     char temp[WORD_LIMIT] = { 0 };
-    int searchIndex = -1, select = 0, exitFlag = 0, nameFlag = 0, confirmFlag = 0;
+    int searchIndex = -1, dbIndex = -1, select = 0, exitFlag = 0, nameFlag = 0, confirmFlag = 0;
 
     while (!nameFlag && !exitFlag) {
 
@@ -265,8 +273,15 @@ void removeFromPokedex(UserData *userData, int userIndex) {
                 }
                 userData->users[userIndex].currentSpeciesCount--;
                 setUsers(userData);
+
+                // Update species index
+                dbIndex = SpeciesDataBaseSearch(sDB, temp);
+                if (dbIndex != -1){
+                    sDB->species[dbIndex].userInputCount--;
+                    setSpecies(sDB);
+                }
+
                 printf("Removed specimen from Pokedex.\n");
-                printf("\n");
                 confirmFlag = 1;
                 break;
             
@@ -277,6 +292,8 @@ void removeFromPokedex(UserData *userData, int userIndex) {
                 break;
         }
     }
+
+    printf("\n");
 
 }
 
@@ -301,7 +318,7 @@ void editPokedex(UserData *userData, int userIndex, SDB *sDB) {
             
             // Remove from Pokedex
             case 2:
-                removeFromPokedex(userData, userIndex);
+                removeFromPokedex(userData, userIndex, sDB);
                 break;
             
             // Exit
@@ -312,6 +329,7 @@ void editPokedex(UserData *userData, int userIndex, SDB *sDB) {
         }
 
     }
+
 }
 
 void displayPokedex(UserData *userData, int userIndex, SDB *sDB) {
