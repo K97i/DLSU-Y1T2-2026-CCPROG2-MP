@@ -16,8 +16,13 @@
 #include "search_and_sort.h"
 #include "string_helpers.h"
 
-/*
-	Function prints the User Leaderboard Menu
+/* 
+		
+		@name   UserLeaderboard();
+
+    @brief  Menu for displaying the user leaderboard based on the who has the highest species count, average species per user, and search user feature
+
+    @param  database   Copy of the array of users used globally
 */
 void UserLeaderboard(UserData database) {
 	int exit = 0, select = 0, sum = 0;
@@ -48,7 +53,7 @@ void UserLeaderboard(UserData database) {
 
 
 	printf(" [ USER LEADERBOARD ] \n");
-	//Displays Top 10
+	//displays top 10 users
 	for(int r = 1; r <= 10 && r <= database.currentUserCount; r++) {
 		printf("%d. %s %d %s\n", r, 
 														database.users[r-1].username, 
@@ -86,8 +91,13 @@ void UserLeaderboard(UserData database) {
 	}
 }
 
-/*
-	Function prints the Species Leaderboard Menu
+/* 
+		
+		@name		SpeciesLeaderboard();
+
+    @brief	Menu for displaying the species leaderboard based on the who has the highest user count and search species feature
+
+    @param	database   Copy of the species database used globally
 */
 void SpeciesLeaderboard(SDB database) {
 	int exit = 0, select = 0;
@@ -109,6 +119,7 @@ void SpeciesLeaderboard(SDB database) {
 		}
   }
 
+	//displays the top 10 species
 	printf(" [ SPECIES LEADERBOARD ]\n");
 	for(int r = 1; r <= 10; r++) {
 		printf("%d. %s %d\n", r, 
@@ -142,8 +153,14 @@ void SpeciesLeaderboard(SDB database) {
 	}
 }
 
-/*
-	Function prints the Leaderboard Menu
+/* 
+		
+		@name		leaderboardMenu();
+
+    @brief	Main Menu for displaying the user and species leaderboard
+
+    @param	*userData   Pointer to the array of users used globally
+		@param	*speciesDataBase Pointer to the species database used globally
 */
 void leaderboardMenu(UserData *userData, SDB *speciesDataBase) {
 	int exit = 0, select = 0;
