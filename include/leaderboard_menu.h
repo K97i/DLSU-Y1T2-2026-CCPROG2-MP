@@ -16,7 +16,5 @@
 #include "species_struct.h"
 
 void leaderboardMenu(UserData *userData, SDB *speciesDataBase);
-void UserLeaderboard(UserData database);
-void SpeciesLeaderboard(SDB database);
 
 #endif
