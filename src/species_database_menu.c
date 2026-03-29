@@ -18,6 +18,15 @@
 #include "search_and_sort.h"
 #include "edit_species_database.h"
 
+/*
+
+    @name   searchWholeDatabase();
+
+    @brief  Searches the species database if there is a match to the user's input
+
+    @param  *sDB    Pointer to the species database used globally
+
+*/
 void searchWholeDatabase(SDB *sDB) {
     char temp[WORD_LIMIT] = "";
     int exit = 0, speciesDatabaseIndex = -1;
@@ -29,7 +38,7 @@ void searchWholeDatabase(SDB *sDB) {
 
     while (!exit) {
         printf("Search the Database for: ");
-        safeStringScanf(temp, WORD_LIMIT);
+        safeStringScanf(temp, WORD_LIMIT); //gets the user's input and clears the input stream
 
         if (!strcmp("[EXIT]", temp))
             exit = 1;
@@ -66,6 +75,15 @@ void searchWholeDatabase(SDB *sDB) {
     }
 }
 
+/*
+
+    @name   speciesDatabaseUserMenu();
+
+    @brief  User's view on the menu to display and search the species database
+
+    @param  *sDB    Pointer to the species database used globally
+
+*/
 void speciesDatabaseUserMenu(SDB *sDB) {
     int exit = 0, select = 0;
 
@@ -75,7 +93,7 @@ void speciesDatabaseUserMenu(SDB *sDB) {
         printf("=== [ SPECIES DATABASE ] ===\n");
         printf("\n");
 
-
+        //prints the entire database
         for (int i = 0 ; i < sDB->currentSpeciesCount ; i++) {
             printSpeciesData(&sDB->species[i], i + 1);
         }
@@ -104,6 +122,15 @@ void speciesDatabaseUserMenu(SDB *sDB) {
     }
 }
 
+/*
+
+    @name   speciesDatabaseAdminMenu();
+
+    @brief  Admin's view on the menu to display, search, and edit the database
+
+    @param  *sDB    Pointer to the species database used globally
+
+*/
 void speciesDatabaseAdminMenu(SDB *sDB) {
     int exit = 0, select = 0;
 
