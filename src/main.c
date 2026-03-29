@@ -104,5 +104,8 @@ int main() {
     
     firstMenu(&userData, &config);
 
+    printf("Thank you for using Chardex!\n");
+    printf("\"Let's get this place HUMID!\" - Bulbasaur, Pokopoia (2026)\n");
+
     return 0;
 }
