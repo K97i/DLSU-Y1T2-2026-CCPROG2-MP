@@ -38,7 +38,8 @@ void firstMenu(UserData *userData, Config *config) {
 
     // while not exit...
     while (!exit) {
-        printf("=== [ CHARDEX ] ===\n\n");
+        printf("=== [ CHARDEX ] ===\n");
+        printf("\n");
         printf("[1] Login\n");
         printf("[2] Register\n");
         printf("[3] Reset Password\n");

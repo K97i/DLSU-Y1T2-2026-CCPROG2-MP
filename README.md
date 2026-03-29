@@ -3,6 +3,7 @@
     <img width="600px" src="./github-assets/chardex-logo.png"></img><br/>
     <i>(Charmander + Pokedex)</i><br/><br/>
     <b> CCPROG2 S19B (T2, 2025-2026) - MP Project</b><br/>
+    <b>Hosted on <a href="https://github.com/K97i/DLSU-Y1T2-2026-CCPROG2-MP">GitHub</a></b></br>
     <i>Authors:</i> <br/>
     EBORDE, Mikaelo<br/>
     SACRAMENTO, Yvan<br/>
