@@ -18,7 +18,7 @@
 
 /*
 
-	@name	searchSpeciesLeaderboard();
+		@name	searchSpeciesLeaderboard();
 
     @brief	Searches for input in the sorted species database
 
@@ -85,7 +85,7 @@ void searchSpeciesLeaderboard(SDB *database) {
 
 /*
 
-	@name	searchUserLeaderboard();
+		@name	searchUserLeaderboard();
 
     @brief	Searches for input in the sorted userdata array
 
@@ -147,7 +147,7 @@ void searchUserLeaderboard(UserData *database) {
 
 /*
 
-	@name	sortUserLeaderboard();
+		@name	sortUserLeaderboard();
 
     @brief	Sorts the database by currentSpeciesCount
 
@@ -181,7 +181,7 @@ UserData sortUserLeaderboard(UserData *database) {
 
 /*
 
-	@name	sortUserLeaderboard();
+		@name	sortUserLeaderboard();
 
     @brief	Sorts the database by userInputCount
 
@@ -216,7 +216,7 @@ SDB sortSpeciesDatabase(SDB *database) {
 
 /* 
 		
-	@name	UserLeaderboard();
+		@name	UserLeaderboard();
 
     @brief  Menu for displaying the user leaderboard based on the who has the highest species count, average species per user, and search user feature
 
