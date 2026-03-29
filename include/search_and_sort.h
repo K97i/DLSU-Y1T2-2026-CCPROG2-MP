@@ -18,7 +18,7 @@
 int UserSearch(const UserData *userData, char *username);
 int SpeciesDataBaseSearch(const SDB *database, char *species);
 void UserSort(UserData *database);
-void SpeciesSort(SDB *database);
+void SpeciesDataBaseSort(SDB *database);
 int SpeciesUserSearch(const User *data, char *species);
 
 #endif
