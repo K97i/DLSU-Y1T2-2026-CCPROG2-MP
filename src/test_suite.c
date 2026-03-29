@@ -89,7 +89,7 @@ void encryptionTest() {
 
     printf("Ciphertext: %s\n", output1);
 
-    decrypt(output1, &config, output2);
+    encrypt(output1, &config, output2);
 
     printf("Output of decryption: %s\n\n", output2);
 

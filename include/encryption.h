@@ -13,6 +13,5 @@
 #define ENCRYPTION_FUNCTIONS
 
 void encrypt(char *plaintext, Config *config, char *output);
-void decrypt(char *ciphertext, Config *config, char *output);
 
 #endif
