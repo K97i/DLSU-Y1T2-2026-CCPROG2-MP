@@ -13,25 +13,27 @@
 #include <stdio.h>
 #include <string.h>
 
-// Initialize structs
 #include "config_struct.h"
 #include "user_struct.h"
 
 /*
 
-    Getters-setters-reset idea based from my own project (Crydengo, written in JS), wherein it looks configs up from a DB (SQLite) - Elo
+    Getters-setters idea based from my own project (Crydengo, written in JS), wherein it looks configs up from a DB (SQLite) - Elo
     https://github.com/K97i/crydengo/blob/main/src/helpers/guild-config.js
 
 */
 
 /*
 
-    getConfig()
+	@name	getConfig();
 
-    Gets the config from config.bin and returns the config struct.
+    @brief	Gets the config from config.bin and returns the config struct
 
-    <return> Config struct - result of read operation, returns the saved config file </return>
+    @param	plaintext   Input string
+    @param	config      Pointer of the configuration struct (where the encryption key lies)
+    @param	output	    Output string
 
+    @return result of read operation, returns the saved config file
 */
 Config getConfig() {
     Config configRead = { 0 };
@@ -50,13 +52,13 @@ Config getConfig() {
 
 /*
 
-    setConfig()
+	@name	setConfig();
 
-    Saves the inputted config to config.bin
+    @brief	Saves the inputted config to config.txt
 
-    <param> Config configWrite - New config to be written. </param>
-    <return> int - Boolean if write is successful, 1 if success, 0 if fail. </return>
+    @param	configWrite   New config to be written
 
+    @return Boolean if write is successful, 1 if success, 0 if fail
 */
 int setConfig(const Config configWrite) {
     int flag = 0;
@@ -75,26 +77,31 @@ int setConfig(const Config configWrite) {
 
 /*
 
-    getUsers()
+	@name	getUsers();
 
-    Gets users from DB
+    @brief	Gets the user database from users.txt
+
+    @param	userData   Pointer to the userData variable to be written
 
 */
-
 void getUsers(UserData *userData) {
     FILE *fptr;
     fptr = fopen("users.txt", "r");
 
     if (fptr != NULL) {
         fseek(fptr, 0, SEEK_SET);
+        // Get number of users
         fscanf(fptr, "%d\n", &userData->currentUserCount);
 
+        // Loop through every user
         for (int i = 0 ; i < userData->currentUserCount ; i++) {
+            // Get user data
             fscanf(fptr, "%[^\t]%*c%[^\t]%*c%d\t%d\n", userData->users[i].username, 
                                                 userData->users[i].password,
                                                 &userData->users[i].administrator,
                                                 &userData->users[i].currentSpeciesCount);
 
+            // Get pokedex data, for each pokedex entry
             for (int j = 0 ; j < userData->users[i].currentSpeciesCount ; j++) {
                 fscanf(fptr, "%[^\t]\t%f\t%f\t%d\t%d\n",   userData->users[i].species[j].name,
                                                                 &userData->users[i].species[j].height,
@@ -112,9 +119,11 @@ void getUsers(UserData *userData) {
 
 /*
 
-    setUsers()
+	@name	setUsers();
 
-    Sets user data
+    @brief	Sets the user database to users.txt
+
+    @param	userData   Pointer to the userData variable to be read from
 
 */
 int setUsers(const UserData *userData) {
@@ -125,14 +134,18 @@ int setUsers(const UserData *userData) {
 
     if (fptr != NULL) {
         fseek(fptr, 0, SEEK_SET);
+        // Save user count
         fprintf(fptr, "%d\n", userData->currentUserCount);
 
+        // Save each user
         for (int i = 0 ; i < userData->currentUserCount ; i++) {
+            // Save user metadata
             fprintf(fptr, "%s\t%s\t%d\t%d\n",    userData->users[i].username, 
                                                     userData->users[i].password,
                                                     userData->users[i].administrator,
                                                     userData->users[i].currentSpeciesCount);
 
+            // Save user's pokedex data
             for (int j = 0 ; j < userData->users[i].currentSpeciesCount ; j++) {
                 fprintf(fptr, "%s\t%f\t%f\t%d\t%d\n",  userData->users[i].species[j].name,
                                                                 userData->users[i].species[j].height,
@@ -151,9 +164,11 @@ int setUsers(const UserData *userData) {
 
 /*
 
-    getSpecies()
+	@name	getSpecies();
 
-    Sets species data
+    @brief	Gets the species database from species.txt
+
+    @param	sDB     Pointer to the SpeciesDatabase variable to be written
 
 */
 void getSpecies(SDB *sDB) {
@@ -162,9 +177,12 @@ void getSpecies(SDB *sDB) {
 
     if (fptr != NULL) {
         fseek(fptr, 0, SEEK_SET);
+        // Get number of species
         fscanf(fptr, "%d", &sDB->currentSpeciesCount);
 
+        // For each species...
         for (int i = 0 ; i < sDB->currentSpeciesCount ; i++) {
+            // Get metadata of species
             fscanf(fptr, " %[^\t]\t%[^\t]\t%d\t%d\t%[^\n]", sDB->species[i].name, 
                                                     sDB->species[i].biome,
                                                     &sDB->species[i].conservationStatus,
@@ -178,6 +196,15 @@ void getSpecies(SDB *sDB) {
 
 }
 
+/*
+
+	@name	setSpecies();
+
+    @brief	Sets the species database to species.txt
+
+    @param	sDB     Pointer to the species database variable to be read from
+
+*/
 int setSpecies(SDB *sDB) {
     int flag = 0;
 
@@ -186,9 +213,12 @@ int setSpecies(SDB *sDB) {
 
     if (fptr != NULL) {
         fseek(fptr, 0, SEEK_SET);
+        // Save species count
         fprintf(fptr, "%d\n", sDB->currentSpeciesCount);
 
+        // For each species...
         for (int i = 0 ; i < sDB->currentSpeciesCount ; i++) {
+            // Save species metadata
             fprintf(fptr, "%s\t%s\t%d\t%d\t%s\n", sDB->species[i].name, 
                                                     sDB->species[i].biome,
                                                     sDB->species[i].conservationStatus,
