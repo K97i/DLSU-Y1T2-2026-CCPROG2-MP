@@ -16,14 +16,22 @@
 
 
 /*
-	Uses binary search
-	return flag returns the index
+
+    @name   UserSearch();
+
+    @brief  Searches the user data array if there is a match to the given username (uses binary search)
+
+    @param  *userData   Pointer to the array of users used globally (constant)
+    @param  *username		String of the username that is being searched in the *userData
+
+    @return	flag gives the index where the user is located in the array
+
 */
 int UserSearch(const UserData *userData, char *username) {
 	int start = 0, end = userData->currentUserCount - 1, flag = -1;
 	
 	while(flag == -1 && start <= end) {
-		int mid = (start + end) / 2;
+		int mid = start + (end - start) / 2;
 		
 		if(strcmp(userData->users[mid].username, username) == 0) { //assigns the index to flag
 			flag = mid;
@@ -36,12 +44,20 @@ int UserSearch(const UserData *userData, char *username) {
 		}
 	}
 	
-	return flag;
+	return flag; //index
 }
 
 /*
-	Uses binary search
-	return flag returns the index
+
+    @name   SpeciesDataBaseSearch();
+
+    @brief  Searches the species database if there is a match to the given species (uses binary search)
+
+    @param  *database   Pointer to the species database used globally (constant)
+    @param  *species		String of the species that is being searched in the *database
+
+    @return	flag gives the index where the species is located in the database
+
 */
 int SpeciesDataBaseSearch(const SDB *database, char *species) {
 	int start = 0, end = database->currentSpeciesCount - 1, flag = -1;
@@ -60,11 +76,17 @@ int SpeciesDataBaseSearch(const SDB *database, char *species) {
 		}
 	}
 	
-	return flag;
+	return flag; //index
 }
 
 /*
-	Uses selection sort
+
+    @name   UserSort();
+
+    @brief  Sorts the array of users (uses selection sort)
+
+    @param	*database Pointer to the array of users used globally
+
 */
 void UserSort(UserData *database) {
 	
@@ -86,9 +108,15 @@ void UserSort(UserData *database) {
 }
 
 /*
-	Uses selection sort
+
+    @name   SpeciesDataBaseSort();
+
+    @brief  Sorts the species (uses selection sort)
+
+    @param	*database Pointer to the species database used globally
+
 */
-void SpeciesSort(SDB *database) {
+void SpeciesDataBaseSort(SDB *database) {
 	
 	for(int i = 0; i < database->currentSpeciesCount - 1; i++) {
 		int first = i;
@@ -108,8 +136,16 @@ void SpeciesSort(SDB *database) {
 }
 
 /*
-	Uses linear search
-	return flag returns the index
+
+    @name   SpeciesUserSearch();
+
+    @brief  Searches the user's array of species if there is a match to the given species (uses linear search)
+
+    @param  *data			Pointer to a user's data (constant)
+    @param  *species		String of the species that is being searched in the species array
+
+    @return	flag gives the index where the species is located in the database
+
 */
 int SpeciesUserSearch(const User *data, char *species) {
 	int flag = -1;
@@ -119,5 +155,5 @@ int SpeciesUserSearch(const User *data, char *species) {
 			flag = i; // assigns the index to flag
 	}
 
-	return flag;
+	return flag; //index
 }
