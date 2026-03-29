@@ -203,7 +203,6 @@ int menuInputInt(int min, int max) {
     return input;
 }
 
-
 /*
 
 	@name	checkIfBanned();
