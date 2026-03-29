@@ -83,11 +83,11 @@ void loginMenu(UserData *userData, Config *config) {
             getSpecies(&sDB);
 
             if (userData->users[index].administrator) {
-                adminMenu(userData, index, &sDB); 
+                adminMenu(userData, index, config, &sDB); 
             }
 
             else {
-                userMenu(userData, index, &sDB);
+                userMenu(userData, index, config, &sDB);
             }
         }
 
@@ -269,9 +269,11 @@ void resetPasswordMenu(UserData *userData, Config *config) {
                 else {
                     printf("Confirm password: ");
                     safeStringScanf(temp, UN_PW_LENGTH);
+                    printf("Temp before encryption: %s\n", temp);
                     encrypt(temp, config, temp);
+                    printf("Temp after encryption: %s\n", temp);
 
-                    if (!strcmp(userData->users[index].password, temp)){
+                    if (!strcmp(encrypted, temp)){
                         strcpy(userData->users[index].password, temp);
                         setUsers(userData);
                         pwFlag = 1;
