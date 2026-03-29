@@ -15,7 +15,7 @@
 #include "user_struct.h"
 #include "species_struct.h"
 
-void leaderboardMenu(UserData userData, SDB speciesDataBase);
+void leaderboardMenu(UserData *userData, SDB *speciesDataBase);
 void UserLeaderboard(UserData database);
 void SpeciesLeaderboard(SDB database);
 

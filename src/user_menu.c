@@ -19,6 +19,8 @@
 #include "pokedex_menu.h"
 #include "species_database_menu.h"
 #include "account_options.h"
+#include "leaderboard_menu.h"
+
 
 void userMenu(UserData *userData, int userIndex, Config *config, SDB *sDB) {
     int exit = 0, select = 0;
@@ -49,7 +51,7 @@ void userMenu(UserData *userData, int userIndex, Config *config, SDB *sDB) {
 
             // Leaderboard
             case 3:
-                // leaderboardMenu(userData, sDB);
+                leaderboardMenu(userData, sDB);
                 break;
             
             // Account Settings
@@ -97,7 +99,7 @@ void adminMenu(UserData *userData, int userIndex, Config *config, SDB *sDB) {
 
             // Leaderboard
             case 3:
-                // leaderboardMenu(userData, sDB);
+                leaderboardMenu(userData, sDB);
                 break;
             
             // Account Settings
