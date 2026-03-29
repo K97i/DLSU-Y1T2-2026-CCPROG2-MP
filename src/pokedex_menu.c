@@ -19,6 +19,16 @@
 #include "display_helpers.h"
 #include "file_operation.h"
 
+/*
+
+    @name   printPokedex();
+
+    @brief  Prints the user's Pokedex
+
+    @param  *userData   Pointer to the array of users used globally
+    @param  userIndex   Index of the current user in the userData->users array
+
+*/
 void printPokedex(UserData *userData, int userIndex) {
     printf("=== [ %s's Pokedex ] ===\n\n", userData->users[userIndex].username);
 
@@ -34,6 +44,17 @@ void printPokedex(UserData *userData, int userIndex) {
     printf("\n");
 }
 
+/*
+
+    @name   searchUserPokedex();
+
+    @brief  Searches species within the user's pokedex
+
+    @param  *userData   Pointer to the array of users used globally
+    @param  userIndex   Index of the current user in the userData->users array
+    @param  *sDB        Pointer to the species database 
+
+*/
 void searchUserPokedex(UserData *userData, int userIndex, SDB *sDB) {
     char temp[WORD_LIMIT] = "";
     int exit = 0, speciesUserIndex = -1, speciesDatabaseIndex = -1;
@@ -43,7 +64,7 @@ void searchUserPokedex(UserData *userData, int userIndex, SDB *sDB) {
     if (userData->users[userIndex].currentSpeciesCount > 0) {
         while (!exit) {
             printf("Search own Pokedex for: ");
-            safeStringScanf(temp, WORD_LIMIT);
+            safeStringScanf(temp, WORD_LIMIT); //gets the user's input and clears the input stream
 
             if (!strcmp("[EXIT]", temp))
                 exit = 1;
@@ -100,7 +121,7 @@ void addToPokedex(UserData *userData, int userIndex, SDB *sDB) {
     Species new = { 0 };
     char temp[WORD_LIMIT] = { 0 };
     int tempInt = 0, tempDB = -1, tempUser = -1, select = 0, exitFlag = 0, nameFlag = 0, 
-        heightFlag = 0, weightFlag = 0, ageFlag = 0, sexFlag = 0, confirmFlag = 0;
+        heightFlag = 0, weightFlag = 0, ageFlag = 0, sexFlag = 0;
     float tempFloat = 0.0;
 
     /*
@@ -112,7 +133,7 @@ void addToPokedex(UserData *userData, int userIndex, SDB *sDB) {
 
     while (!nameFlag && !exitFlag) {
         printf("Enter the species you want to add: ");
-        safeStringScanf(temp, WORD_LIMIT);
+        safeStringScanf(temp, WORD_LIMIT); //gets the user's input and clears the input stream
 
         tempDB = SpeciesDataBaseSearch(sDB, temp); //searches the Species Database if it's in the list
         tempUser = SpeciesUserSearch(&userData->users[userIndex], temp); //searches the pokedex of the user
@@ -135,10 +156,10 @@ void addToPokedex(UserData *userData, int userIndex, SDB *sDB) {
 
     while (!heightFlag && !exitFlag) {
         printf("Enter the height of the species: ");
-        safeFloatScanf(&tempFloat);
+        safeFloatScanf(&tempFloat); //gets the user's input and clears the input stream
 
 
-        if (tempFloat < 0)
+        if (tempFloat < 0) //checks if the height is valid
             printf("Invalid height! (height can't be negative!)\n");
 
         else {
@@ -147,12 +168,12 @@ void addToPokedex(UserData *userData, int userIndex, SDB *sDB) {
         }
     }
 
-    while (!weightFlag && !exitFlag) {
+    while (!weightFlag && !exitFlag) { 
         printf("Enter the weight of the species: ");
-        safeFloatScanf(&tempFloat);
+        safeFloatScanf(&tempFloat); //gets the user's input and clears the input stream
 
 
-        if (tempFloat < 0)
+        if (tempFloat < 0) //checks if the weight is valid
             printf("Invalid weight! (weight can't be negative!)\n");
 
         else {
@@ -163,9 +184,9 @@ void addToPokedex(UserData *userData, int userIndex, SDB *sDB) {
 
     while (!ageFlag && !exitFlag) {
         printf("Enter the age of the species: ");
-        safeIntScanf(&tempInt);
+        safeIntScanf(&tempInt); //gets the user's input and clears the input stream
 
-        if (tempInt < 0)
+        if (tempInt < 0) //checks if the age is valid
             printf("Invalid age! (age can't be negative!)\n");
 
         else {
@@ -194,13 +215,13 @@ void addToPokedex(UserData *userData, int userIndex, SDB *sDB) {
         }
     }
     
-    while (!confirmFlag && !exitFlag) {
+    if (!exitFlag) {
 
         if (new.sex == 0)
             strcpy(temp, "Undefined");
 
         else
-            new.sex % 2 ? strcpy(temp, "Male") : strcpy(temp, "Female");
+            new.sex % 2 ? strcpy(temp, "Male") : strcpy(temp, "Female"); //set the new.sex to corresponding string
 
 
         printf("Confirm addition?\n");
@@ -220,6 +241,7 @@ void addToPokedex(UserData *userData, int userIndex, SDB *sDB) {
         select = menuInputInt(1, 2);
 
         switch (select) {
+            //Confirmed: adds the new species into the user's pokedex
             case 1:
                 userData->users[userIndex].species[userData->users[userIndex].currentSpeciesCount] = new;
                 userData->users[userIndex].currentSpeciesCount++;
@@ -232,7 +254,6 @@ void addToPokedex(UserData *userData, int userIndex, SDB *sDB) {
                 printf("Confirmed! Congratulations on your new specimen!\n");
                 printf("Happy hunting!\n");
                 printf("\n");
-                confirmFlag = 1;
                 break;
 
             case 2:
@@ -265,7 +286,7 @@ void removeFromPokedex(UserData *userData, int userIndex, SDB *sDB) {
     while (!nameFlag && !exitFlag) { //continues looping until either a valid species input or user exits
 
         printf("Enter the species you want to remove: ");
-        safeStringScanf(temp, WORD_LIMIT);
+        safeStringScanf(temp, WORD_LIMIT); //gets the user's input and clears the input stream
 
         searchIndex = SpeciesUserSearch(&userData->users[userIndex], temp); //searches the User's Database if it's in the list
 
@@ -370,6 +391,17 @@ void editPokedex(UserData *userData, int userIndex, SDB *sDB) {
 
 }
 
+/*
+
+    @name   displayPokedex();
+
+    @brief  Menu for displaying the user's pokedex and searching in it
+
+    @param  *userData   Pointer to the array of users used globally
+    @param  userIndex   Index of the current user in the userData->users array
+    @param  *sDB        Pointer to the species database 
+
+*/
 void displayPokedex(UserData *userData, int userIndex, SDB *sDB) {
     int exit = 0, select = 0;
 
@@ -399,6 +431,17 @@ void displayPokedex(UserData *userData, int userIndex, SDB *sDB) {
 
 }
 
+/*
+
+    @name   displayPokedex();
+
+    @brief  Main Menu for the user's pokedex
+    
+    @param  *userData   Pointer to the array of users used globally
+    @param  userIndex   Index of the current user in the userData->users array
+    @param  *sDB        Pointer to the species database 
+
+*/
 void ownPokedexMenu(UserData *userData, int userIndex, SDB *sDB) {
     int exit = 0, select = 0;
 
