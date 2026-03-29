@@ -127,7 +127,7 @@ void editSpeciesSubMenu(SDB *sDB, int speciesIndex) {
         printf("[1] Edit Conservation Status\n");
         printf("[2] Edit Biome\n");
         printf("[3] Edit Description\n");
-        printf("[4] Exit\n");
+        printf("[4] Exit Menu\n");
 
         printf("\n");
         select = menuInputInt(1, 3);
@@ -137,17 +137,17 @@ void editSpeciesSubMenu(SDB *sDB, int speciesIndex) {
         switch (select) {
             // Conservation Status
             case 1:
-                // editConservationStatus(sDB, speciesIndex);
+                editConservationStatus(sDB, speciesIndex);
                 break;
 
             // Biome
             case 2:
-                // editBiome(sDB, speciesIndex);
+                editBiome(sDB, speciesIndex);
                 break;
 
             // Description
             case 3:
-                // editDescription(sDB, speciesIndex);
+                editDescription(sDB, speciesIndex);
                 break;
 
             // Exit
@@ -337,7 +337,7 @@ void editSpeciesDatabase(SDB *sDB) {
         printf("=== [ EDIT SPECIES DATABASE ] ===\n\n");
         printf("[1] Add Species\n");
         printf("[2] Edit Species\n");
-        printf("[3] Exit\n");
+        printf("[3] Exit Menu\n");
         printf("\n");
         select = menuInputInt(1, 3);
 

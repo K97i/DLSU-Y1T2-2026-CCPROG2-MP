@@ -27,7 +27,7 @@ void leaderboardMenu(UserData userData, SDB speciesDataBase) {
     printf(" [ LEADERBOARD ] \n");
     printf("[1] User Leaderboard\n");
     printf("[2] Species Leaderboard\n");
-		printf("[3] Exit\n");
+		printf("[3] Exit Menu\n");
 		select = menuInputInt(1, 3); //accepts the user's input (1-3)
 
 		printf("\n");

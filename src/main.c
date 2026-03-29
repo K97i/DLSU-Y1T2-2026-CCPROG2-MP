@@ -37,7 +37,8 @@ void firstMenu(UserData *userData, Config *config) {
         printf("[3] Reset Password\n");
         printf("[4] Test Suite (will reset everything!)\n");
         printf("[5] Reset Databases\n");
-        printf("[6] Exit\n\n");
+        printf("[6] Exit Program\n");
+        printf("\n");
         select = menuInputInt(1, 6);
 
         printf("\n");
