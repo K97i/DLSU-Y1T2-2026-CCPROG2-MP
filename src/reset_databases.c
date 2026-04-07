@@ -1,3 +1,14 @@
+/*
+
+    reset_databases.c
+
+    Resets all files to its defaults
+
+    Author: EBORDE, Mikaelo D.
+	Last Modified: 3-29-2026
+
+*/
+
 #include <stdio.h>
 #include <string.h>
 
