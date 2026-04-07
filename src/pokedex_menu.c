@@ -407,7 +407,7 @@ void displayPokedex(UserData *userData, int userIndex, SDB *sDB) {
         printf("[1] Search Species\n");
         printf("[2] Exit Menu\n");
         printf("\n");
-        select = menuInputInt(1, 3);
+        select = menuInputInt(1, 2);
 
         printf("\n");
 

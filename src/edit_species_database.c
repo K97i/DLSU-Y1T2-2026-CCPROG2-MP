@@ -180,7 +180,7 @@ void editSpeciesSubMenu(SDB *sDB, int speciesIndex) {
         printf("[4] Exit Menu\n");
 
         printf("\n");
-        select = menuInputInt(1, 3);
+        select = menuInputInt(1, 4);
 
         printf("\n");
 
