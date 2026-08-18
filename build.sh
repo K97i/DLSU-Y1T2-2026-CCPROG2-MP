@@ -1,2 +1,2 @@
 clear
-clang -Wall -std=c99 -I ./include src/*.c -o chardex
+gcc -Wall -std=c99 -I ./include src/*.c -o chardex
